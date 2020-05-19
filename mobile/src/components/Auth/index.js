@@ -17,21 +17,24 @@ import {AppContext} from '../Context';
 const auth0 = new Auth0({
   domain: 'dev-gzcou5sg.eu.auth0.com',
 	clientId: 'clm2TdSybOc6hM91CsJjTsV6lQaziT3p',
-  responseType: 'token id_token'
 });
 
 const Authenticate = () => {
-  const {setAuth,setUserInfo} = useContext(AppContext);
+  const {setAuth} = useContext(AppContext);
 
   const login = async () => {
     try {
+
       const credentials = await auth0.webAuth.authorize({
 				connection: 'salesforce-sandbox',
-				scope: 'openid email profile full'
-      });
-			const user_info = await auth0.auth.userInfo({token: credentials.accessToken})
-			setUserInfo(user_info); 
-			setAuth(credentials);
+				scope: 'openid full'
+			});
+
+			const user = await getUser(credentials.idToken);
+			const hasPermission = await checkUserPermission(user.url, user.access_token); 
+
+			if(!hasPermission) throw "User doesn't have Clarity Forms permissions."
+			setAuth(user);
     } catch (error) {
 			alert(error); 
     }
@@ -45,6 +48,37 @@ const Authenticate = () => {
     </View>
   );
 };
+
+const getUser = async (idToken) => {
+
+	const response = await fetch('http://localhost:3000/credentials', {
+		method: 'post',
+		body: JSON.stringify({ 'idToken': idToken }),
+		headers: new Headers({
+			'Content-Type': 'application/json'
+		})
+	})
+
+	const user = await response.json();
+
+	return user;
+
+}
+
+const checkUserPermission = async (url, accessToken) => {
+
+	const response = await fetch(`${url}/services/apexrest/forms/MobileSettingsController`, { 
+		method: 'get', 
+		headers: new Headers({
+			'Authorization': `OAuth ${accessToken}`, 
+			'Content-Type': 'application/json'
+		})
+	});
+
+	const permission = await response.json();
+
+	return permission; 
+}
 
 const alert = (error) => {
 
@@ -65,3 +99,4 @@ const alert = (error) => {
 }
 
 export default Authenticate;
+

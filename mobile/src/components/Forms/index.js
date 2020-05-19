@@ -6,44 +6,29 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {View, Text} from 'react-native';
-import {ListView} from 'realm/react-native';
-import realm from '../../schema';
-
+import React, { useContext, useEffect } from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-const HomeStack = createStackNavigator();
+import { FormsList } from './list';
+import { FormDetail } from './details';
+import { FormResponse } from './response';
 
-// function FormItem(item, sectionIndex, rowIndex) {
-// 	return (
-
-// 	)
-// }
-
-function FormsList() {
-	const formResponse = realm.objects('Response');
-	console.log('-----------------------TEST---------------------');
-	console.log('formResponse', formResponse);
-	console.log('-----------------------TEST---------------------');
-  const style = {flexfafd: 1, justifyContent: 'center', alignItems: 'center'};
-  return (
-    <View style={style}>
-      <Text>Forms!</Text>
-
-    </View>
-  );
-}
+const FormStack = createStackNavigator();
 
 function Forms() {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
+    <FormStack.Navigator>
+      <FormStack.Screen
         name="Forms"
         component={FormsList}
         options={{tabBarLabel: false}}
       />
-    </HomeStack.Navigator>
+			<FormStack.Screen
+        name="Form Details"
+        component={FormDetail}
+        options={{tabBarLabel: false}}
+      />
+    </FormStack.Navigator>
   );
 }
 

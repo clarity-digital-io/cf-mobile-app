@@ -31,6 +31,8 @@ const AppProvider = ({children}) => {
   const [auth, setAuth] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
 
+	const [forms, setForms] = useState([]);
+
   return (
     <AppContext.Provider
       value={{
@@ -39,7 +41,9 @@ const AppProvider = ({children}) => {
         auth,
 				setAuth,
 				userInfo,
-				setUserInfo
+				setUserInfo,
+				forms, 
+				setForms
       }}>
       {children}
     </AppContext.Provider>
@@ -52,14 +56,15 @@ function Init() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        {auth ? (
-          <Stack.Screen name="Home" component={Navigation} />
-        ) : (
-          <Stack.Screen
+				{
+					auth ? 
+					<Stack.Screen name="Home" component={Navigation} />
+					: 
+					<Stack.Screen
             name="Log In With Salesforce"
             component={Authenticate}
           />
-        )}
+				}
       </Stack.Navigator>
     </NavigationContainer>
   );
