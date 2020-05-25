@@ -6,40 +6,105 @@
  * @flow strict-local
  */
 
-import React, { useContext, useEffect, useState } from 'react';
-import {Text, Button, View} from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import { useFocusEffect } from '@react-navigation/native';
+import uuid from 'react-native-uuid';
+import { NewFormResponse } from '../Responses/new';
+import { FormContext } from '../Context';
+import { Camera } from '../Camera';
+import { PhotoReview } from '../Camera/photoreview';
+
 
 const FormResponseStack = createStackNavigator();
 
 export const FormResponse = ({ route, navigation }) => {
-	console.log('main', route, navigation);
+	console.log('FormResponse', route.params); 
+	const [form, setForm] = useState(route.params);
+	
+	const [newUUID, setUUID] = useState(uuid.v1());
+
   return (
-    <FormResponseStack.Navigator>
-			<FormResponseStack.Screen
-        name={route.params.form.Name}
-        component={NewFormResponse}
-				options={{tabBarLabel: false}}
-				initialParams={route.params}
-      />
-    </FormResponseStack.Navigator>
+		<FormProvider newResponseId={newUUID} newForm={form} newNavigation={navigation}>
+
+			<FormResponseStack.Navigator>
+				<FormResponseStack.Screen
+					name={route.params.Name}
+					options={{
+						tabBarLabel: false
+					}}
+					component={NewFormResponse}
+					initialParams={route.params}
+				/>
+				<FormResponseStack.Screen
+					name={'Camera'}
+					component={Camera}
+					options={{tabBarLabel: false, headerShown: false}}
+				/>
+				<FormResponseStack.Screen
+					name={'Photo Review'}
+					component={PhotoReview}
+					options={{tabBarLabel: false, headerShown: false}}
+				/>
+			</FormResponseStack.Navigator>
+
+		</FormProvider>	
+
   );
 }
 
-const NewFormResponse = ({ route, navigation }) => {
-	console.log('new form response',  route, navigation); 
-	const [form, setForm] = useState(route.params);
 
-	return <Questions questions={form.questions} />
+const FormProvider = ({children, newResponseId, newForm, newNavigation}) => {
 
-}
+	const [responseId] = useState(newResponseId); 
 
-const Questions = ({ questions }) => {
-	return questions.map(question => {
-		return <Text key={question.Id}>
-			{ question.forms__Title__c }
-		</Text>
-	})
-}
+	const [form] = useState(newForm); 
+
+	const [navigation] = useState(newNavigation); 
+
+  const [loading, setLoading] = useState(true);
+
+	const [images, setImages] = useState(new Map());
+
+	//used on review
+	const [image, setImage] = useState(new Map());
+
+	const [answers, setAnswers] = useState(new Map());
+
+	const [records] = useState(new Map()); 
+
+	const [questions] = useState([]); 
+
+	const [criteriaController, setCriteriaController] = useState(new Map()); 
+
+	const [criteriaControlled, setCriteriaControlled] = useState(new Map()); 
+
+	const [recordGroupAnswers, setRecordGroupAnswers] = useState(new Map());
+	
+	const [requiredConnections, setRequiredConnections] = useState([]); 
+	
+	const [pageQuestions, setPageQuestions] = useState(new Map());
+
+	const [activePage, setActivePage] = useState(0);
+
+	const [activePageQuestions, setActivePageQuestions] = useState([]); 
+
+  return (
+    <FormContext.Provider
+      value={{
+				responseId,
+        form,
+        navigation,
+				loading,
+				setLoading,
+				images,
+				setImages,
+				image, 
+				setImage,
+				answers, 
+				setAnswers
+      }}>
+      {children}
+    </FormContext.Provider>
+  );
+};

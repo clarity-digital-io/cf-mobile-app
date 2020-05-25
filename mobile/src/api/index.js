@@ -3,10 +3,10 @@
  */
 
 import { useState, useEffect, useContext } from 'react';
-import { AppContext } from '../components/Context';
+import { AppContext, FormContext } from '../components/Context';
 
-//useFormsAPI Async - used for forms lists
-export const useFormsAPI = (request, routeName) => {
+//useFormsAPI Async - used to get forms lists
+export const useFormsAPI = (routeName) => {
 	const [error, setError] = useState(null);
 	const [navState, setNavState] = useState(routeName);
 
@@ -33,10 +33,10 @@ export const useFormsAPI = (request, routeName) => {
 
 } 
 
- //Get Forms and Save to state
- export const getFormsAPI = async ({url, access_token}) => {
+//Get Forms and Save to state
+export const getFormsAPI = async ({url, access_token}) => {
 
-	const response = await fetch(`${url}/services/apexrest/forms/MobileFormController`, { 
+	const response = await fetch(`${url}/services/apexrest/forms/Forms`, { 
 		method: 'get', 
 		headers: new Headers({
 			'Authorization': `OAuth ${access_token}`, 
@@ -45,10 +45,10 @@ export const useFormsAPI = (request, routeName) => {
 	});
 
 	const forms = await response.json();
+	console.log('form111s', forms); 
 
-	const transformed = transformFormsList(forms);
-
-	return transformed; 
+	//const transformed = transformFormsList(forms);
+	return forms; 
 
 }
 
@@ -56,7 +56,6 @@ const transformFormsList = (forms) => {
 
 	return Object.entries(forms).reduce((accum, form) => {
 
-		console.log('accum', accum, form); 
 		let formId = form[0];
 		let formValues = form[1];
 		let transform = { id: formId, form: formValues['Form'][0], questions: formValues['Questions'] };	
@@ -67,12 +66,65 @@ const transformFormsList = (forms) => {
 
 }
 
- //Get Form (Detail) and Save to state
+//Get Form (Detail) and Save to state
 
- //Get Responses and Save to state
+//Get Responses and Save to state
 
- //Get Response and Save to state
+//Get Response and Save to state
 
- //Create Response and Save to state
+//Create Response and Save to state
+export const useSubmitAPI = () => {
 
- //Get Settings and Save to state
+	const [error, setError] = useState(null);
+
+	const { auth } = useContext(AppContext);
+
+	const { form, answers, setLoading } = useContext(FormContext);
+
+	const execute = async () => {
+
+		try {
+			setLoading(true);
+			const response = await postResponseAPI(auth, answers);
+			setLoading(false);
+		} catch (error) {
+			setError(error)
+		}
+
+	}
+
+	return { execute };
+
+} 
+
+// Save Response API
+
+export const postResponseAPI = async ({url, access_token}, answers) => {
+
+	let cleanAnswers = prepareAnswers(answers);
+
+	const response = await fetch(`${url}/services/apexrest/forms/MobileResponseController`, { 
+		method: 'post', 
+		body: JSON.stringify(cleanAnswers),
+		headers: new Headers({
+			'Authorization': `OAuth ${access_token}`, 
+			'Content-Type': 'application/json'
+		}), 
+	});
+
+	const formResponse = await response.json();
+	console.log('formResponse', formResponse); 
+	//const transformed = transformFormsList(forms);
+
+	return formResponse; 
+
+}
+
+
+const prepareAnswers = (answers) => {
+
+	return Array.from(answers.values());
+
+}
+
+//Get Settings and Save to state

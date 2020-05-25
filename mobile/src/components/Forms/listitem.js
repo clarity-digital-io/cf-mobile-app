@@ -13,7 +13,6 @@ import TouchableScale from 'react-native-touchable-scale'; // https://github.com
 import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 export const FormListItem = ({ form, onPress }) => {
-	console.log('form', form); 
 	return (
 		<ListItem 
 			Component={TouchableScale}
@@ -26,10 +25,10 @@ export const FormListItem = ({ form, onPress }) => {
 				end: { x: 0.2, y: 0 },
 			}}
 			ViewComponent={LinearGradient}
-			title={form.form.Name}
+			title={form.forms__Title__c}
 			titleStyle={{ color: 'black', fontWeight: 'bold' }}
 			subtitleStyle={{ color: 'black' }}
-			subtitle={form.id}
+			subtitle={form.Name}
 			chevron={{ color: 'black' }}
 			onPress={() => onPress(form)}
 		/>

@@ -11,7 +11,6 @@ import {Text, Button, View} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 export const FormDetail = ({ route, navigation }) => {
-	console.log('form detail', route.params); 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>

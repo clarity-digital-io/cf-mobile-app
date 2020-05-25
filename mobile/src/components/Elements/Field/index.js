@@ -11,5 +11,5 @@ export {PictureChoice} from './picturechoice';
 export {NetPromoterScore} from './netpromoterscore';
 export {Number} from './number';
 export {RecordGroup} from './recordgroup';
-export {Slider} from './slider';
+export {ClaritySlider} from './slider';
 export {InputField} from './input';

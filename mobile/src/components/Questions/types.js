@@ -1,5 +1,5 @@
 import React from 'react';
-import { DigitalSignature, InputField, FreeText, Attachments, Checkbox, Comment, Date, Dropdown, Email, Lookup, MultipleChoice, NetPromoterScore, Number, RecordGroup, Slider, PictureChoice } from '../Elements/Field';
+import { InputField, FreeText, Attachments, Checkbox, Comment, Date, Dropdown, Email, Lookup, MultipleChoice, NetPromoterScore, Number, RecordGroup, ClaritySlider, PictureChoice } from '../Elements/Field';
 export const getType = (question, disabled) => {
 
     switch (question.forms__Type__c) {
@@ -23,7 +23,7 @@ export const getType = (question, disabled) => {
             return <NetPromoterScore key={question.Id} question={question} disabled={disabled} />
             break;
         case 'Slider':
-            return <Slider key={question.Id} question={question} disabled={disabled} />
+            return <ClaritySlider key={question.Id} question={question} disabled={disabled} />
             break;
         case 'Date':
             return <Date key={question.Id} question={question} disabled={disabled} />

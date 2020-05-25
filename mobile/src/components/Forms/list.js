@@ -17,7 +17,6 @@ export const FormsList = ({ route, navigation }) => {
 	const { loading, forms, error } = useFormsAPI(route.key);
 	
 	const formSelected = (form) => {
-		console.log('navigation', form, navigation)
 		navigation.navigate('Form Details', form)
 	}
 
@@ -25,7 +24,7 @@ export const FormsList = ({ route, navigation }) => {
     <View>
 			{
 				loading && forms != null && forms.length > 0 ? 
-				<Text>Forms!</Text> :
+				<Text>Forms Loading...</Text> :
 				<FlatList
 					data={forms}
 					renderItem={({ item }) => (

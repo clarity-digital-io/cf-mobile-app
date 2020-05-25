@@ -9,7 +9,7 @@
  */
 
 import React, {useContext} from 'react';
-import {View, Text, Button, Alert} from 'react-native';
+import {View, Image, Text, TouchableOpacity, Alert} from 'react-native';
 
 import Auth0 from 'react-native-auth0';
 import {AppContext} from '../Context';
@@ -20,7 +20,7 @@ const auth0 = new Auth0({
 });
 
 const Authenticate = () => {
-  const {setAuth} = useContext(AppContext);
+  const {setAuth, set} = useContext(AppContext);
 
   const login = async () => {
     try {
@@ -31,20 +31,24 @@ const Authenticate = () => {
 			});
 
 			const user = await getUser(credentials.idToken);
-			const hasPermission = await checkUserPermission(user.url, user.access_token); 
+			//const hasPermission = await checkUserPermission(user.url, user.access_token); 
 
-			if(!hasPermission) throw "User doesn't have Clarity Forms permissions."
+			//if(!hasPermission) throw "User doesn't have Clarity Forms permissions."
 			setAuth(user);
     } catch (error) {
 			alert(error); 
     }
   };
 
-  const style = {flex: 1, justifyContent: 'center', alignItems: 'center'};
+  const style = {flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#333'};
   return (
     <View style={style}>
-      <Text>Authenticate</Text>
-      <Button onPress={login} title="Login" />
+			<Image source={require('../../assets/clarity-logo.png')} />
+      <TouchableOpacity onPress={login}>
+				<View style={{ backgroundColor: '#fff', borderRadius: 4, borderColor: '#f5f5f5', padding: 14, marginTop: 8  }}>
+					<Text style={{ color: '#333', fontSize: 12 }}>Login with Salesforce</Text>
+				</View>
+			</TouchableOpacity>
     </View>
   );
 };
