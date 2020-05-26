@@ -7,14 +7,21 @@
  */
 
 import React from 'react';
-import {View, Text} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import { ResponsesList } from './list';
+
+const ResponseStack = createStackNavigator();
 
 function Responses() {
-  const style = {flex: 1, justifyContent: 'center', alignItems: 'center'};
   return (
-    <View style={style}>
-      <Text>Responses</Text>
-    </View>
+    <ResponseStack.Navigator>
+      <ResponseStack.Screen
+        name="Responses"
+        component={ResponsesList}
+        options={{tabBarLabel: false}}
+      />
+    </ResponseStack.Navigator>
   );
 }
 

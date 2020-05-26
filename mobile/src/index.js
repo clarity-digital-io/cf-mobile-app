@@ -32,6 +32,7 @@ const AppProvider = ({children}) => {
   const [userInfo, setUserInfo] = useState(null);
 
 	const [forms, setForms] = useState([]);
+	const [responses, setResponses] = useState([]);
 
   return (
     <AppContext.Provider
@@ -43,7 +44,9 @@ const AppProvider = ({children}) => {
 				userInfo,
 				setUserInfo,
 				forms, 
-				setForms
+				setForms,
+				responses, 
+				setResponses
       }}>
       {children}
     </AppContext.Provider>

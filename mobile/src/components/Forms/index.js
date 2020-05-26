@@ -6,11 +6,11 @@
  * @flow strict-local
  */
 
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import { FormsList } from './list';
-import { FormDetail } from './details';
+import { FormDetail } from './formdetail';
 
 const FormStack = createStackNavigator();
 

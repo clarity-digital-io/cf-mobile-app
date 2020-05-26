@@ -69,8 +69,50 @@ const transformFormsList = (forms) => {
 //Get Form (Detail) and Save to state
 
 //Get Responses and Save to state
+export const useResponsesAPI = (routeName) => {
+	const [error, setError] = useState(null);
+	const [navState, setNavState] = useState(routeName);
 
-//Get Response and Save to state
+	const { auth, responses, setResponses, loading, setLoading } = useContext(AppContext);
+
+	const execute = async () => {
+
+		try {
+			setLoading(true);
+			const response = await getResponsesAPI(auth);
+			setResponses(response)
+			setLoading(false);
+		} catch (error) {
+			setError(error)
+		}
+
+	}
+
+	useEffect(() => {
+    execute()
+  }, [navState]);
+
+  return { loading, error, responses };
+
+} 
+
+export const getResponsesAPI = async ({url, access_token}) => {
+
+	const response = await fetch(`${url}/services/apexrest/forms/Responses`, { 
+		method: 'get', 
+		headers: new Headers({
+			'Authorization': `OAuth ${access_token}`, 
+			'Content-Type': 'application/json'
+		})
+	});
+
+	const responses = await response.json();
+	console.log('responses', responses); 
+
+	//const transformed = transformFormsList(forms);
+	return responses; 
+
+}
 
 //Create Response and Save to state
 export const useSubmitAPI = () => {
@@ -98,7 +140,6 @@ export const useSubmitAPI = () => {
 } 
 
 // Save Response API
-
 export const postResponseAPI = async ({url, access_token}, answers) => {
 
 	let cleanAnswers = prepareAnswers(answers);

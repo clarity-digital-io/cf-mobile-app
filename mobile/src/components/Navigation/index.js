@@ -30,11 +30,11 @@ function TabNavigation() {
 				let iconName;
 		
 				if (route.name === 'Forms') {
-					iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
+					iconName = focused ? 'ios-dashboard' : 'ios-document-text-outline';
 				} else if (route.name === 'Responses') {
-					iconName = focused ? 'ios-list-box' : 'ios-list';
+					iconName = focused ? 'ios-list' : 'ios-list';
 				} else if (route.name === 'Settings') {
-					iconName = focused ? 'ios-list-box' : 'ios-list';
+					iconName = focused ? 'ios-settings' : 'ios-settings';
 				}
 		
 				// You can return any component that you like here!
