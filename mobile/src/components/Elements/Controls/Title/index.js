@@ -8,12 +8,12 @@
 
 import React from 'react';
 import { Text, View } from 'react-native';
-import { ViewTitleStyling, TextTitleStyling } from '../Stylesheet';
+import { fieldStyle } from '../../Stylesheet';
 
 export const Title = ({ title }) => {
 
-	return	<View style={ViewTitleStyling}>
-		<Text style={TextTitleStyling}>
+	return	<View style={fieldStyle.container}>
+		<Text style={fieldStyle.title}>
 				{ title }
 		</Text>
 	</View>

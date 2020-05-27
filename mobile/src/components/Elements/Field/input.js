@@ -8,8 +8,8 @@
 
 import React, { useState, useContext } from 'react';
 import { TextInput } from 'react-native';
-import { Title } from '../Controls/index';
-import { TextInputStyling } from '../Stylesheet';
+import { Title } from '../Controls/Title';
+import { fieldStyle } from '../Stylesheet';
 import { FormContext } from '../../Context';
 
 export const InputField = ({ question, disabled }) => {
@@ -20,7 +20,7 @@ export const InputField = ({ question, disabled }) => {
 		<Title key={question.forms__Title__c} title={ question.forms__Title__c} />,
 		<TextInput
 			key={question.Id}
-			style={TextInputStyling}
+			style={fieldStyle.input}
 			onChangeText={text => update(text)}
 			value={value}
 		/>
@@ -36,7 +36,7 @@ export const useOnChange = (question) => {
 
 	const update = (text) => {
 
-		setFormAnswer(form.form.Id, responseId, question, setAnswers, text);
+		setFormAnswer(form.Id, responseId, question, setAnswers, text);
 		setValue(text); 
 
 	}

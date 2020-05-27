@@ -121,13 +121,13 @@ export const useSubmitAPI = () => {
 
 	const { auth } = useContext(AppContext);
 
-	const { form, answers, setLoading } = useContext(FormContext);
+	const { form, responseId, answers, setLoading } = useContext(FormContext);
 
 	const execute = async () => {
 
 		try {
 			setLoading(true);
-			const response = await postResponseAPI(auth, answers);
+			const newResponse = await postResponseAPI(auth, answers, form.Id, responseId);
 			setLoading(false);
 		} catch (error) {
 			setError(error)
@@ -140,13 +140,13 @@ export const useSubmitAPI = () => {
 } 
 
 // Save Response API
-export const postResponseAPI = async ({url, access_token}, answers) => {
+export const postResponseAPI = async ({url, access_token}, answers, formId, responseId) => {
 
-	let cleanAnswers = prepareAnswers(answers);
+	let cleanAnswers = prepareAnswers(answers, formId, responseId);
 
-	const response = await fetch(`${url}/services/apexrest/forms/MobileResponseController`, { 
+	const response = await fetch(`${url}/services/apexrest/forms/Responses`, { 
 		method: 'post', 
-		body: JSON.stringify(cleanAnswers),
+		body: JSON.stringify([cleanAnswers]),
 		headers: new Headers({
 			'Authorization': `OAuth ${access_token}`, 
 			'Content-Type': 'application/json'
@@ -155,17 +155,17 @@ export const postResponseAPI = async ({url, access_token}, answers) => {
 
 	const formResponse = await response.json();
 	console.log('formResponse', formResponse); 
-	//const transformed = transformFormsList(forms);
-
 	return formResponse; 
 
 }
 
 
-const prepareAnswers = (answers) => {
+const prepareAnswers = (answers, formId, responseId) => {
 
-	return Array.from(answers.values());
+	return {
+		formId: formId, 
+		responseId: responseId,
+		answers: Array.from(answers.values())
+	}
 
 }
-
-//Get Settings and Save to state

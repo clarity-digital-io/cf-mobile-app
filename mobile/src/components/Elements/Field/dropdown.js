@@ -8,8 +8,8 @@
 
 import React from 'react';
 import RNPickerSelect from 'react-native-picker-select';
-import { Title } from '../Controls/index';
-import { TextInputStyling } from '../Stylesheet';
+import { Title } from '../Controls/Title';
+import { fieldStyle } from '../Stylesheet';
 
 export const Dropdown = ({ question, disabled }) => {
 	
@@ -17,7 +17,7 @@ export const Dropdown = ({ question, disabled }) => {
 		<Title key={question.forms__Title__c} title={ question.forms__Title__c} />,
 		<RNPickerSelect
 			style={{
-				inputIOS: TextInputStyling
+				inputIOS: fieldStyle.input
 			}}
 			onValueChange={(value) => console.log(value)}
 			items={[

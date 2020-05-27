@@ -32,7 +32,7 @@ export const ResponsesList = ({ route, navigation }) => {
 			<FlatList
 				data={responses}
 				renderItem={({ item }) => (
-					<ResponseListItem response={item} onPress={responseSelected} />
+					<ResponseListItem key={item.Name} response={item} onPress={responseSelected} />
 				)}
 			/>
 		}

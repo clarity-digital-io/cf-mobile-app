@@ -27,7 +27,8 @@ const App = () => {
 };
 
 const AppProvider = ({children}) => {
-  const [loading, setLoading] = useState(true);
+	const [isSandbox, setSandbox] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [auth, setAuth] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
 
@@ -37,6 +38,8 @@ const AppProvider = ({children}) => {
   return (
     <AppContext.Provider
       value={{
+				isSandbox,
+				setSandbox,
         loading,
         setLoading,
         auth,

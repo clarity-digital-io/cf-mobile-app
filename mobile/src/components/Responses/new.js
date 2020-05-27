@@ -18,12 +18,12 @@ export const NewFormResponse = ({ route, navigation }) => {
 
 	const { execute } = useSubmitAPI(route.key);
 
-	const { form } = useContext(FormContext); 
+	const { form, response } = useContext(FormContext); 
 
 	React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-				<Ionicons style={{ padding: 8, marginRight: 12 }} size={50} onPress={() => execute()} name={"ios-checkmark"} color={'#000'} />
+				<Ionicons style={{ marginRight: 12 }} size={40} onPress={() => execute()} name={"ios-checkmark"} color={'#000'} />
 			),
     });
   }, [navigation]);

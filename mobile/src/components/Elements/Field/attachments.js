@@ -8,7 +8,7 @@
 
 import React, { useContext } from 'react';
 import { View, Button, StyleSheet, Image} from 'react-native';
-import { Title } from '../Controls';
+import { Title } from '../Controls/Title';
 import { FormContext } from '../../Context';
 
 export const Attachments = ({ question }) => {

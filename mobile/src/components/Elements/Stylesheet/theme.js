@@ -1,7 +1,17 @@
 export const main = {
-	colorBackgroundTitle: '#f7f7f7',
-	colorTitle: '#333',
+	backgroundColor: '#fff',
+	headerColor: '#16325c',
+	highLightColor: '#1589EE',
+	shadowColor: '#CCC',
+	
 	colorBorderTitle: '#D9D9D9',
+
+	colorBackgroundTitle: '#fff',
+
+
+	colorTitle: '#333',
+
+	
 	fontSizeTitle: 16,
 	paddingTitle: 6,
 	heightTitle: 40,

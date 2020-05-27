@@ -9,8 +9,8 @@
 import React from 'react';
 import Slider from '@react-native-community/slider';
 
-import { Title } from '../Controls/index';
-import { SliderInputStyling } from '../Stylesheet';
+import { Title } from '../Controls/Title';
+import { fieldStyle } from '../Stylesheet';
 
 export const ClaritySlider = ({ question, disabled }) => {
 	
@@ -18,7 +18,7 @@ export const ClaritySlider = ({ question, disabled }) => {
 		<Title key={question.forms__Title__c} title={ question.forms__Title__c} />,
 		<Slider
 			key={question.Id}
-			style={SliderInputStyling}
+			style={fieldStyle.slider}
 			minimumValue={0}
 			maximumValue={1}
 		/>
