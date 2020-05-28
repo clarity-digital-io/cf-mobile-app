@@ -2,8 +2,8 @@ export const main = {
 	backgroundColor: '#fff',
 	headerColor: '#16325c',
 	highLightColor: '#1589EE',
-	shadowColor: '#CCC',
-	
+	shadowColor: '#000',
+	brandColor: '#DE3745',
 	colorBorderTitle: '#D9D9D9',
 
 	colorBackgroundTitle: '#fff',

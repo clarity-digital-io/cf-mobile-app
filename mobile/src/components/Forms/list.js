@@ -37,30 +37,31 @@ export const FormsList = ({ route, navigation }) => {
 	}
 
 	return (
-    <View>
+    <View style={{ backgroundColor: '#fff' }}>
 			{
 				loading && forms != null && forms.length > 0 ? 
 				<Text>Forms Loading...</Text> :
 				
 				[
-					<SearchBar
-						placeholder="Search for a form..."
-						onChangeText={setQuery}
-						value={query}
-					/>,
 					<ScrollView
 						refreshControl={
 							<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 						}
 					>
-					<FlatList
-						data={forms}
-						renderItem={({ item }) => (
-							<FormListItem key={item.Name} form={item} onPress={formSelected} />
-						)}
-					/>
+						<SearchBar
+							placeholder="Search for a form..."
+							onChangeText={setQuery}
+							value={query}
+							containerStyle={{ backgroundColor: '#fff', borderBottomColor: '#f5f5f5', borderTopColor: '#f5f5f5' }}
+							inputContainerStyle={{ backgroundColor: '#f5f5f5' }}
+						/>
+						<FlatList
+							data={forms}
+							renderItem={({ item }) => (
+								<FormListItem key={item.form.Name} form={item} onPress={formSelected} />
+							)}
+						/>
 					</ScrollView>
-
 				]
 			}
     </View>

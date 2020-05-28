@@ -35,16 +35,12 @@ export const NewFormResponse = ({ route, navigation }) => {
 }
 
 const Single = () => {
-
-	const { form } = useContext(FormContext); 
-	console.log('single', form); 
-	return <Questions form={form} />
+	return <Questions />
 }
 
 const Drawer = createDrawerNavigator();
 
 const Multi = () => {
-
 	const { form } = useContext(FormContext); 
 
 	const [pages, setPages] = useState( form.form.forms__Multi_Page_Info__c != null ? JSON.parse(form.form.forms__Multi_Page_Info__c) : [] );

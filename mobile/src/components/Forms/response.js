@@ -19,22 +19,32 @@ import { PhotoReview } from '../Camera/photoreview';
 const FormResponseStack = createStackNavigator();
 
 export const FormResponse = ({ route, navigation }) => {
-	console.log('FormResponse', route.params); 
-	const [form, setForm] = useState(route.params);
-	
-	const [newUUID, setUUID] = useState(uuid.v1());
 
+	const [form] = useState(route.params);
+	
+	const [newUUID] = useState(uuid.v1());
+	console.log('form response', route.params);
   return (
 		<FormProvider newResponseId={newUUID} newForm={form} newNavigation={navigation}>
 
 			<FormResponseStack.Navigator>
 				<FormResponseStack.Screen
-					name={route.params.Name}
+					name={`New ${route.params.form.forms__Title__c} ${route.params.form.Name}`}
 					options={{
 						tabBarLabel: false
 					}}
 					component={NewFormResponse}
 					initialParams={route.params}
+					options={{
+						tabBarLabel: false, 
+						headerStyle: {
+							backgroundColor: '#fff',
+						},
+						headerTintColor: '#DE3745',
+						headerTitleStyle: {
+							fontWeight: 'bold',
+						}
+					}}
 				/>
 				<FormResponseStack.Screen
 					name={'Camera'}
@@ -55,10 +65,10 @@ export const FormResponse = ({ route, navigation }) => {
 
 
 const FormProvider = ({children, newResponseId, newForm, newNavigation}) => {
-
+	console.log('FormProvider ONLY ON NEW', newResponseId, newForm)
 	const [responseId] = useState(newResponseId); 
 
-	const [form] = useState(newForm); 
+	const [form] = useState(newForm.form); 
 
 	const [navigation] = useState(newNavigation); 
 
@@ -73,7 +83,11 @@ const FormProvider = ({children, newResponseId, newForm, newNavigation}) => {
 
 	const [records] = useState(new Map()); 
 
-	const [questions] = useState([]); 
+	const [questions, setQuestions] = useState([]); 
+
+	useEffect(() => {
+		setQuestions(newForm.questions);
+	}, [])
 
 	const [criteriaController, setCriteriaController] = useState(new Map()); 
 
@@ -101,6 +115,7 @@ const FormProvider = ({children, newResponseId, newForm, newNavigation}) => {
 				setImages,
 				image, 
 				setImage,
+				questions,
 				answers, 
 				setAnswers
       }}>

@@ -45,7 +45,7 @@ export const getFormsAPI = async ({url, access_token}) => {
 	});
 
 	const forms = await response.json();
-	console.log('form111s', forms); 
+	console.log('form111s', forms[0].questions); 
 
 	//const transformed = transformFormsList(forms);
 	return forms; 

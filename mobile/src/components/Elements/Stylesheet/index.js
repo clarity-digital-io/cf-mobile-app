@@ -15,9 +15,9 @@ export const loginStyle = StyleSheet.create({
 		marginTop: 200,
 	},
 	loginHeaderText: {
-		fontSize: 16,
+		fontSize: 18,
 		lineHeight: 24,
-		margin: 40,
+		margin: 50,
 		color: main.headerColor,
 		fontWeight: '300',
 		textAlign: "center",
@@ -25,9 +25,6 @@ export const loginStyle = StyleSheet.create({
 	logInButton: {
 		backgroundColor: main.backgroundColor,
 		borderRadius: 4,
-		shadowColor: '#ccc',
-		shadowRadius: 5,
-		shadowOpacity: 2,
 		flexDirection: "row",
 		alignItems: "center",
 		alignSelf: "center",
@@ -35,6 +32,15 @@ export const loginStyle = StyleSheet.create({
 		padding: 0,
 		width: 300,
 		height: 60,
+		shadowColor: main.shadowColor,
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+
+		elevation: 5,
 	},
 	logInButtonImage: {
 		resizeMode: "contain",
@@ -76,6 +82,37 @@ export const formStyle = StyleSheet.create({
 	}
 })
 
+//Form Detail
+export const responseDetailStyle = StyleSheet.create({
+	container: {
+		backgroundColor: main.backgroundColor,
+	},
+	createButton: {
+		backgroundColor: main.highLightColor,
+		alignItems: 'stretch',
+		flexDirection: "column",
+		alignSelf: "center",
+		justifyContent: 'center',
+		padding: 0,
+		width: '100%',
+		height: 60,
+		shadowColor: main.shadowColor,
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,	
+	},
+	createButtonText: {
+		color: main.backgroundColor,
+		fontSize: 16,
+		fontWeight: '700',
+		alignSelf: 'center'
+	}
+})
+
 //Responses
 
 //Response
@@ -94,6 +131,12 @@ export const fieldStyle = StyleSheet.create({
 		fontSize: main.fontSizeTitle, 
 		color: main.colorTitle, 
 		padding: main.paddingTitle
+	},
+	header: {
+		fontSize: 20, 
+		color: '#fff',
+		backgroundColor: main.headerColor, 
+		padding: 10
 	},
 	field: {
 		height: main.heightInput, 

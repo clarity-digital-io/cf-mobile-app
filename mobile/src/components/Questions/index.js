@@ -6,13 +6,15 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { getType } from './types'; 
+import { FormContext } from '../Context';
 
-export const Questions = ({ form }) => {
-	const [newForm, setForm] = useState(form);
-	console.log('newForm', newForm); 
-	return newForm.forms__Questions__r.records.map(question => {
+export const Questions = () => {
+
+	const { form, questions } = useContext(FormContext); 
+	console.log('questions', questions); 
+	return questions.map(question => {
 
 			return (            
 				

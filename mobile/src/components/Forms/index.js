@@ -20,12 +20,30 @@ function Forms() {
       <FormStack.Screen
         name="Forms"
         component={FormsList}
-        options={{tabBarLabel: false}}
+        options={{
+					tabBarLabel: false, 
+					headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#DE3745',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }
+				}}
       />
 			<FormStack.Screen
         name="Form Details"
         component={FormDetail}
-        options={{tabBarLabel: false}}
+        options={{
+					tabBarLabel: false, 
+					headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#DE3745',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+					},
+				}}
       />
     </FormStack.Navigator>
   );
