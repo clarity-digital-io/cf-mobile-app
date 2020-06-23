@@ -6,25 +6,28 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
-import { Title } from '../Controls/Title';
 import { fieldStyle } from '../Stylesheet';
+import { transform } from '../../../api/helpers';
 
 export const Dropdown = ({ question, disabled }) => {
 	
+	const [options] = useState(transform(question.Question_Options__r));
+
 	return [
-		<Title key={question.forms__Title__c} title={ question.forms__Title__c} />,
 		<RNPickerSelect
 			style={{
-				inputIOS: fieldStyle.input
+				inputIOS: fieldStyle.input,
+				padding: 100
 			}}
 			onValueChange={(value) => console.log(value)}
-			items={[
-					{ label: 'Football', value: 'football' },
-					{ label: 'Baseball', value: 'baseball' },
-					{ label: 'Hockey', value: 'hockey' },
-			]}
+			items={options.map(option => {
+				return {
+					label: option.Label__c, 
+					value: option.Id
+				}
+			})}
 		/>
 	]
 	

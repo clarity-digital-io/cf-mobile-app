@@ -7,10 +7,7 @@
  */
 
 import React from 'react';
-import { Text } from 'react-native';
 
 export const PictureChoice = ({ key, question, disabled }) => {
-	return <Text key={key}>
-		{ question.forms__Title__c }
-	</Text>
+	return []
 }

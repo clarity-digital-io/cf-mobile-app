@@ -6,11 +6,40 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useState } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { Text, View } from 'react-native';
+import Moment from 'moment';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const Date = ({ key, question, disabled }) => {
-	return <Text key={key}>
-		{ question.forms__Title__c }
-	</Text>
+export const ClarityDate = ({ key, question, disabled }) => {
+
+	const [date, setDate] = useState(new Date(1598051730000));
+
+	const [show, setShow] = useState(false); 
+	
+	const showDatePicker = () => {
+		setShow(show => {
+			return !show
+		})
+	}
+
+	return [
+			<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center'	}}>
+				<Ionicons style={{ marginRight: 14 }} size={32} onPress={() => showDatePicker()} name={"ios-calendar"} color={'#f2f5f9'} />
+				<Text style={{ color: '#16325c' }}>{Moment(date).format('MMMM d YYYY')}</Text>
+			</View>,
+			show ? 
+			<DateTimePicker
+				testID="dateTimePicker"
+				timeZoneOffsetInMinutes={0}
+				value={date}
+				mode={'date'}
+				is24Hour={true}
+				display="default"
+				onChange={(v) => console.log('v', v)}
+			/> :
+			null
+		
+	]
 }

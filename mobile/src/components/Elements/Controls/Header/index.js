@@ -12,12 +12,11 @@ import { fieldStyle } from '../../Stylesheet';
 
 export const Header = ({ title }) => {
 
-	return	<View style={fieldStyle.container}>
+	return <View style={fieldStyle.headerContainer}>
 		<Text style={fieldStyle.header}>
-				{ title }
+			{ title }
 		</Text>
 	</View>
-
 }
 
 

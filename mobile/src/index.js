@@ -10,8 +10,8 @@ import React, {useState, useContext} from 'react';
 import 'react-native-gesture-handler';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import Navigation from './components/Navigation';
-import {NavigationContainer} from '@react-navigation/native';
+import Navigation from './components/Screens/Navigation';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Authenticate from './components/Auth';
 
 import {AppContext} from './components/Context';
@@ -27,29 +27,44 @@ const App = () => {
 };
 
 const AppProvider = ({children}) => {
+	const [error, setError] = useState(true);
 	const [isSandbox, setSandbox] = useState(true);
   const [loading, setLoading] = useState(false);
   const [auth, setAuth] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [realm, setRealm] = useState(null);
+  const [globalRealm, setGlobalRealm] = useState(null);
 
+	//main
 	const [forms, setForms] = useState([]);
 	const [responses, setResponses] = useState([]);
+
+	//active
+	const [activeForm, setActiveForm] = useState(null);
 
   return (
     <AppContext.Provider
       value={{
+				error, 
+				setError,
 				isSandbox,
 				setSandbox,
         loading,
         setLoading,
         auth,
 				setAuth,
-				userInfo,
-				setUserInfo,
+				profile, 
+				setProfile,
 				forms, 
 				setForms,
+				activeForm,
+				setActiveForm,
 				responses, 
-				setResponses
+				setResponses,
+				realm, 
+				setRealm,
+				globalRealm, 
+				setGlobalRealm
       }}>
       {children}
     </AppContext.Provider>
@@ -57,10 +72,10 @@ const AppProvider = ({children}) => {
 };
 
 function Init() {
-  const {auth} = useContext(AppContext);
-
-  return (
-    <NavigationContainer>
+	const {auth} = useContext(AppContext);
+	
+	return (
+    <NavigationContainer theme={ClarityTheme}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
 				{
 					auth ? 
@@ -75,5 +90,13 @@ function Init() {
     </NavigationContainer>
   );
 }
+
+const ClarityTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#fff'
+  },
+};
 
 export default App;

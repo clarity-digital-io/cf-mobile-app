@@ -11,6 +11,6 @@ import { Text } from 'react-native';
 
 export const RecordGroup = ({ key, question, disabled }) => {
 	return <Text key={key}>
-		{ question.forms__Title__c }
+		{ question.Title__c }
 	</Text>
 }

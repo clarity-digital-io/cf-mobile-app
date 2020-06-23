@@ -12,13 +12,13 @@ export const main = {
 	colorTitle: '#333',
 
 	
-	fontSizeTitle: 16,
-	paddingTitle: 6,
+	fontSizeTitle: 12,
 	heightTitle: 40,
 	colorInput: '#333',
 	colorBackgroundInput: '#fff',
 	colorBorderInput: '#D9D9D9',
-	fontSizeInput: 16,
+	fontSizeInput: 14,
+	lineHeight: 24,
 	paddingInput: 6,
 	heightInput: 60
 };

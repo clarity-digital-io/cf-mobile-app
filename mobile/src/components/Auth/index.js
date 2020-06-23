@@ -11,9 +11,10 @@
 import React, {useContext} from 'react';
 import {View, Image, Alert, ActivityIndicator, Text, Switch} from 'react-native';
 
+import { registerWithRealm } from '../../api/realm';
 import Auth0 from 'react-native-auth0';
 import {AppContext} from '../Context';
-import { LoginButton } from '../Elements/Controls/Button/login';
+import { LoginButton } from '../Elements/Controls/Buttons';
 import { loginStyle } from '../Elements/Stylesheet';
 import { main } from '../Elements/Stylesheet/theme';
 
@@ -23,7 +24,7 @@ const auth0 = new Auth0({
 });
 
 const Authenticate = () => {
-  const {setAuth, setLoading, loading, isSandbox, setSandbox } = useContext(AppContext);
+  const {setAuth, setRealm, setGlobalRealm, setLoading, loading, isSandbox, setSandbox } = useContext(AppContext);
 
   const login = async () => {
 
@@ -35,11 +36,15 @@ const Authenticate = () => {
 			});
 
 			setLoading(true);
+			console.log('testing');
+			const user = await getUser(credentials);
+			const {realm, globalRealm} = await registerWithRealm(user, credentials);
 
-			const user = await getUser(credentials.idToken);
-			//const hasPermission = await checkUserPermission(user.url, user.access_token); 
+			// let profile = realm.objects('Profile');
+			// setProfile(profile[0]); 
 
-			//if(!hasPermission) throw "User doesn't have Clarity Forms permissions."
+			setRealm(realm);
+			setGlobalRealm(globalRealm);
 			setAuth(user);
 			setLoading(false);
 
@@ -88,9 +93,9 @@ const Authenticate = () => {
 
 };
 
-const getUser = async (idToken) => {
+const getUser = async ({idToken}) => {
 
-	const response = await fetch('http://localhost:3000/credentials', {
+	const response = await fetch('https://clarity-api-auth.herokuapp.com/credentials', {
 		method: 'post',
 		body: JSON.stringify({ 'idToken': idToken }),
 		headers: new Headers({
@@ -99,24 +104,9 @@ const getUser = async (idToken) => {
 	})
 
 	const user = await response.json();
-
+	console.log('/***********USER***********/', user); 
 	return user;
 
-}
-
-const checkUserPermission = async (url, accessToken) => {
-
-	const response = await fetch(`${url}/services/apexrest/forms/MobileSettingsController`, { 
-		method: 'get', 
-		headers: new Headers({
-			'Authorization': `OAuth ${accessToken}`, 
-			'Content-Type': 'application/json'
-		})
-	});
-
-	const permission = await response.json();
-
-	return permission; 
 }
 
 const alert = (error) => {
