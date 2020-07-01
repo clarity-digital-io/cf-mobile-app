@@ -10,51 +10,49 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, ScrollView, FlatList } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
-import { useRecords } from '../../../api';
 import {ListItem} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { FormContext } from '../../Context';
 
-export const Lookup = ({ navigation, route }) => {
+import { useConnectionRecords } from '../../../../api';
+import { FormContext } from '../../../Context';
+
+export const NewResponseConnection = ({ route, navigation }) => {
+
+	console.log('route1', route.params.params); 
 
 	React.useLayoutEffect(() => {
-    navigation.setOptions({
+		navigation.setOptions({
 			headerLeft: () => (
 				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => navigation.goBack()} name={"ios-close"} color={'#16325c'} />
 			)
-    });
+		});
 	}, [navigation]);
 	
-	const { records, searchRecords } = useRecords();
+	const { records, searchRecords } = useConnectionRecords();
 
 	const [query, setQuery] = useState('');
 	
 	useEffect(() => {
 		if(query.length > 2) {
+			console.log('route', query); 
 			searchRecords('Account', query);
 		}
 	}, [query]);
 
-	const { setAnswers, setRecords } = useContext(FormContext); 
-
 	const recordSelected = (record) => {
+		console.log('route2', route.params); 
 
-		setAnswers(answers => {
-			answers.set(route.params.Id, record.Id); 
-			return answers;
-		});
+		console.log('record', record); 
+		navigation.navigate('Response', { activeForm: route.params.activeForm, connection: record })
 
-		setRecords(records => {
-			records.set(route.params.Id, record); 
-			return records; 
-		});
-
-		navigation.goBack();
 		
 	}
 
 	return [
 		<ScrollView style={{flex: 1}}>
+			<Text>
+				Connect a record for form Inspection
+			</Text>
 			<SearchBar
 				placeholder="Search for a record..."
 				onChangeText={(searchTerm) => setQuery(searchTerm)}
@@ -71,7 +69,7 @@ export const Lookup = ({ navigation, route }) => {
 		</ScrollView>
 	]
 }
-
+	
 const RecordListItem = ({ record, onPress }) => {
 	return (
 		<ListItem 
@@ -94,3 +92,4 @@ const RecordListItem = ({ record, onPress }) => {
 		/>
 	)
 }
+	

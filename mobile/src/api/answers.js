@@ -66,3 +66,19 @@ const getResponsesFilter = (realm, filter) => {
 	let transformedResponses = transform(responses); 
 	return transformedResponses;
 }
+
+const getResponsesAPI = async ({url, access_token}) => {
+
+	const response = await fetch(`${url}/services/apexrest/forms/Responses`, { 
+		method: 'get', 
+		headers: new Headers({
+			'Authorization': `OAuth ${access_token}`, 
+			'Content-Type': 'application/json'
+		})
+	});
+
+	const responses = await response.json();
+
+	return responses; 
+
+}

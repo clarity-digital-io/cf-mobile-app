@@ -24,9 +24,9 @@ export const FormListItem = ({ form, onPress }) => {
 			activeScale={0.98}
 			title={
 				<View style={{ paddingTop: 4, paddingBottom: 4 }}>
-					<Text style={{ color: '#16325c', fontWeight: '500', fontSize: 12, marginBottom: 6 }}>{form.Title__c}</Text>
+					<Text style={{ color: '#16325c', fontWeight: '500', fontSize: 12, marginBottom: 6 }}>{form.Title}</Text>
 					<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, lineHeight: 18, marginBottom: 12 }}>
-					{form.Description__c}
+					{form.Description}
 					</Text>
 					<View style={{ flex: 1, flexDirection: 'column' }}>
 						<Text style={{ color: '#333', fontWeight: '300', fontSize: 12 }}>{Moment(form.CreatedDate).format('MMMM d YYYY')}</Text>

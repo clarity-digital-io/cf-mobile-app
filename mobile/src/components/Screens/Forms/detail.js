@@ -7,19 +7,20 @@
  */
 
 import React, { useContext, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {Platform, View, FlatList, StyleSheet} from 'react-native';
 import { FloatingAction } from "react-native-floating-action";
 import Icon from 'react-native-vector-icons/Ionicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { AppContext } from '../../Context';
 
 import { responseDetailStyle } from '../../Elements/Stylesheet';
 import { ResponseListItem } from '../Responses/listitem';
-import { AppContext } from '../../Context';
-import { useResponses } from '../../../api';
-import { useFocusEffect } from '@react-navigation/native';
 
-export const FormDetail = ({ route, navigation }) => {
-	
+import { useResponses } from '../../../api';
+
+export const Detail = ({ route, navigation }) => {
+
 	const { activeForm } = useContext(AppContext); 
 
 	const { responses, filtered } = useResponses();
@@ -29,7 +30,7 @@ export const FormDetail = ({ route, navigation }) => {
 			let isActive = true;
 			
 			if(isActive) 
-				filtered(`Form__c = "${activeForm.Id}"`);
+				filtered(`Form = "${activeForm.Id}"`);
 	
 			return () => {
 				isActive = false;
@@ -43,12 +44,12 @@ export const FormDetail = ({ route, navigation }) => {
 	}
 
 	const newResponse = () => {
-		navigation.navigate('Form Response', route.params)
+		navigation.navigate('InitResponse', { formId: activeForm.Id, new: true })
 	}
 
 	React.useLayoutEffect(() => {
     navigation.setOptions({
-			title: route.params.Title__c,
+			title: route.params.Title,
 			headerLeft: () => (
 				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#16325c'} />
 			),

@@ -13,7 +13,7 @@ import { transform } from '../../../api/helpers';
 
 export const Dropdown = ({ question, disabled }) => {
 	
-	const [options] = useState(transform(question.Question_Options__r));
+	const [options] = useState(transform(question.Question_Options));
 
 	return [
 		<RNPickerSelect
@@ -24,7 +24,7 @@ export const Dropdown = ({ question, disabled }) => {
 			onValueChange={(value) => console.log(value)}
 			items={options.map(option => {
 				return {
-					label: option.Label__c, 
+					label: option.Label, 
 					value: option.Id
 				}
 			})}

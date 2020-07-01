@@ -13,14 +13,14 @@ import { FormContext } from '../../Context';
 
 export const Checkbox = ({ key, question, disabled }) => {
 
-	const [options] = useState(transform(question.Question_Options__r));
+	const [options] = useState(transform(question.Question_Options));
 	const { values, update } = useOnChange(question);
 
 	return options.map(option => {
 			let checked = values.indexOf(option.Id) >= 0 ? true : false; 
 			return (
 				<CheckBox
-					title={ option.Label__c }
+					title={ option.Label }
 					checked={checked} 
 					iconType='ion'
 					containerStyle={{ backgroundColor: checked ? '#00b388' : '#fff', borderColor: checked ? '#00b388' : '#f2f5f9', borderRadius: 0 }}
@@ -65,7 +65,7 @@ const setFormAnswer = (formId, responseId, question, setAnswers, values) => {
 	console.log('values', values); 
 	setAnswers(answers => {
 
-		answers.set(question.Id,  { formId: formId, answer: values, questionId: question.Id, type: question.forms__Type__c, responseId: responseId });
+		answers.set(question.Id,  { formId: formId, answer: values, questionId: question.Id, type: question.forms__Type, responseId: responseId });
 		return answers;
 
 	});

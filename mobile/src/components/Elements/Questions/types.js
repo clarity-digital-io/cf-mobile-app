@@ -2,7 +2,7 @@ import React from 'react';
 import { GeoLocation, InputField, FreeText, Attachments, Checkbox, Comment, ClarityDate, Dropdown, Email, Lookup, MultipleChoice, Number, RecordGroup, ClaritySlider, PictureChoice } from '../Field';
 export const getType = (question, disabled) => {
 
-		switch (question.Type__c) {
+		switch (question.Type) {
 				case 'PictureChoice':
 						return <PictureChoice key={question.Id} question={question} disabled={disabled} />
 						break;

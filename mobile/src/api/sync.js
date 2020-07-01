@@ -26,7 +26,7 @@ export const useSync = () => {
 } 
 
 const startSync = async ({url, access_token, user_id}, query) => {
-
+	console.log('url, access_token, user_id', url, access_token, user_id);
 	//direct call to salesforce should only be called for users with salesforce editions above essentials
 	/**
 	 * 1. Salesforce Enterprise

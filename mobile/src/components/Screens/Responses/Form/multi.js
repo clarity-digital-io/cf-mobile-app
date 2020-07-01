@@ -17,7 +17,7 @@ const Drawer = createDrawerNavigator();
 export const Multi = () => {
 	const { form } = useContext(FormContext); 
 
-	const [pages, setPages] = useState( form.Multi_Page_Info__c != null ? JSON.parse(form.Multi_Page_Info__c) : [] );
+	const [pages, setPages] = useState( form.Multi_Page_Info != null ? JSON.parse(form.Multi_Page_Info) : [] );
 
 	return (
 			<Drawer.Navigator initialRouteName={pages[0].title}>

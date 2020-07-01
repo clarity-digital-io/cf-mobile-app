@@ -8,13 +8,12 @@
 
 import React, {useState, useContext} from 'react';
 import 'react-native-gesture-handler';
-
 import {createStackNavigator} from '@react-navigation/stack';
-import Navigation from './components/Screens/Navigation';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import Authenticate from './components/Auth';
-
+import { NavigationContainer, DefaultTheme, getStateFromPath } from '@react-navigation/native';
 import {AppContext} from './components/Context';
+
+import Main from './components/Screens/Main';
+import Authenticate from './components/Auth';
 
 const Stack = createStackNavigator();
 
@@ -34,11 +33,9 @@ const AppProvider = ({children}) => {
   const [profile, setProfile] = useState(null);
   const [realm, setRealm] = useState(null);
   const [globalRealm, setGlobalRealm] = useState(null);
-
 	//main
 	const [forms, setForms] = useState([]);
 	const [responses, setResponses] = useState([]);
-
 	//active
 	const [activeForm, setActiveForm] = useState(null);
 
@@ -72,14 +69,15 @@ const AppProvider = ({children}) => {
 };
 
 function Init() {
+
 	const {auth} = useContext(AppContext);
 	
 	return (
-    <NavigationContainer theme={ClarityTheme}>
+    <NavigationContainer linking={linking} theme={ClarityTheme}>
       <Stack.Navigator screenOptions={{headerShown: false}}>
 				{
 					auth ? 
-					<Stack.Screen name="Home" component={Navigation} />
+					<Stack.Screen name="Main" component={Main} />
 					: 
 					<Stack.Screen
             name="Log In With Salesforce"
@@ -90,6 +88,27 @@ function Init() {
     </NavigationContainer>
   );
 }
+
+const linking = {
+  prefixes: ['http://forms.com', 'forms://'],
+  config: {
+		Main: {
+			path: 'main'
+		},
+		Settings: {
+			path: 'settings'
+		},
+		InitResponse: {
+			path: 'response/:formId'
+		}
+	},
+	getStateFromPath(path, config) {
+    // You can perform own checks on the path
+		console.log('getStateFromPath', path, config);
+		return getStateFromPath(path, config);
+		
+  },
+};
 
 const ClarityTheme = {
   ...DefaultTheme,

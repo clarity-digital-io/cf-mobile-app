@@ -37,9 +37,9 @@ export const MultiQuestions = ({ route }) => {
 const getQuestion = (question, hasValidationError) => {
 
 	return (
-		hasFormLabel(question.Type__c) ? 
-		<View key={question.Title__c} style={hasValidationError ? fieldStyle.mainError : fieldStyle.main}>
-				<Title key={question.Title__c} title={ question.Title__c} required={question.Required__c} />
+		hasFormLabel(question.Type) ? 
+		<View key={question.Title} style={hasValidationError ? fieldStyle.mainError : fieldStyle.main}>
+				<Title key={question.Title} title={ question.Title} required={question.Required} />
 				<View style={hasValidationError ? fieldStyle.fieldError : fieldStyle.field}>
 
 				{  

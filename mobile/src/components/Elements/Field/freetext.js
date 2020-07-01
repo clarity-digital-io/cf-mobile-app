@@ -11,6 +11,6 @@ import { Header } from '../Controls/Header';
 
 export const FreeText = ({ key, question, disabled }) => {
 
-	return <Header key={question.Title__c} title={ question.Title__c} />
+	return <Header key={question.Title} title={ question.Title} />
 	
 }

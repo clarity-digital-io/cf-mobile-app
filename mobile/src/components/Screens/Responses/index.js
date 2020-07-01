@@ -32,7 +32,6 @@ function Responses() {
 							fontSize: 14
 						},
 						headerLeft: props => {
-							console.log('navigate', props); 
 							return <Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.navigate('Settings')} name={"ios-settings"} color={'#16325c'} />
 						}
 					}

@@ -20,7 +20,8 @@ export const ResponsesList = ({ route, navigation }) => {
 	const { loading, responses, error, execute } = useResponses();
 
 	const responseSelected = (response) => {
-		navigation.navigate('Response Details', response)
+		console.log('responseId', response.UUID); 
+		navigation.navigate('InitResponse', { formId: null, new: false, responseId: response.UUID })
 	}
 
 	useFocusEffect(

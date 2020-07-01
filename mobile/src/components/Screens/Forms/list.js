@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {Text, FlatList, View, ScrollView, RefreshControl} from 'react-native';
 import {useForms} from '../../../api';
 
@@ -25,7 +25,7 @@ export const FormsList = ({ route, navigation }) => {
   const [query, setQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 	
-	const { loading, forms, setActiveForm, execute } = useForms(route.key);
+	const { loading, forms, setActiveForm, execute } = useForms();
 
 	useFocusEffect(
 		useCallback(() => {
@@ -49,7 +49,7 @@ export const FormsList = ({ route, navigation }) => {
 
 	const formSelected = (form) => {
 		setActiveForm(form);
-		navigation.navigate('Form Details', form)
+		navigation.navigate('Detail', form)
 	}
 
 	const renderItem = ({ item }) => (<FormListItem key={item.Name} form={item} onPress={formSelected} />);

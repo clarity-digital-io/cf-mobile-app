@@ -9,14 +9,16 @@
  */
 
 import React, {useContext} from 'react';
+import Auth0 from 'react-native-auth0';
 import {View, Image, Alert, ActivityIndicator, Text, Switch} from 'react-native';
 
 import { registerWithRealm } from '../../api/realm';
-import Auth0 from 'react-native-auth0';
+
 import {AppContext} from '../Context';
 import { LoginButton } from '../Elements/Controls/Buttons';
 import { loginStyle } from '../Elements/Stylesheet';
 import { main } from '../Elements/Stylesheet/theme';
+
 
 const auth0 = new Auth0({
   domain: 'dev-gzcou5sg.eu.auth0.com',
@@ -24,6 +26,7 @@ const auth0 = new Auth0({
 });
 
 const Authenticate = () => {
+
   const {setAuth, setRealm, setGlobalRealm, setLoading, loading, isSandbox, setSandbox } = useContext(AppContext);
 
   const login = async () => {
@@ -36,12 +39,9 @@ const Authenticate = () => {
 			});
 
 			setLoading(true);
-			console.log('testing');
+
 			const user = await getUser(credentials);
 			const {realm, globalRealm} = await registerWithRealm(user, credentials);
-
-			// let profile = realm.objects('Profile');
-			// setProfile(profile[0]); 
 
 			setRealm(realm);
 			setGlobalRealm(globalRealm);
@@ -86,7 +86,6 @@ const Authenticate = () => {
 						</View>
 					]
 				}
-
 
 		</View>
 	)
