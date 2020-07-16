@@ -10,15 +10,16 @@
 
 import React, {useContext} from 'react';
 import Auth0 from 'react-native-auth0';
-import {View, Image, Alert, ActivityIndicator, Text, Switch} from 'react-native';
+import {View, Image, ActivityIndicator, Text, Switch} from 'react-native';
 
 import { registerWithRealm } from '../../api/realm';
 
 import {AppContext} from '../Context';
 import { LoginButton } from '../Elements/Controls/Buttons';
-import { loginStyle } from '../Elements/Stylesheet';
-import { main } from '../Elements/Stylesheet/theme';
-
+import { loginStyle } from '../../stylesheet';
+import { main } from '../../stylesheet/theme';
+import { alert } from '../Elements/Notification';
+import { body } from '../../localization';
 
 const auth0 = new Auth0({
   domain: 'dev-gzcou5sg.eu.auth0.com',
@@ -33,12 +34,12 @@ const Authenticate = () => {
 
     try {
 
+			setLoading(true);
+
       const credentials = await auth0.webAuth.authorize({
 				connection: isSandbox ? 'salesforce-sandbox' : 'salesforce',
 				scope: 'openid full'
 			});
-
-			setLoading(true);
 
 			const user = await getUser(credentials);
 			const {realm, globalRealm} = await registerWithRealm(user, credentials);
@@ -49,7 +50,7 @@ const Authenticate = () => {
 			setLoading(false);
 
     } catch (error) {
-			alert(error);
+			alert(error)
 			setLoading(false); 
     }
   };
@@ -57,22 +58,21 @@ const Authenticate = () => {
 	return (
 		<View style={loginStyle.container}>
 
-				<Image style={loginStyle.logo} source={require('../../assets/clarity-logo.png')} />
+				<Image style={loginStyle.logo} source={require('../../assets/images/clarity-forms.jpg')} />
 
-				<Text style={loginStyle.loginHeaderText}>
-					Sign in and connect using your Salesforce Account for easy mobile form management.
-				</Text>
 
 				{
 					loading ? 
-					<ActivityIndicator size="small" color="#f5f5f5" /> : 
+					<ActivityIndicator size="large" color={main.highLightColor} /> : 
 					[
-						<View style={{ flex: 1, 	}}/>,
-						<LoginButton text={'Continue with Salesforce'} onPress={() => login()} />,
-						<View
-							style={loginStyle.sandboxView}>
+						<Text style={loginStyle.loginHeaderText}>
+							{ body.login.title }
+						</Text>,
+						<View style={{ flex: 1 }}/>,
+						<LoginButton text={body.login.signin} onPress={() => login()} />,
+						<View style={loginStyle.sandboxView}>
 							<Text
-								style={loginStyle.sandboxText}>Log in to a Sandbox</Text>
+								style={loginStyle.sandboxText}>{ body.login.sandbox }</Text>
 							<View style={{ flex: 1 }}/>
 							<Switch
 								trackColor={{
@@ -82,7 +82,8 @@ const Authenticate = () => {
 								thumbColor="white"
 								value={isSandbox}
 								onValueChange={(value) => setSandbox(value)}
-								style={loginStyle.switchSwitch}/>
+								style={loginStyle.switchSwitch}
+							/>
 						</View>
 					]
 				}
@@ -103,27 +104,9 @@ const getUser = async ({idToken}) => {
 	})
 
 	const user = await response.json();
-	console.log('/***********USER***********/', user); 
+
 	return user;
 
-}
-
-const alert = (error) => {
-
-	Alert.alert(
-		"Unable to Login",
-		error != null ? error.error_description : '',
-		[
-			{
-				text: "Cancel",
-				onPress: () => console.log("Cancel Pressed"),
-				style: "cancel"
-			},
-			{ text: "OK", onPress: () => console.log("OK Pressed") }
-		],
-		{ cancelable: false }
-	);
-	
 }
 
 export default Authenticate;

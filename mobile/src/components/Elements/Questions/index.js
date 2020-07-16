@@ -11,7 +11,7 @@ import { View, Text } from 'react-native';
 
 import { getType } from './types'; 
 import { FormContext } from '../../Context';
-import { fieldStyle } from '../Stylesheet';
+import { fieldStyle } from '../../../stylesheet';
 import { Title } from '../Controls/Title';
 
 export const Questions = () => {

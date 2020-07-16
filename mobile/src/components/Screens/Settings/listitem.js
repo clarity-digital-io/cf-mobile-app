@@ -7,6 +7,7 @@ import TouchableScale from 'react-native-touchable-scale';
 export const SettingsListItem = ({ setting, navigation, chevron }) => {
 	return (
 		<ListItem 
+			leftIcon={{ name: setting.icon }}
 			Component={TouchableScale}
 			friction={90}
 			tension={100} 

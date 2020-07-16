@@ -6,7 +6,8 @@
  * @flow strict-local
  */
 
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Text, ScrollView, FlatList } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
@@ -18,12 +19,14 @@ import { FormContext } from '../../../Context';
 
 export const NewResponseConnection = ({ route, navigation }) => {
 
-	console.log('route1', route.params.params); 
+	const goBack = () => {
+		navigation.navigate('Detail', { formId: route.params.formId })
+	}
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
 			headerLeft: () => (
-				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => navigation.goBack()} name={"ios-close"} color={'#16325c'} />
+				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => goBack()} name={"ios-close"} color={'#16325c'} />
 			)
 		});
 	}, [navigation]);
@@ -33,41 +36,39 @@ export const NewResponseConnection = ({ route, navigation }) => {
 	const [query, setQuery] = useState('');
 	
 	useEffect(() => {
-		if(query.length > 2) {
+		if(query.length > 1) {
 			console.log('route', query); 
-			searchRecords('Account', query);
+			searchRecords(route.params.form.Form_Connections[0].Salesforce_Object, query);
 		}
 	}, [query]);
 
 	const recordSelected = (record) => {
-		console.log('route2', route.params); 
 
-		console.log('record', record); 
-		navigation.navigate('Response', { activeForm: route.params.activeForm, connection: record })
+		console.log('record', record, route.params.form); 
+		navigation.navigate('Response', { form: route.params.form, connection: record })
 
-		
 	}
 
-	return [
-		<ScrollView style={{flex: 1}}>
-			<Text>
-				Connect a record for form Inspection
-			</Text>
-			<SearchBar
-				placeholder="Search for a record..."
-				onChangeText={(searchTerm) => setQuery(searchTerm)}
-				value={query}
-				containerStyle={{ backgroundColor: '#fff', borderBottomColor: '#f5f5f5', borderTopColor: '#f5f5f5' }}
-				inputContainerStyle={{ backgroundColor: '#f5f5f5' }}
-			/>
-			<FlatList
-				data={records}
-				renderItem={({ item }) => (
-					<RecordListItem key={'item.Name'} record={item} onPress={recordSelected} />
-				)}
-			/>
-		</ScrollView>
-	]
+	return  <View>
+			{
+				route.params.form ? 
+				[<SearchBar
+					placeholder="Search for a record..."
+					onChangeText={(searchTerm) => setQuery(searchTerm)}
+					value={query}
+					containerStyle={{ height: 58, backgroundColor: '#fff', borderBottomColor: '#f2f5f9', borderTopColor: '#f2f5f9' }}
+					inputContainerStyle={{ height: 40, backgroundColor: '#f2f5f9' }}
+					inputStyle={{ fontSize: 16, color: '#16325c' }}
+				/>,
+				<FlatList
+					data={records}
+					renderItem={({ item }) => (
+						<RecordListItem key={'item.Name'} record={item} onPress={recordSelected} />
+					)}
+					/>] : <Text>Not available</Text>
+			}
+		</View>
+	
 }
 	
 const RecordListItem = ({ record, onPress }) => {
@@ -85,7 +86,6 @@ const RecordListItem = ({ record, onPress }) => {
 					</Text>
 				</View>
 			}
-			chevron
 			bottomDivider={true}
 			onPress={() => onPress(record)}
 			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#f2f5f9', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}

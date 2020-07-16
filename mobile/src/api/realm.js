@@ -5,7 +5,7 @@ const SERVER_URL = 'https://forms-dev.us1a.cloud.realm.io';
 const REALM_URL = 'realms://forms-dev.us1a.cloud.realm.io';
 
 export const registerWithRealm = async ({ organization_id }, { idToken }) => {
-	console.log('idToken', idToken); 
+
 	try {
 		const user = await Realm.Sync.User.login(SERVER_URL, 	Realm.Sync.Credentials.custom('jwt', idToken));
 		const realm = await onAuthRealm(user); 

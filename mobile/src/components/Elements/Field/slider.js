@@ -9,7 +9,7 @@
 import React from 'react';
 import Slider from '@react-native-community/slider';
 
-import { fieldStyle } from '../Stylesheet';
+import { fieldStyle } from '../../../stylesheet';
 
 export const ClaritySlider = ({ question, disabled }) => {
 	

@@ -8,7 +8,7 @@
 
 import React, { useState } from 'react';
 import RNPickerSelect from 'react-native-picker-select';
-import { fieldStyle } from '../Stylesheet';
+import { fieldStyle } from '../../../stylesheet';
 import { transform } from '../../../api/helpers';
 
 export const Dropdown = ({ question, disabled }) => {

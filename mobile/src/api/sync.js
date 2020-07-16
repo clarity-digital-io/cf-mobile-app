@@ -9,13 +9,15 @@ export const useSync = () => {
 
 		try {
 			//set profile in realm to in progress
+			console.log('tst')
 			const response = await startSync(auth, query);
-			console.log('response', response)
+
 			if(response.success) {
 				console.log('update realm profile to requested', response.success);
 			}
 
 		} catch (error) {
+			console.log(error);
 			setError(error)
 		}
 
@@ -26,14 +28,14 @@ export const useSync = () => {
 } 
 
 const startSync = async ({url, access_token, user_id}, query) => {
-	console.log('url, access_token, user_id', url, access_token, user_id);
+
 	//direct call to salesforce should only be called for users with salesforce editions above essentials
 	/**
 	 * 1. Salesforce Enterprise
 	 * 2. Salesforce Essentials
 	 * 3. Salesforce Clarity Forms Mobile External Authentication
 	 */
-
+	console.log('url', url, access_token, user_id, query);
 	const pe = await fetch(`${url}/services/apexrest/forms/v1/Records/${user_id.split('|')[1]}`, { 
 		method: 'get', 
 		headers: new Headers({
@@ -43,7 +45,7 @@ const startSync = async ({url, access_token, user_id}, query) => {
 	});
 
 	const response = await pe.json();
-
+	console.log('response', response);
 	return response; 
 
 }

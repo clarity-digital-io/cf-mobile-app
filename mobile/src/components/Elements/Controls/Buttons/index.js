@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
-import { loginStyle } from '../../Stylesheet';
+import { loginStyle } from '../../../../stylesheet';
 
 export const LoginButton = ({text, onPress}) => {
 
@@ -18,7 +18,7 @@ export const LoginButton = ({text, onPress}) => {
 
 			<TouchableOpacity onPress={onPress} style={loginStyle.logInButton}>
 				<Image
-					source={require("../../../../assets/salesforce.png")}
+					source={require("../../../../assets/images/salesforce.png")}
 					style={loginStyle.logInButtonImage}/>
 				<Text style={loginStyle.logInButtonText}>{text}</Text>
 			</TouchableOpacity>

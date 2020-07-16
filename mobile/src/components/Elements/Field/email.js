@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import { TextInput } from 'react-native';
-import { fieldStyle } from '../Stylesheet';
+import { fieldStyle } from '../../../stylesheet';
 import { useOnChange } from '../../Handlers/useOnChange';
 
 export const Email = ({ key, question, disabled }) => {

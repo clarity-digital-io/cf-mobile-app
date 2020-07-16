@@ -8,13 +8,13 @@
 
 import React, { useContext, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import {Platform, View, FlatList, StyleSheet} from 'react-native';
+import {ScrollView,Platform, View, FlatList, StyleSheet, Text} from 'react-native';
 import { FloatingAction } from "react-native-floating-action";
 import Icon from 'react-native-vector-icons/Ionicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AppContext } from '../../Context';
 
-import { responseDetailStyle } from '../../Elements/Stylesheet';
+import { detailStyle } from '../../../stylesheet';
 import { ResponseListItem } from '../Responses/listitem';
 
 import { useResponses } from '../../../api';
@@ -44,6 +44,7 @@ export const Detail = ({ route, navigation }) => {
 	}
 
 	const newResponse = () => {
+		console.log('activeForm we have enough info to decide where to navigate to', activeForm); 
 		navigation.navigate('InitResponse', { formId: activeForm.Id, new: true })
 	}
 
@@ -62,7 +63,57 @@ export const Detail = ({ route, navigation }) => {
   }, [navigation]);
 	
 	return  <View  style={{ flex:1, backgroundColor: '#fff' }}>
-		<View style={responseDetailStyle.container}>
+		<View style={{height: 100, borderBottomColor: '#f2f5f9', borderBottomWidth: 2 }} >
+		<ScrollView horizontal={true} contentContainerStyle={{ alignItems: 'center' }} >
+			<View style={{ padding: 10, margin: 14 }}>
+				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+					Connection
+				</Text>
+				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+					Connection
+				</Text>
+			</View>
+			<View style={{ padding: 10,  margin: 14 }}>
+				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+					Fields
+				</Text>
+				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+					{ activeForm.Questions.length }
+				</Text>
+			</View>
+			<View style={{ padding: 10,  margin: 14 }}>
+				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+					Location Required
+				</Text>
+				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+					Yes
+				</Text>
+			</View>
+			<View style={{ padding: 10, margin: 14 }}>
+				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+					Description
+				</Text>
+				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+					{ activeForm.Description }
+				</Text>
+			</View>
+			<View style={{ padding: 10,  margin: 14}}>
+				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+					Requires Customer Signature
+				</Text>
+				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+					No
+				</Text>
+			</View>
+			<View style={{ padding: 10,  margin: 14 }}>
+				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+					Payment Option
+				</Text>
+				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+					Yes
+				</Text>
+			</View>
+		</ScrollView>
 		</View>
 		<FlatList
 			data={responses || []}

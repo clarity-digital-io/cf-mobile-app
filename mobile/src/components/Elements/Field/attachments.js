@@ -10,7 +10,7 @@ import React, { useContext, useState } from 'react';
 import {ScrollView, View, TouchableOpacity, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { Title } from '../Controls/Title';
 import { FormContext } from '../../Context';
-import { fieldStyle } from '../Stylesheet';
+import { fieldStyle } from '../../../stylesheet';
 import Carousel from 'react-native-snap-carousel';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 

@@ -8,7 +8,7 @@
 
 import React from 'react';
 import { Text, View } from 'react-native';
-import { fieldStyle } from '../../Stylesheet';
+import { fieldStyle } from '../../../../stylesheet';
 
 export const Title = ({ title, required }) => {
 

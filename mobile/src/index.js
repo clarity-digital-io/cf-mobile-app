@@ -90,7 +90,7 @@ function Init() {
 }
 
 const linking = {
-  prefixes: ['http://forms.com', 'forms://'],
+  prefixes: ['https//clarityforms.app', 'clarityforms://'],
   config: {
 		Main: {
 			path: 'main'
@@ -100,13 +100,10 @@ const linking = {
 		},
 		InitResponse: {
 			path: 'response/:formId'
-		}
+		},
 	},
 	getStateFromPath(path, config) {
-    // You can perform own checks on the path
-		console.log('getStateFromPath', path, config);
-		return getStateFromPath(path, config);
-		
+		return getStateFromPath(path, config);		
   },
 };
 

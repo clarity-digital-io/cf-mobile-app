@@ -25,14 +25,14 @@ export const FormsList = ({ route, navigation }) => {
   const [query, setQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 	
-	const { loading, forms, setActiveForm, execute } = useForms();
+	const { loading, forms, setActiveForm, getForms } = useForms();
 
 	useFocusEffect(
 		useCallback(() => {
 			let isActive = true;
 			
 			if(isActive)
-				execute();
+				getForms();
 	
 			return () => {
 				isActive = false;
@@ -71,8 +71,9 @@ export const FormsList = ({ route, navigation }) => {
 							placeholder="Search for a form..."
 							onChangeText={setQuery}
 							value={query}
-							containerStyle={{ backgroundColor: '#fff', borderBottomColor: '#f2f5f9', borderTopColor: '#f2f5f9' }}
-							inputContainerStyle={{ backgroundColor: '#fff' }}
+							containerStyle={{ height: 58, backgroundColor: '#fff', borderBottomColor: '#f2f5f9', borderTopColor: '#f2f5f9' }}
+							inputContainerStyle={{ height: 40, backgroundColor: '#f2f5f9' }}
+							inputStyle={{ fontSize: 16, color: '#16325c' }}
 						/>
 						<FlatList
 							data={forms}

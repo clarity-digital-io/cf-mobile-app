@@ -12,7 +12,8 @@ const settings = [
 			</View>
 		},
 		onPress: (navigation) => 	navigation.navigate('Salesforce Records Sync Settings'),
-		chevron: true
+		chevron: true,
+		icon: 'sync'
 	},
 	{
 		id: 1, 
@@ -23,7 +24,8 @@ const settings = [
 			</View>
 		},
 		onPress: () => {},
-		chevron: false
+		chevron: false,
+		icon: 'ios-arrow-back'
 	},
 	{
 		id: 2, 
@@ -34,7 +36,8 @@ const settings = [
 			</View>
 		},
 		onPress: () => {},
-		chevron: false
+		chevron: false,
+		icon: 'ios-sync'
 	}
 ];
 

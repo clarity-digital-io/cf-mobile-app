@@ -62,7 +62,7 @@ export const useOnChange = (question) => {
 }
 
 const setFormAnswer = (formId, responseId, question, setAnswers, values) => {
-	console.log('values', values); 
+
 	setAnswers(answers => {
 
 		answers.set(question.Id,  { formId: formId, answer: values, questionId: question.Id, type: question.forms__Type, responseId: responseId });

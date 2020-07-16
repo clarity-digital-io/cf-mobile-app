@@ -6,7 +6,7 @@ export const useResponses = () => {
 
 	const { auth, setError, realm, responses, setResponses, loading, setLoading } = useContext(AppContext);
 
-	const execute = () => {
+	const getResponses = () => {
 
 		try {
 			const response = getResponsesLocal(realm);
@@ -28,30 +28,28 @@ export const useResponses = () => {
 
 	}
 
-	const create = (formId, responseId) => {
+	const create = (isNew, formId, responseId) => {
 
 		try {
-			
-			realm.write(() => {
-				realm.create('Response', {
-					UUID: responseId, 
-					Id: responseId,
-					Name: `Response - ${responseId}`,
-					Completion: false,
-					Status: 'New', 
-					Form: formId,
-					OwnerId: auth.user_id.split('|')[1]
+			if(isNew) {
+				realm.write(() => {
+					realm.create('Response', {
+						UUID: responseId, 
+						Id: responseId,
+						Name: `Response - ${responseId}`,
+						Completion: false,
+						Status: 'New', 
+						Form: formId,
+						OwnerId: auth.user_id.split('|')[1]
+					});
 				});
-			});
-
+			}
 		} catch (error) {
-			console.log('error', error); 
-
 			setError(error)
 		}
 	}
 
-  return { loading, responses, execute, filtered, create };
+  return { loading, responses, getResponses, filtered, create };
 
 } 
 

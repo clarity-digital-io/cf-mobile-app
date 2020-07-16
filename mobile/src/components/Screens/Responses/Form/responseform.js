@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import uuid from 'react-native-uuid';
 import { NewFormResponse } from './responseaction';
@@ -20,30 +20,15 @@ import { useResponses } from '../../../../api';
 
 import { useFocusEffect } from '@react-navigation/native';
 import ImagePickerExample from '../../../Elements/Camera/expo';
+import { FormContext } from '../../../Context';
 
 const ResponseFormStack = createStackNavigator();
 
-export const ResponseForm = ({ route, navigation }) => {
+export const ResponseForm = () => {
 
-	const [form] = useState(route.params.activeForm);
-	
-	const { loading, error, create } = useResponses();
+	const { form } = useContext(FormContext);
 
-	const [newUUID] = useState(uuid.v1());
-
-	useFocusEffect(
-		useCallback(() => {
-			let isActive = true;
-			
-			if(isActive)
-				create(form.Id, newUUID);
-	
-			return () => {
-				isActive = false;
-			};
-			
-		}, [route.key])
-	);
+	console.log('form111', form);
 
 	/**
 	 * A level before this we can have a navigator that holds Connection / New as stacks
@@ -53,7 +38,6 @@ export const ResponseForm = ({ route, navigation }) => {
 			<ResponseFormStack.Screen
 				name={form.Title}
 				component={NewFormResponse}
-				initialParams={route.params}
 				options={{
 					tabBarLabel: false, 
 					headerStyle: {

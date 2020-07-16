@@ -16,18 +16,18 @@ import { ResponseForm } from './responseform';
 
 export const ClarityResponse = ({ route, navigation }) => {
 
-	const [form] = useState(route.params.activeForm);
+	const [form] = useState(route.params.form);
 	
 	const { loading, error, create } = useResponses();
 
-	const [newUUID] = useState(uuid.v1());
+	const [responseUUID] = useState( route.params.new ? uuid.v1() : route.params.responseId );
 
 	useFocusEffect(
 		useCallback(() => {
 			let isActive = true;
 			
 			if(isActive)
-				create(form.Id, newUUID);
+				create(route.params.new, form.Id, responseUUID);
 	
 			return () => {
 				isActive = false;
@@ -40,7 +40,7 @@ export const ClarityResponse = ({ route, navigation }) => {
 	 * A level before this we can have a navigator that holds Connection / New as stacks
 	 */
 	return (
-		<ResponseProvider newResponseId={newUUID} newForm={form} newNavigation={navigation}>
+		<ResponseProvider newResponseId={responseUUID} newForm={form} newNavigation={navigation}>
 			<ResponseForm />
 		</ResponseProvider>	
   );

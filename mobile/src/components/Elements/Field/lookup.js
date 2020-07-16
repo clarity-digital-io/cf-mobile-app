@@ -7,7 +7,7 @@
  */
 
 import React, { useContext } from 'react';
-import { fieldStyle } from '../Stylesheet';
+import { fieldStyle } from '../../../stylesheet';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { FormContext } from '../../Context';
 import Ionicons from 'react-native-vector-icons/Ionicons';

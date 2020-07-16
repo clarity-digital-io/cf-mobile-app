@@ -37,7 +37,7 @@ const TabNavigation = () => {
 			},
 		})}
 		tabBarOptions={{
-			activeTintColor: '#DE3745',
+			activeTintColor: '#16325c',
 			inactiveTintColor: '#bfcade',
 		}}
 	>

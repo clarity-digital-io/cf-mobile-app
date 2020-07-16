@@ -6,7 +6,7 @@ export const useForms = (routeName) => {
 
 	const {setError, globalRealm, auth, forms, setForms, setActiveForm } = useContext(AppContext);
 
-	const execute = async () => {
+	const getForms = async () => {
 
 		try {
 			const response = await getFormsLocal(globalRealm, auth);
@@ -17,7 +17,7 @@ export const useForms = (routeName) => {
 
 	}
 
-  return { forms, execute, setActiveForm };
+  return { forms, getForms, setActiveForm };
 
 } 
 

@@ -9,7 +9,7 @@
 import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
 import { FormContext } from '../../Context';
-import { fieldStyle } from '../Stylesheet';
+import { fieldStyle } from '../../../stylesheet';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const GeoLocation = ({ question }) => {

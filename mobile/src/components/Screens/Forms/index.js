@@ -8,7 +8,6 @@
 
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-
 import { FormsList } from './list';
 import { Detail } from './detail';
 

@@ -6,8 +6,6 @@ import { useSync } from '../../../../api';
 export const SyncDetails = ({ navigation, route }) => {
 
 	const { sync, profile } = useSync(); 
-
-	console.log('profile', profile); 
 	
 	return (
     <View style={{ backgroundColor: '#fff' }}>
