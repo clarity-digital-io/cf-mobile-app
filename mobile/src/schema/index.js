@@ -10,6 +10,7 @@ export const FormSchema = {
 		Multi_Page: {type: 'bool', default: false},
 		Multi_Page_Val: {type: 'bool', default: false},
 		Multi_Page_Info: {type: 'string', default: ''},
+		ChecklistGroup: 'data?',
 		Questions: 'Question[]',
 		Form_Connections: 'Form_Connection[]'
   },
@@ -59,7 +60,7 @@ export const QuestionSchema = {
 		Id: 'string',
 		Name: 'string',
     Form: 'string',
-		Title: 'string',
+		Title: 'string?',
 		Type: 'string',
     Order: {type: 'int', default: 0},
     Lookup: 'data?',
@@ -72,7 +73,7 @@ export const QuestionSchema = {
 		Salesforce_Object: 'data?',
 		Logic: {type: 'string', default: ''},
 		FreeText_Type: {type: 'string', default: ''},
-		Record_Group: 'data?',
+		Record_Group: 'string?',
 		Prefill_Type: 'data?',
 		Question_Options: 'Question_Option[]',
 		Question_Criteria: 'Question_Criteria[]'
@@ -115,6 +116,7 @@ export const ResponseSchema = {
 		Submitted_Date: 'data?', 
 		Form: 'string',
 		OwnerId: 'string',
+		Checklist: 'data?',
 		Answers: 'Answer[]'
   },
 };
@@ -124,15 +126,18 @@ export const AnswerSchema = {
 	primaryKey: 'UUID',
 	properties: {
 		UUID: 'string',
-		Id: 'string',
-		Name: 'string', 
-		Answer: 'string',
+		IsAttachment: {type: 'bool', default: false},
+		Name: {type: 'string', default: ''},
+		Answer: {type: 'string', default: ''},
+		Path: {type: 'string', default: ''},
+		Base64: {type: 'string', default: ''},
+		FileLocation: {type: 'string', default: ''},
+		ContentDocument: {type: 'string', default: ''},
+		ContentVersion: {type: 'string', default: ''},
+		Date_Answer: {type: 'string', default: ''},
+		Record: {type: 'string', default: ''},
+		Question: 'string',
 		Response: 'string',
-		ContentDocument: 'string',
-		ContentVersion: 'string',
-		Date_Answer: 'string',
-		Record: 'string',
-		Question: 'string'
 	}
 }
 
@@ -153,11 +158,35 @@ export const ProfileSchema = {
 	name: 'Profile',
 	primaryKey: 'Id', //userId
 	properties: {
-		id: 'string',
-		email: 'string', 
-		full_name: 'string',
-		avatar: 'string',
-		last_sync: 'date',
-		sync_status: 'string' //Complete / Requested / In Progress / Failed / Not Started
+		Id: 'string',
+		Email: 'string', 
+		FullName: 'string',
+		Avatar: 'string',
+		LastSync: 'date',
+		SyncStatus: 'string' //Complete / Requested / In Progress / Failed / Not Started
+	}
+}
+
+//checklist groups
+export const ChecklistGroupSchema = {
+	name: 'ChecklistGroup',
+	primaryKey: 'Id', //userId
+	properties: {
+		Id: 'string',
+		Name: 'string', 
+		Standard: {type: 'bool', default: false}
+	}
+}
+
+//checklist 
+export const ChecklistSchema = {
+	name: 'Checklist',
+	primaryKey: 'Id', //userId
+	properties: {
+		Id: 'string',
+		ChecklistGroup: 'string', 
+		sObject: 'string',
+		RecordId: 'string',
+		Status: 'string'
 	}
 }

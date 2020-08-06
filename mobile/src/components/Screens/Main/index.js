@@ -18,6 +18,9 @@ import Forms from '../Forms';
 import Responses from '../Responses';
 import Settings from '../Settings/index';
 import { InitResponse } from '../Responses/Form/init';
+import { View, Text } from 'react-native';
+import { main } from '../../../stylesheet/theme';
+import Apps from '../Apps';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -42,12 +45,35 @@ const TabNavigation = () => {
 		}}
 	>
 		<Tab.Screen name="Forms" component={Forms} />
+		<Tab.Screen name="Apps" 
+			component={Apps} 
+			options={{
+				tabBarLabel: '',
+				tabBarIcon: ({ focused, color, size }) => (
+					<View
+					style={{
+						position: 'absolute',
+						bottom: 0, // space from bottombar
+						height: 68,
+						width: 68,
+						borderRadius: 68,
+						justifyContent: 'center',
+						backgroundColor: focused ? main.highLightColor : main.lightBlueColor,
+						shadowColor: '#000',
+						alignItems: 'center',
+					}}
+					>
+						<Ionicons name="ios-apps" color={focused ? main.lightBlueColor : main.headerColor} size={38}/>
+					</View>
+				)
+			}}
+		/>
 		<Tab.Screen name="Responses" component={Responses} />
 	</Tab.Navigator>
 }
 
 const Main = () => {
-	return <Stack.Navigator screenOptions={{headerShown: false}} mode="modal">
+	return <Stack.Navigator screenOptions={{headerShown: false}}>
 		<Stack.Screen name="Home" component={TabNavigation} />
 		<Stack.Screen name="InitResponse" component={InitResponse} />
 		<Stack.Screen name="Settings" component={Settings} />

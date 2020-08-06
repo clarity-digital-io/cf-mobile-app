@@ -14,13 +14,22 @@ import { calculateLogic } from '../../../Handlers/useLogic';
 import { useForm } from '../../../../api';
 import { transform } from '../../../../api/helpers';
 
-export const ResponseProvider = ({children, newResponseId, newForm, newNavigation}) => {
+export const ResponseProvider = ({children, newResponseId, newFormId, newNavigation}) => {
 
-	const { getQuestions } = useForm();
+	const { getForm, getQuestions } = useForm();
 
 	const [responseId] = useState(newResponseId); 
 
-	const [form] = useState(newForm); 
+	const [form, setForm] = useState( getForm(`Id = "${newFormId}"`) ); 
+
+	// useEffect(() => {
+
+	// 	if(form == null) {
+	// 		let currentForm = getForm(`Id = "${newFormId}"`);
+	// 		setForm(currentForm);
+	// 	}
+
+	// }, [])
 
 	const [navigation] = useState(newNavigation); 
 
@@ -32,11 +41,14 @@ export const ResponseProvider = ({children, newResponseId, newForm, newNavigatio
 
 	const [records, setRecords] = useState(new Map()); 
 
+	const [allQuestions, setAllQuestions] = useState([]); 
+
 	const [questions, setQuestions] = useState([]); 
 	
 	useEffect(() => {
 		if(questions.length == 0) {
-			let formQuestions = getQuestions(`Form = "${newForm.Id}"`); //newForm.Questions;
+			let formQuestions = getQuestions(`Form = "${newFormId}"`); //newForm.Questions;
+			setAllQuestions(formQuestions);
 			let sortedQuestions = getSortedQuestions(formQuestions); 
 			setQuestions(sortedQuestions);
 		}
@@ -72,8 +84,6 @@ export const ResponseProvider = ({children, newResponseId, newForm, newNavigatio
 			setCriteriaControlled(criteriaControlledQuestions);
 		}
 	}, [questions])
-
-	const [recordGroupAnswers, setRecordGroupAnswers] = useState(new Map());
 	
 	const [requiredConnections, setRequiredConnections] = useState([]); 
 	
@@ -94,11 +104,23 @@ export const ResponseProvider = ({children, newResponseId, newForm, newNavigatio
 
 	}, [questions])
 
+	const [recordGroupAnswers, setRecordGroupAnswers] = useState(new Map());
+
+	const [recordGroupQuestions, setRecordGroupQuestions] = useState(new Map());
+
+	useEffect(() => {
+		if(allQuestions.length) {
+			let rgQuestions = getRecordGroupQuestionsByRecordGroupId(allQuestions); 
+			setRecordGroupQuestions(rgQuestions);
+		}
+	}, [allQuestions])
+
   return (
     <FormContext.Provider
       value={{
+				form,
+				questions,
 				responseId,
-        form,
         navigation,
 				loading,
 				setLoading,
@@ -109,17 +131,39 @@ export const ResponseProvider = ({children, newResponseId, newForm, newNavigatio
 				activeQuestions,
 				answers, 
 				setAnswers,
+				recordGroupAnswers,
+				setRecordGroupAnswers,
 				records, 
 				setRecords,
 				allValidations, 
 				setAllValidations,
 				errorValidations, 
-				setErrorValidations
+				setErrorValidations,
+				recordGroupQuestions
       }}>
       {children}
     </FormContext.Provider>
   );
 };
+
+const getRecordGroupQuestionsByRecordGroupId = (questions) => {
+
+	return questions.filter(question => question.Record_Group != null).reduce((accum, question) => {
+
+		console.log('question.Record_Group1', question.Record_Group.toString());
+
+		if(accum.has(question.Record_Group)) {
+			let rgq = accum.get(question.Record_Group);
+			accum.set(question.Record_Group, rgq.concat([question]))
+		} else {
+			accum.set(question.Record_Group, [question]);
+		}
+
+		return accum; 
+
+	}, new Map());
+
+}
 
 const getSortedQuestions = (questions) => {
 

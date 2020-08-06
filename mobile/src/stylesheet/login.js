@@ -3,7 +3,7 @@ import { main } from './theme';
 
 export const loginStyle = StyleSheet.create({
 	container: {
-		backgroundColor: main.headerColor,
+		backgroundColor: main.backgroundColor,
 		flex: 1,
 		alignItems: "center",
 	},
@@ -18,7 +18,7 @@ export const loginStyle = StyleSheet.create({
 		fontSize: 18,
 		lineHeight: 24,
 		margin: 50,
-		color: main.backgroundColor,
+		color: main.headerColor,
 		fontWeight: '500',
 		textAlign: "center",
 	},
@@ -45,7 +45,7 @@ export const loginStyle = StyleSheet.create({
 		marginRight: 10,
 	},
 	logInButtonText: {
-		color: main.highLightColor,
+		color: main.headerColor,
 		fontSize: 14,
 		fontWeight: '500',
 	},
@@ -63,7 +63,7 @@ export const loginStyle = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	sandboxText: {
-		color: main.backgroundColor,
+		color: main.headerColor,
 		fontSize: 14,
 		fontWeight: '500',
 		textAlign: "left"

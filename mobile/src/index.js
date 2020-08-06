@@ -26,6 +26,7 @@ const App = () => {
 };
 
 const AppProvider = ({children}) => {
+
 	const [error, setError] = useState(true);
 	const [isSandbox, setSandbox] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -33,11 +34,11 @@ const AppProvider = ({children}) => {
   const [profile, setProfile] = useState(null);
   const [realm, setRealm] = useState(null);
   const [globalRealm, setGlobalRealm] = useState(null);
-	//main
+	
 	const [forms, setForms] = useState([]);
 	const [responses, setResponses] = useState([]);
-	//active
 	const [activeForm, setActiveForm] = useState(null);
+	const [apps, setApps] = useState([]);
 
   return (
     <AppContext.Provider
@@ -61,7 +62,9 @@ const AppProvider = ({children}) => {
 				realm, 
 				setRealm,
 				globalRealm, 
-				setGlobalRealm
+				setGlobalRealm,
+				apps, 
+				setApps
       }}>
       {children}
     </AppContext.Provider>

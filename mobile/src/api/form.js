@@ -9,6 +9,7 @@ export const useForm = () => {
 	const getForm = (filter) => {
 		const form = globalRealm.objects('Form').filtered(filter);
 		let transformedForms = transform(form); 
+		console.log('form', transformedForms, form, filter);
 		return transformedForms[0]; 
 	}
 

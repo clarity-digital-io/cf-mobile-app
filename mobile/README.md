@@ -97,3 +97,62 @@ Worker will open realm and process records
 
 14) (Builder) Add Picture Choice on Builder 
 15) (Mobile and Builder) Picture Choice Images Uploaded and displayed on Mobile
+
+
+
+
+
+
+
+
+
+
+## Checklist Groups
+-> On App (sObject / Detail Click)
+-> -> View the checklists available
+-> -> -> Create checklist / Option to View more info
+-> -> -> -> On Create checklist appears as expandable row in 
+
+## Task Management 
+-> Somehow needs to be available offline
+* Challenges
+1. Apps/Accounts/Assets/sObject Checklist won't be available offline
+1.a. So we don't really know what checklist groups it has
+1.b. Account has a Checklist Group 
+1.b.i. We can solve this by storing checklist group in realm table.
+1.b.ii. So now we know related sObject/Account for now of Checklist Group and Forms will have Lookup to Checklist Group
+* Solutions
+1. When user is offline and somehow has maybe downloaded accounts/sobjects then it can:
+1.a Create/Start new checklist from Checklist Group assigned to sObject/Account
+1.b There may be a need for auto checklist creation but that may be
+1.b.i. Apps screen can have a separate section for (Tasks/Checklist) that are for today.
+1.c (Tasks/Checklist) are groups of responses
+1.c.i When user clicks start new checklist for (sobject/Account) new responses are created
+1.d. Checklist is considered complete when (3 or whatever # of forms it has) are submitted (not sure what to do with status of checklist is it an sobject in salesforce)
+* Possible Extensions
+Ability for Admin to create Checklist automatically daily for accounts or sobjects
+
+* sObjects
+
+Checklist 
+-> Checklist_Group__c
+-> sObject_Record__c
+-> Status__c
+-> Start_Date__c
+-> Submitted_Date__c
+
+* Realm needs
+
+ChecklistGroup
+-> Has Forms
+-> Has Checklists
+
+Checklist
+
+* Offer a way to auto create realms on schedule
+- Possible metadata object in Realm
+- Possible Schedule Object in Salesforce that pushes to Realm
+
+
+
+

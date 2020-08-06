@@ -16,11 +16,14 @@ import { PhotoReview } from '../../../Elements/Camera/photoreview';
 import { Camera } from '../../../Elements/Camera';
 import { ClarityMap } from '../../../Elements/Map';
 import { Lookup } from '../../../Elements/Lookup';
+import { RecordGroupInit } from '../../../Elements/RecordGroup';
 import { useResponses } from '../../../../api';
 
 import { useFocusEffect } from '@react-navigation/native';
 import ImagePickerExample from '../../../Elements/Camera/expo';
 import { FormContext } from '../../../Context';
+import { InitRecordGroup } from '../../../Elements/RecordGroup';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ResponseFormStack = createStackNavigator();
 
@@ -28,13 +31,11 @@ export const ResponseForm = () => {
 
 	const { form } = useContext(FormContext);
 
-	console.log('form111', form);
-
 	/**
 	 * A level before this we can have a navigator that holds Connection / New as stacks
 	 */
 	return (
-		<ResponseFormStack.Navigator style={{ backgroundColor: '#fff' }} mode="modal">
+		<ResponseFormStack.Navigator style={{ backgroundColor: '#fff' }}>
 			<ResponseFormStack.Screen
 				name={form.Title}
 				component={NewFormResponse}
@@ -95,3 +96,4 @@ export const ResponseForm = () => {
 		</ResponseFormStack.Navigator>
   );
 }
+

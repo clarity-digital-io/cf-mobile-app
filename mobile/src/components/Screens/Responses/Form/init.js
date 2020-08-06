@@ -12,11 +12,14 @@ import { Text, ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import { NewResponseConnection } from '../Connection';
-import { ClarityResponse } from '.';
 import { main } from '../../../../stylesheet/theme';
 
 
-import { useForm } from '../../../../api';
+import { useForm, useResponses } from '../../../../api';
+import { ResponseProvider } from './responseprovider';
+import uuid from 'react-native-uuid';
+import { InitRecordGroup } from '../../../Elements/RecordGroup';
+import { ResponseForm } from './responseform';
 
 const ResponseStack = createStackNavigator();
 
@@ -53,7 +56,7 @@ const ResponseLoad = ({ route, navigation }) => {
 		{
 			loading ? 
 			<ActivityIndicator size="large" color={main.headerColor} /> : 
-			<Text>Test</Text>
+			<Text>Loading</Text>
 		}
 		</View>
 }
@@ -71,11 +74,40 @@ const styles = StyleSheet.create({
   }
 });
 
-
 export const InitResponse = ({ route, navigation }) => {
+	console.log('InitResponse', route.params);
+	const [formId] = useState(route.params.formId);
+	console.log('formId', formId);
+	const { loading, error, create } = useResponses();
 
-	return <ResponseStack.Navigator mode="modal">
-		<ResponseStack.Screen 
+	const [responseUUID] = useState( route.params.new ? uuid.v1() : route.params.responseId );
+
+	useFocusEffect(
+		useCallback(() => {
+			let isActive = true;
+			
+			if(isActive)
+				create(route.params.new, formId, responseUUID);
+	
+			return () => {
+				isActive = false;
+			};
+			
+		}, [route.key])
+	);
+
+	return (
+		<ResponseProvider newResponseId={responseUUID} newFormId={formId} newNavigation={navigation}>
+			<ResponseNavigation route={route} />
+		</ResponseProvider>
+	)
+}
+
+
+export const ResponseNavigation = ({ route }) => {
+
+	return <ResponseStack.Navigator>
+		{/* <ResponseStack.Screen 
 			name="Response Load" 
 			initialParams={route.params}
 			component={ResponseLoad} 
@@ -97,14 +129,21 @@ export const InitResponse = ({ route, navigation }) => {
 					fontSize: 14
 				}
 			})}
-		/>
+		/> */}
 		<ResponseStack.Screen 
 			name="Response" 
-			component={ClarityResponse} 
+			component={ResponseForm} 
 			options={() => ({
 				headerShown: false
 			})}
 		/>
+		<ResponseStack.Screen
+				name={'RecordGroup'}
+				component={InitRecordGroup}
+				options={() => ({
+					headerShown: false
+				})}
+			/>
 	</ResponseStack.Navigator>
 
 }

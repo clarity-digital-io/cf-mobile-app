@@ -1,7 +1,7 @@
 export const main = {
 	backgroundColor: '#fff',
 	headerColor: '#16325c',
-	highLightColor: '#00A1E0',
+	highLightColor: '#9ae6b4',
 	lightBlueColor: '#f2f5f9',
 	shadowColor: '#333',	
 	colorBackgroundInput: '#fff',

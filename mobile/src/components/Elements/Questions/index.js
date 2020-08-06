@@ -59,7 +59,7 @@ const getQuestion = (question, hasValidationError) => {
 
 const hasFormLabel = (type) => {
 
-	if(type == 'RecordGroup' || type == 'FreeText') {
+	if(type == 'FreeText') {
 			return false; 
 	}
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, ScrollView } from 'react-native';
 import { SettingsListItem } from './listitem';
+import { Avatar } from 'react-native-elements';
 
 const settings = [
 	{
@@ -45,6 +46,14 @@ export const SettingsList = ({ navigation, route }) => {
 
 	return (
     <View style={{ backgroundColor: '#fff' }}>
+				<Avatar
+					rounded
+					containerStyle={{ margin: 20}}
+					source={{
+						uri:
+							'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+					}}
+				/>
 				<ScrollView>
 					{
 							settings.map(setting => {

@@ -23,22 +23,7 @@ export const useForms = (routeName) => {
 
 const getFormsLocal = async(globalRealm) => {
 	const forms = globalRealm.objects('Form');
+	console.log('getForms', forms);
 	let transformedForms = transform(forms);
 	return transformedForms; 
-}
-
-const getFormsAPI = async (realm, {url, access_token}) => {
-
-	const response = await fetch(`${url}/services/apexrest/forms/Forms`, { 
-		method: 'get', 
-		headers: new Headers({
-			'Authorization': `OAuth ${access_token}`, 
-			'Content-Type': 'application/json'
-		})
-	});
-
-	const forms = await response.json();
-
-	return forms; 
-
 }
