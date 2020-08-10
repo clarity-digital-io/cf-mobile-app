@@ -37,14 +37,12 @@ export const NewResponseConnection = ({ route, navigation }) => {
 	
 	useEffect(() => {
 		if(query.length > 1) {
-			console.log('route', query); 
 			searchRecords(route.params.form.Form_Connections[0].Salesforce_Object, query);
 		}
 	}, [query]);
 
 	const recordSelected = (record) => {
 
-		console.log('record', record, route.params.form); 
 		navigation.navigate('Response', { form: route.params.form, connection: record })
 
 	}

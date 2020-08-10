@@ -11,25 +11,54 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { FormContext } from '../../../Context';
 import { calculateLogic } from '../../../Handlers/useLogic';
 
-import { useForm } from '../../../../api';
+import { useForm, useResponses } from '../../../../api';
 import { transform } from '../../../../api/helpers';
 
-export const ResponseProvider = ({children, newResponseId, newFormId, newNavigation}) => {
+export const ResponseProvider = ({children, responseUUID, newFormId, newNavigation, isNew }) => {
 
 	const { getForm, getQuestions } = useForm();
 
-	const [responseId] = useState(newResponseId); 
+	const { filtered, create } = useResponses();
 
-	const [form, setForm] = useState( getForm(`Id = "${newFormId}"`) ); 
+	const [responseId] = useState(responseUUID); 
 
-	// useEffect(() => {
+	const [response, setResponse] = useState({ UUID: responseId }); 
 
-	// 	if(form == null) {
-	// 		let currentForm = getForm(`Id = "${newFormId}"`);
-	// 		setForm(currentForm);
-	// 	}
+	const [isNewResponse] = useState(isNew);
 
-	// }, [])
+	useEffect(() => {
+
+		if(response == null) {
+
+			if(isNewResponse) {
+				let createdResponse = create(newFormId, responseId);
+				setResponse(createdResponse);
+			} else {
+				let existingResponse = filtered(`UUID = "${responseId}"`);
+				setResponse(existingResponse);
+			}
+
+		}
+
+	}, [isNewResponse]);
+
+	const [initialRouteName, setInitialRouteName] = useState('Response'); 
+
+	const [form] = useState( getForm(`Id = "${newFormId}"`) ); 
+
+	useEffect(() => {
+
+		if(form.Form_Connections.length > 0 && isNew) {
+
+			setInitialRouteName('Response Connection')
+
+		} else {
+
+			setInitialRouteName('Response')
+
+		}
+
+	}, [form])
 
 	const [navigation] = useState(newNavigation); 
 
@@ -87,12 +116,6 @@ export const ResponseProvider = ({children, newResponseId, newFormId, newNavigat
 	
 	const [requiredConnections, setRequiredConnections] = useState([]); 
 	
-	const [pageQuestions, setPageQuestions] = useState(new Map());
-
-	const [activePage, setActivePage] = useState(0);
-
-	const [activePageQuestions, setActivePageQuestions] = useState([]); 
-
 	const [activeQuestions, setActiveQuestions] = useState(questions); 
 
 	useEffect(() => {
@@ -118,8 +141,10 @@ export const ResponseProvider = ({children, newResponseId, newFormId, newNavigat
   return (
     <FormContext.Provider
       value={{
+				initialRouteName,
 				form,
 				questions,
+				response,
 				responseId,
         navigation,
 				loading,
@@ -149,8 +174,6 @@ export const ResponseProvider = ({children, newResponseId, newFormId, newNavigat
 const getRecordGroupQuestionsByRecordGroupId = (questions) => {
 
 	return questions.filter(question => question.Record_Group != null).reduce((accum, question) => {
-
-		console.log('question.Record_Group1', question.Record_Group.toString());
 
 		if(accum.has(question.Record_Group)) {
 			let rgq = accum.get(question.Record_Group);

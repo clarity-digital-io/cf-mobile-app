@@ -49,6 +49,5 @@ export const useConnectionRecords = () => {
 const getRecordsLocal = (realm, type, search) => {
 	const records = realm.objects('sObject').filtered(`Type = "${type}" AND Name BEGINSWITH "${search}"`);
 	let transformedRecords = transform(records);
-	console.log('records', transformedRecords)
 	return transformedRecords;
 }

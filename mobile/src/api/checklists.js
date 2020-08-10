@@ -59,9 +59,7 @@ export const useChecklist = (sObject, recordId) => {
 	
 				setChecklistResponses(responses);
 	
-				console.log('responses'); 
 			} catch (error) {
-				console.log('error', error);
 				setError(error)
 			}
 

@@ -23,7 +23,6 @@ export const useForms = (routeName) => {
 
 const getFormsLocal = async(globalRealm) => {
 	const forms = globalRealm.objects('Form');
-	console.log('getForms', forms);
 	let transformedForms = transform(forms);
 	return transformedForms; 
 }

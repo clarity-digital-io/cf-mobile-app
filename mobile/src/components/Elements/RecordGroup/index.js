@@ -20,7 +20,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 const RecordGroupStack = createStackNavigator();
 
 export const InitRecordGroup = ({ navigation, route }) => {
-	console.log('route.params.recordGroupId', route.params.recordGroupId)
+
 	return (
 		<RecordGroupProvider rgId={route.params.recordGroupId}>
 			<RecordGroup />
@@ -34,8 +34,6 @@ const RecordGroupProvider = ({ children, rgId }) => {
 	const { form, recordGroupQuestions } = useContext(FormContext);
 
 	const [fields, setFields] = useState(recordGroupQuestions.has(rgId) ? recordGroupQuestions.get(rgId) : []); 
-
-	console.log('fields', fields);
 
 	const [recordGroupId] = useState(rgId); 
 
@@ -92,7 +90,7 @@ const RecordGroup = ({ navigation, route }) => {
 const RecordGroups = ({ navigation, route }) => {
 
 	const { recordGroupAnswers } = useContext(FormContext);
-	console.log('recordGroupAnswers', recordGroupAnswers); 
+
 	const { recordGroupId } = useContext(RecordGroupContext);
 
   const renderItem = ({ item }) => (
@@ -152,7 +150,6 @@ const styles = StyleSheet.create({
 });
 
 const NewRecordGroup = ({ navigation, route }) => {
-	console.log('navigation', navigation)
 
 	const add = () => {
 		navigation.goBack();

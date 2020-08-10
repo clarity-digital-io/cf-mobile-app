@@ -28,22 +28,26 @@ export const useResponses = () => {
 
 	}
 
-	const create = (isNew, formId, responseId) => {
+	const create = (formId, responseId) => {
 
 		try {
-			if(isNew) {
-				realm.write(() => {
-					realm.create('Response', {
-						UUID: responseId, 
-						Id: responseId,
-						Name: `Response - ${responseId}`,
-						Completion: false,
-						Status: 'New', 
-						Form: formId,
-						OwnerId: auth.user_id.split('|')[1]
-					});
+			
+			let newResponse = null; 
+
+			realm.write(() => {
+				newResponse = realm.create('Response', {
+					UUID: responseId, 
+					Id: responseId,
+					Name: `Response - ${responseId}`,
+					Completion: false,
+					Status: 'New', 
+					Form: formId,
+					OwnerId: auth.user_id.split('|')[1]
 				});
-			}
+			});
+
+			return newResponse; 
+		
 		} catch (error) {
 			setError(error)
 		}

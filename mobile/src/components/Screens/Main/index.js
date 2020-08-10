@@ -17,7 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Forms from '../Forms';
 import Responses from '../Responses';
 import Settings from '../Settings/index';
-import { InitResponse } from '../Responses/Form/init';
+import { InitResponse } from '../Responses/Form';
 import { View, Text } from 'react-native';
 import { main } from '../../../stylesheet/theme';
 import Apps from '../Apps';
@@ -35,7 +35,9 @@ const TabNavigation = () => {
 					iconName = focused ? 'ios-paper' : 'ios-paper';
 				} else if (route.name === 'Responses') {
 					iconName = focused ? 'ios-list' : 'ios-list';
-				} 
+				} else {
+					iconName = focused ? 'ios-apps' : 'ios-apps';
+				}
 				return <Ionicons name={iconName} size={size} color={color} />;
 			},
 		})}
@@ -45,29 +47,7 @@ const TabNavigation = () => {
 		}}
 	>
 		<Tab.Screen name="Forms" component={Forms} />
-		<Tab.Screen name="Apps" 
-			component={Apps} 
-			options={{
-				tabBarLabel: '',
-				tabBarIcon: ({ focused, color, size }) => (
-					<View
-					style={{
-						position: 'absolute',
-						bottom: 0, // space from bottombar
-						height: 68,
-						width: 68,
-						borderRadius: 68,
-						justifyContent: 'center',
-						backgroundColor: focused ? main.highLightColor : main.lightBlueColor,
-						shadowColor: '#000',
-						alignItems: 'center',
-					}}
-					>
-						<Ionicons name="ios-apps" color={focused ? main.lightBlueColor : main.headerColor} size={38}/>
-					</View>
-				)
-			}}
-		/>
+		<Tab.Screen name="Apps" component={Apps} />
 		<Tab.Screen name="Responses" component={Responses} />
 	</Tab.Navigator>
 }

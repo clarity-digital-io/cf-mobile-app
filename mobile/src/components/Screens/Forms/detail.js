@@ -44,7 +44,6 @@ export const Detail = ({ route, navigation }) => {
 	}
 
 	const newResponse = () => {
-		console.log('activeForm we have enough info to decide where to navigate to', activeForm); 
 		navigation.navigate('InitResponse', { formId: activeForm.Id, new: true })
 	}
 

@@ -31,7 +31,7 @@ const getAppsAPI = async (realm, {url, access_token}) => {
 	});
 
 	const apps = await response.json();
-	console.log('accounts with checklists1', apps);
+
 	return apps; 
 
 }

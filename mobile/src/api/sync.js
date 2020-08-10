@@ -9,7 +9,6 @@ export const useSync = () => {
 
 		try {
 			//set profile in realm to in progress
-			console.log('tst')
 			const response = await startSync(auth, query);
 
 			if(response.success) {
@@ -17,7 +16,6 @@ export const useSync = () => {
 			}
 
 		} catch (error) {
-			console.log(error);
 			setError(error)
 		}
 
@@ -35,7 +33,6 @@ const startSync = async ({url, access_token, user_id}, query) => {
 	 * 2. Salesforce Essentials
 	 * 3. Salesforce Clarity Forms Mobile External Authentication
 	 */
-	console.log('url', url, access_token, user_id, query);
 	const pe = await fetch(`${url}/services/apexrest/forms/v1/Records/${user_id.split('|')[1]}`, { 
 		method: 'get', 
 		headers: new Headers({
@@ -45,7 +42,6 @@ const startSync = async ({url, access_token, user_id}, query) => {
 	});
 
 	const response = await pe.json();
-	console.log('response', response);
 	return response; 
 
 }

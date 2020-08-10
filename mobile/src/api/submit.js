@@ -5,14 +5,9 @@ export const useSubmit = (navigation) => {
 
 	const { realm, setError } = useContext(AppContext);
 
-	const { form, responseId, answers, images, records, allValidations, setErrorValidations, setLoading } = useContext(FormContext);
+	const { response, responseId, answers, images, records, allValidations, setErrorValidations, setLoading } = useContext(FormContext);
 
 	const [startSubmit, setStartSubmit] = useState(false); 
-
-	useEffect(() => {
-		submit(); 
-		setStartSubmit(false);
-	}, [startSubmit])
 
 	const handleProcess = (index) => {
 
@@ -20,7 +15,7 @@ export const useSubmit = (navigation) => {
 			case 0:
 				break;
 			case 1:
-				setStartSubmit(true); 
+				submit(); 
 				break;
 			case 2:
 				break;
@@ -54,15 +49,10 @@ export const useSubmit = (navigation) => {
 		try {
 
 			validate(answers, allValidations, setErrorValidations); 
-			//notify of validations
-			//answer prepare 
-			let prepAnswers = [];
-			prepAnswers = [...answers.keys()].map(questionId => {
-				let answer = answers.get(questionId);
-				return {
 
-				}
-			})
+			upsert(answers, response, realm);
+
+
 			//create(realm, preparedAnswers, )
 			//response prepare + pending
 			//submit to realm
@@ -93,31 +83,51 @@ const validate = (answers, allValidations, setErrorValidations) => {
 
 }
 
-const postResponseAPI = async ({url, access_token}, answers, formId, responseId) => {
+const upsert = (answers, response, realm) => {
+	console.log('answers1', answers, response); 
 
-	let cleanAnswers = prepareAnswers(answers, formId, responseId);
+	let prepAnswers = [...answers.keys()].map(questionId => {
 
-	const response = await fetch(`${url}/services/apexrest/forms/Responses`, { 
-		method: 'post', 
-		body: JSON.stringify([cleanAnswers]),
-		headers: new Headers({
-			'Authorization': `OAuth ${access_token}`, 
-			'Content-Type': 'application/json'
-		}), 
+		let answer = answers.get(questionId);
+		console.log('answer', answer); 
+
+		return {
+			UUID: answer.uuid, 
+			IsAttachment: false, 
+			Name: '',
+			Answer: answer.answer,
+			Path: '',
+			Base64: '',
+			FileLocation: '',
+			ContentDocument: '',
+			ContentVersion: '',
+			Date_Answer: '',
+			Record: '',
+			Question: answer.questionId,
+			Response: response.UUID
+		}
+
 	});
 
-	const formResponse = await response.json();
+	console.log('prepAnswers', prepAnswers); 
 
-	return formResponse; 
+	try {
+		realm.write(() => {
 
-}
-
-const prepareAnswers = (answers, formId, responseId) => {
-
-	return {
-		formId: formId, 
-		responseId: responseId,
-		answers: Array.from(answers.values())
+			prepAnswers.forEach(answer => {
+				
+				realm.create('Answer', answer, 'all');
+		
+			});
+	
+			response.Status = 'Submitted';
+	
+			//realm.create('Response', response, 'all');
+	
+		});
+			
+	} catch (error) {
+		console.log('error', error);		
 	}
 
 }

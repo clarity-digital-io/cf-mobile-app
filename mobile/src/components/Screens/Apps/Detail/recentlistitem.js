@@ -14,7 +14,7 @@ import {ListItem} from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale'; 
 
 export const RecentItem = ({ recent, onPress }) => {
-	console.log('recent', recent);
+
 	return (
 		<ListItem 
 			Component={TouchableScale}
