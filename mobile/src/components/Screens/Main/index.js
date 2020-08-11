@@ -20,6 +20,7 @@ import Settings from '../Settings/index';
 import { InitResponse } from '../Responses/Form';
 import { View, Text } from 'react-native';
 import { main } from '../../../stylesheet/theme';
+
 import Apps from '../Apps';
 
 const Tab = createBottomTabNavigator();
@@ -42,12 +43,12 @@ const TabNavigation = () => {
 			},
 		})}
 		tabBarOptions={{
-			activeTintColor: '#16325c',
+			activeTintColor: '#000',
 			inactiveTintColor: '#bfcade',
 		}}
 	>
 		<Tab.Screen name="Forms" component={Forms} />
-		<Tab.Screen name="Apps" component={Apps} />
+		<Tab.Screen name="Checklists" component={Apps} />
 		<Tab.Screen name="Responses" component={Responses} />
 	</Tab.Navigator>
 }
