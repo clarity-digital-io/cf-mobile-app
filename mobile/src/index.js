@@ -39,6 +39,7 @@ const AppProvider = ({children}) => {
 	const [responses, setResponses] = useState([]);
 	const [activeForm, setActiveForm] = useState(null);
 	const [apps, setApps] = useState([]);
+	const [groups, setGroups] = useState([]);
 
   return (
     <AppContext.Provider
@@ -64,7 +65,9 @@ const AppProvider = ({children}) => {
 				globalRealm, 
 				setGlobalRealm,
 				apps, 
-				setApps
+				setApps,
+				groups, 
+				setGroups
       }}>
       {children}
     </AppContext.Provider>

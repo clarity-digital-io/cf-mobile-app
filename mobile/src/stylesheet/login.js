@@ -15,16 +15,16 @@ export const loginStyle = StyleSheet.create({
 		marginTop: 100,
 	},
 	loginHeaderText: {
-		fontSize: 18,
+		fontSize: 16,
 		lineHeight: 24,
 		margin: 50,
 		color: main.headerColor,
-		fontWeight: '500',
+		fontWeight: '300',
 		textAlign: "center",
 	},
 	logInButton: {
 		backgroundColor: main.backgroundColor,
-		borderRadius: 2,
+		borderRadius: 12,
 		flexDirection: "row",
 		alignItems: "center",
 		alignSelf: "center",
@@ -36,7 +36,7 @@ export const loginStyle = StyleSheet.create({
 			width: 0,
 			height: 4,
 		},
-		shadowOpacity: .5,
+		shadowOpacity: .25,
 		shadowRadius: 3.84,
 		elevation: 1,
 	},
@@ -46,8 +46,9 @@ export const loginStyle = StyleSheet.create({
 	},
 	logInButtonText: {
 		color: main.headerColor,
+		fontFamily: 'HelveticaNeue',
 		fontSize: 14,
-		fontWeight: '500',
+		fontWeight: '300',
 	},
 	switchSwitch: {
 		width: 40,
@@ -65,7 +66,7 @@ export const loginStyle = StyleSheet.create({
 	sandboxText: {
 		color: main.headerColor,
 		fontSize: 14,
-		fontWeight: '500',
+		fontWeight: '300',
 		textAlign: "left"
 	}
 })

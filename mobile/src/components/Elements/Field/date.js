@@ -26,8 +26,8 @@ export const ClarityDate = ({ key, question, disabled }) => {
 
 	return [
 			<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center'	}}>
-				<Ionicons style={{ marginRight: 14 }} size={32} onPress={() => showDatePicker()} name={"ios-calendar"} color={'#f2f5f9'} />
-				<Text style={{ color: '#16325c' }}>{Moment(date).format('MMMM d YYYY')}</Text>
+				<Ionicons style={{ marginRight: 14 }} size={32} onPress={() => showDatePicker()} name={"ios-calendar"} color={'#E7F1F6'} />
+				<Text style={{ color: '#1C1C1C' }}>{Moment(date).format('MMMM d YYYY')}</Text>
 			</View>,
 			show ? 
 			<DateTimePicker

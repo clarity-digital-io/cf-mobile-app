@@ -26,7 +26,7 @@ export const useSync = () => {
 } 
 
 const startSync = async ({url, access_token, user_id}, query) => {
-
+	console.log('access_token,', access_token); 
 	//direct call to salesforce should only be called for users with salesforce editions above essentials
 	/**
 	 * 1. Salesforce Enterprise
@@ -42,6 +42,7 @@ const startSync = async ({url, access_token, user_id}, query) => {
 	});
 
 	const response = await pe.json();
+	console.log('response', response); 
 	return response; 
 
 }

@@ -30,14 +30,14 @@ export const NewFormResponseConnected = connectActionSheet(({ route, navigation 
 
 	const { showActionSheetWithOptions } = useActionSheet();
 
-	const { handleCancel, handleProcess } = useSubmit(navigation);
+	const { setStartSubmit } = useSubmit(navigation);
 
 	const process = () => {
-
+		console.log('proces'); 
 		const options = ['Save & New', 'Submit', 'Cancel'];
 		const cancelButtonIndex = 2;
 
-		showActionSheetWithOptions({ options, cancelButtonIndex }, buttonIndex => handleProcess(buttonIndex)); 
+		showActionSheetWithOptions({ options, cancelButtonIndex }, (index) => handleProcess(index)); 
 
 	}
 
@@ -51,15 +51,51 @@ export const NewFormResponseConnected = connectActionSheet(({ route, navigation 
 
 	}
 
+	const handleProcess = (index) => {
+
+		switch (index) {
+			case 0:
+				break;
+			case 1:
+				// submit(allValidations, answers, response, navigation, setErrors);
+				setStartSubmit(true); 
+				break;
+			case 2:
+				break;
+			default:
+				break;
+		}
+	
+	}
+
+	const handleCancel = (index) => {
+
+		switch (index) {
+			case 0:
+				break;
+			case 1:
+				navigation.reset({
+					index: 0,
+					routes: [{ name: 'Home' }],
+				});
+				break;
+			case 2:
+				break;
+			default:
+				navigation.goBack(); 
+				break;
+		}
+	}
+
 	const { form } = useContext(FormContext);
 
 	React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-				<Ionicons style={{ marginRight: 16, marginTop: 2 }} size={32} onPress={() => process()} name={"ios-checkmark"} color={'#16325c'} />
+				<Ionicons style={{ marginRight: 16, marginTop: 2 }} size={32} onPress={() => process()} name={"ios-checkmark"} color={'#fff'} />
 			),
 			headerLeft: () => (
-				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => cancel()} name={"ios-close"} color={'#16325c'} />
+				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => cancel()} name={"ios-close"} color={'#fff'} />
 			)
     });
   }, [navigation]);

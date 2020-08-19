@@ -38,8 +38,8 @@ export const Attachments = ({ question }) => {
 	
 	return [
 		<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 10	}}>
-		<Ionicons style={{ marginRight: 14 }} size={32} onPress={takePicture} name={"ios-camera"} color={'#f2f5f9'} />
-		<Text style={{ color: '#16325c' }}>Capture or Select a Photo</Text>
+		<Ionicons style={{ marginRight: 14 }} size={32} onPress={takePicture} name={"ios-camera"} color={'#E7F1F6'} />
+		<Text style={{ color: '#1C1C1C' }}>Capture or Select a Photo</Text>
 		</View>,
 
 		images.has(question.Id) ?

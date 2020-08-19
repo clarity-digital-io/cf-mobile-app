@@ -6,9 +6,8 @@
  * @flow strict-local
  */
 
-import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import { View, Text, ScrollView, FlatList } from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
+import { View, Text, FlatList } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
 import {ListItem} from 'react-native-elements';
@@ -19,14 +18,16 @@ import { FormContext } from '../../../Context';
 
 export const NewResponseConnection = ({ route, navigation }) => {
 
+	const { form, setFormConnection } = useContext(FormContext); 
+
 	const goBack = () => {
-		navigation.navigate('Detail', { formId: route.params.formId })
+		navigation.navigate('Detail', { formId: form.Id })
 	}
 
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
 			headerLeft: () => (
-				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => goBack()} name={"ios-close"} color={'#16325c'} />
+				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => goBack()} name={"ios-close"} color={'#fff'} />
 			)
 		});
 	}, [navigation]);
@@ -37,26 +38,27 @@ export const NewResponseConnection = ({ route, navigation }) => {
 	
 	useEffect(() => {
 		if(query.length > 1) {
-			searchRecords(route.params.form.Form_Connections[0].Salesforce_Object, query);
+			searchRecords(form.Form_Connections[0].Salesforce_Object, query);
 		}
 	}, [query]);
 
 	const recordSelected = (record) => {
 
-		navigation.navigate('Response', { form: route.params.form, connection: record })
+		setFormConnection(record); 
+		navigation.navigate('Response')
 
 	}
 
-	return  <View>
+	return  <View style={{ backgroundColor: '#F8F8F8', flexGrow: 1 }}>
 			{
-				route.params.form ? 
+				form ? 
 				[<SearchBar
 					placeholder="Search for a record..."
 					onChangeText={(searchTerm) => setQuery(searchTerm)}
 					value={query}
-					containerStyle={{ height: 58, backgroundColor: '#fff', borderBottomColor: '#f2f5f9', borderTopColor: '#f2f5f9' }}
-					inputContainerStyle={{ height: 40, backgroundColor: '#f2f5f9' }}
-					inputStyle={{ fontSize: 16, color: '#16325c' }}
+					containerStyle={{ height: 52, backgroundColor: '#fff', borderBottomColor: '#E7F1F6', borderTopColor: '#E7F1F6' }}
+					inputContainerStyle={{ height: 34, backgroundColor: '#f8f8f8' }}
+					inputStyle={{ fontSize: 14, color: '#1C1C1C' }}
 				/>,
 				<FlatList
 					data={records}
@@ -77,17 +79,38 @@ const RecordListItem = ({ record, onPress }) => {
 			tension={100} 
 			activeScale={0.98}
 			title={
-				<View style={{  }}>
-					<Text style={{ color: '#16325c', fontWeight: '700', fontSize: 14, marginBottom: 6 }}>{record.Name}</Text>
-					<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, lineHeight: 18 }}>
-						{record.Type}
-					</Text>
-				</View>
+			<View style={{ paddingTop: 4, paddingBottom: 4 }}>
+				<Text style={{ color: '#1C1C1C', fontWeight: '500', fontSize: 12, marginBottom: 4 }}>
+					{record.Name}
+				</Text>
+				<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, lineHeight: 18 }}>
+					{record.Type}
+				</Text>
+			</View>
 			}
-			bottomDivider={true}
+			chevron
 			onPress={() => onPress(record)}
-			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#f2f5f9', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}
+			containerStyle={{ 
+				margin: 4, 
+				marginBottom: 2,
+				padding: 14, 
+				paddingBottom: 8,
+				paddingTop: 8,
+				backgroundColor: '#fff', 
+				borderColor: colors[2], 
+				borderLeftWidth: 6, 
+				borderRightWidth: 0, 
+				borderBottomWidth: 0, 
+				borderTopWidth: 0,
+				borderRadius: 2
+			}}
 		/>
 	)
 }
 	
+const colors = [
+	'#E7F1F6',
+	'#FDE14D',
+	'#001B34',
+	'#1C1C1C'
+]

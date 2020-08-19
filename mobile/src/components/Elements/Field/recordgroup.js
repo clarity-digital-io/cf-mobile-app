@@ -21,8 +21,8 @@ export const RecordGroup = ({ key, question, disabled }) => {
 
 	return (
 		<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 10	}}>
-			<Ionicons style={{ marginRight: 14 }} size={32} onPress={createRecord} name={"ios-add"} color={'#16325c'} />
-			<Text style={{ color: '#16325c' }}>Create { question.Title }</Text>
+			<Ionicons style={{ marginRight: 14 }} size={32} onPress={createRecord} name={"ios-add"} color={'#1C1C1C'} />
+			<Text style={{ color: '#1C1C1C' }}>Create { question.Title }</Text>
 		</View>
 	)
 }

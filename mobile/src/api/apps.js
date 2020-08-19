@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 import { AppContext } from '../components/Context';
+import { transform } from '../api/helpers';
 
-export const useApps = (routeName) => {
+export const useApps = () => {
 
-	const {setError, globalRealm, auth, apps, setApps } = useContext(AppContext);
+	const {setError, globalRealm, auth, apps, setApps, groups, setGroups } = useContext(AppContext);
 
 	const getApps = async () => {
 
@@ -16,7 +17,18 @@ export const useApps = (routeName) => {
 
 	}
 
-  return { apps, getApps };
+	const getGroups = async () => {
+
+		try {
+			const response = getGroupsLocal(globalRealm, auth);
+			setGroups(response)
+		} catch (error) {
+			setError(error)
+		}
+
+	}
+
+  return { apps, getApps, groups, getGroups };
 
 } 
 
@@ -34,4 +46,10 @@ const getAppsAPI = async (realm, {url, access_token}) => {
 
 	return apps; 
 
+}
+
+const getGroupsLocal = (realm) => {
+	const groups = realm.objects('ChecklistGroup');
+	let transformedGroups = transform(groups);
+	return transformedGroups;
 }

@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ListItem} from 'react-native-elements';
 
 import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
-import { main } from '../../../stylesheet/theme';
+import { main } from '../../../../stylesheet/theme';
 
 export const AppsListItem = ({ app, onPress }) => {
 	return (
@@ -23,12 +23,9 @@ export const AppsListItem = ({ app, onPress }) => {
 			friction={90}
 			tension={100} 
 			activeScale={0.98}
-			leftIcon={
-				<Ionicons size={22} name={"ios-apps"} color={main.highLightColor}  />
-			}
 			title={
 				<View style={{ paddingTop: 4, paddingBottom: 4 }}>
-					<Text style={{ color: '#16325c', fontWeight: '700', fontSize: 14, marginBottom: 6 }}>{app.record.Name}</Text>
+					<Text style={{ color: '#1C1C1C', fontWeight: '700', fontSize: 12, marginBottom: 6 }}>{app.record.Name}</Text>
 					<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, lineHeight: 18, marginBottom: 12 }}>
 					{app.record.BillingAddress.city}, {app.record.BillingAddress.state} {app.record.Phone}
 					</Text>
@@ -40,7 +37,25 @@ export const AppsListItem = ({ app, onPress }) => {
 			}
 			chevron
 			onPress={() => onPress(app)}
-			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#f2f5f9', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}
+			containerStyle={{ 
+				margin: 4, 
+				marginBottom: 2,
+				padding: 14, 
+				backgroundColor: '#fff', 
+				borderColor: colors[2], 
+				borderLeftWidth: 6, 
+				borderRightWidth: 0, 
+				borderBottomWidth: 0, 
+				borderTopWidth: 0,
+				borderRadius: 2
+			}}
 		/>
 	)
 }
+
+const colors = [
+	'#E7F1F6',
+	'#FDE14D',
+	'#001B34',
+	'#1C1C1C'
+]

@@ -24,15 +24,15 @@ const Settings = () => {
         options={( {navigation, route} ) => ({
 						tabBarLabel: false, 
 						headerStyle: {
-							backgroundColor: '#f2f5f9',
+							backgroundColor: '#1C1C1C',
 						},
-						headerTintColor: '#16325c',
+						headerTintColor: '#fff',
 						headerTitleStyle: {
 							fontWeight: '500',
 							fontSize: 14
 						},
 						headerLeft: props => {
-							return <Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#16325c'} />
+							return <Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#fff'} />
 						}
 				})}
       />
@@ -42,15 +42,15 @@ const Settings = () => {
         options={( {navigation, route} ) => ({
 					tabBarLabel: false, 
 					headerStyle: {
-						backgroundColor: '#f2f5f9',
+						backgroundColor: '#1C1C1C',
 					},
-					headerTintColor: '#16325c',
+					headerTintColor: '#fff',
 					headerTitleStyle: {
 						fontWeight: '500',
 						fontSize: 14
 					},
 					headerLeft: props => {
-						return <Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#16325c'} />
+						return <Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#fff'} />
 					}
 				})}
       />

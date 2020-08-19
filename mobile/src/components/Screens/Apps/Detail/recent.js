@@ -39,7 +39,7 @@ export const Recent = ({ route, navigation }) => {
 
 	return [
 		<View style={{ borderRadius: 14, margin: 8, marginTop: 4,  marginBottom: 0, padding: 14, borderLeftWidth: 0, borderRightWidth: 0 }}>
-			<Text style={{ color: '#16325c', fontWeight: '700', fontSize: 16 }}>Recent</Text>
+			<Text style={{ color: '#1C1C1C', fontWeight: '700', fontSize: 12 }}>Recent</Text>
 		</View>,
 		<FlatList data={checklists} renderItem={renderItem} />
 	]

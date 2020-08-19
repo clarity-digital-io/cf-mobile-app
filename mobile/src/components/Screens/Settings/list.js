@@ -9,55 +9,44 @@ const settings = [
 		title: 'Sync Salesforce Records',
 		component: (title) => {
 			return <View style={{ paddingTop: 4, paddingBottom: 4 }}>
-				<Text style={{ color: '#16325c', fontWeight: '500', fontSize: 14 }}>{title}</Text>
+				<Text style={{ color: '#1C1C1C', fontWeight: '500', fontSize: 14 }}>{title}</Text>
 			</View>
 		},
 		onPress: (navigation) => 	navigation.navigate('Salesforce Records Sync Settings'),
-		chevron: true,
-		icon: 'sync'
+		chevron: true
 	},
 	{
 		id: 1, 
 		title: 'Push notificiations',
 		component: (title) => {
 			return <View style={{ paddingTop: 4, paddingBottom: 4 }}>
-				<Text style={{ color: '#16325c', fontWeight: '300', fontSize: 14 }}>{title}</Text>
+				<Text style={{ color: '#1C1C1C', fontWeight: '300', fontSize: 14 }}>{title}</Text>
 			</View>
 		},
 		onPress: () => {},
 		chevron: false,
-		icon: 'ios-arrow-back'
 	},
 	{
 		id: 2, 
 		title: 'Send feedback',
 		component: (title) => {
 			return <View style={{ paddingTop: 4, paddingBottom: 4 }}>
-				<Text style={{ color: '#16325c', fontWeight: '300', fontSize: 14 }}>{title}</Text>
+				<Text style={{ color: '#1C1C1C', fontWeight: '300', fontSize: 14 }}>{title}</Text>
 			</View>
 		},
 		onPress: () => {},
-		chevron: false,
-		icon: 'ios-sync'
+		chevron: false
 	}
 ];
 
 export const SettingsList = ({ navigation, route }) => {
 
 	return (
-    <View style={{ backgroundColor: '#fff' }}>
-				<Avatar
-					rounded
-					containerStyle={{ margin: 20}}
-					source={{
-						uri:
-							'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-					}}
-				/>
+    <View style={{ backgroundColor: '#f5f5f5', flex: 1 }}>
 				<ScrollView>
 					{
 							settings.map(setting => {
-								return <SettingsListItem setting={setting} navigation={navigation} chevron={setting.chevron}  />
+								return <SettingsListItem setting={setting} navigation={navigation} />
 							})
 					}
 				</ScrollView>

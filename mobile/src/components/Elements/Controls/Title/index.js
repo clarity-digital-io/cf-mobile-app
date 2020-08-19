@@ -13,8 +13,18 @@ import { fieldStyle } from '../../../../stylesheet';
 export const Title = ({ title, required }) => {
 
 	return	<View style={ required ? fieldStyle.titleContainerRequired : fieldStyle.titleContainer }>
-		<Text style={fieldStyle.title}>
-			{ required ? <Text style={{ color: '#fc5c65', fontWeight: '700' }}>*</Text> : null } { title } 
+		<Text style={required ? fieldStyle.requiredTitle : fieldStyle.title  }>
+			{ title } 
+		</Text>
+	</View>
+
+}
+
+export const ConnectionTitle = ({ title }) => {
+
+	return	<View style={ fieldStyle.connectionTitleContainer }>
+		<Text style={ fieldStyle.connectionTitle  }>
+			{ title } 
 		</Text>
 	</View>
 

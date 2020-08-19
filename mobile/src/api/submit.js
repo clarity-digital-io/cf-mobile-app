@@ -3,72 +3,64 @@ import { AppContext, FormContext } from '../components/Context';
 
 export const useSubmit = (navigation) => {
 
-	const { realm, setError } = useContext(AppContext);
-
-	const { response, responseId, answers, images, records, allValidations, setErrorValidations, setLoading } = useContext(FormContext);
+	const { realm } = useContext(AppContext);
 
 	const [startSubmit, setStartSubmit] = useState(false); 
 
-	const handleProcess = (index) => {
+	const { response, answers, images, records, allValidations, setErrors, setSubmit } = useContext(FormContext);
 
-		switch (index) {
-			case 0:
-				break;
-			case 1:
-				submit(); 
-				break;
-			case 2:
-				break;
-			default:
-				break;
+	useEffect(() => {
+
+		if(startSubmit) {
+			submit(allValidations, answers, response, navigation, setErrors);
 		}
-	
-	}
 
-	const handleCancel = (index) => {
+	}, [startSubmit])
 
-		switch (index) {
-			case 0:
-				break;
-			case 1:
-				navigation.reset({
-					index: 0,
-					routes: [{ name: 'Home' }],
-				});
-				break;
-			case 2:
-				break;
-			default:
-				navigation.goBack(); 
-				break;
-		}
-	}
+	const submit = (allValidations, answers, response, navigation, setErrors) => {
 
-	const submit = () => {
+		let status = { success: false, errors: [], validations: [] };
 
 		try {
 
-			validate(answers, allValidations, setErrorValidations); 
+			status = validate(answers, allValidations, status); 
 
-			upsert(answers, response, realm);
+			if(status.success == false) {
+				throw "Error"; 
+			}
 
+			status = upsert(answers, response, realm, status);
 
-			//create(realm, preparedAnswers, )
-			//response prepare + pending
-			//submit to realm
-			//setLoading(false);
+			if(status.success == false) {
+				throw "Error"; 
+			}
 
 		} catch (error) {
-			setError(error)
+			status.errors = [error]	
 		}
+
+		setStartSubmit(false); 
+
+		status.success ? 
+			navigate(navigation, response) : 
+			setErrors(errors => { return status }); 
 
 	}
 
-	return { handleProcess, handleCancel };
+	return { setStartSubmit };
 
 } 
 
-const validate = (answers, allValidations, setErrorValidations) => {
+const navigate = (navigation, response) => {
+	console.log('response', response); 
+	navigation.reset({
+		index: 0,
+		routes: [{ name: 'Home' }],
+	}) 
+
+}
+
+const validate = (answers, allValidations, status) => {
 
 	let newErrors = Array.from(allValidations.keys()).reduce((accum, questionId) => {
 
@@ -77,19 +69,25 @@ const validate = (answers, allValidations, setErrorValidations) => {
 		}
 
 		return accum; 
+
 	}, []);
 
-	setErrorValidations(newErrors);
+	if(newErrors.length == 0) {
+		status.success = true; 
+	} else {
+		status.success = false;
+		status.validations = newErrors; 
+	}
+
+	return status; 
 
 }
 
-const upsert = (answers, response, realm) => {
-	console.log('answers1', answers, response); 
+const upsert = (answers, response, realm, status) => {
 
 	let prepAnswers = [...answers.keys()].map(questionId => {
 
 		let answer = answers.get(questionId);
-		console.log('answer', answer); 
 
 		return {
 			UUID: answer.uuid, 
@@ -109,9 +107,8 @@ const upsert = (answers, response, realm) => {
 
 	});
 
-	console.log('prepAnswers', prepAnswers); 
-
 	try {
+
 		realm.write(() => {
 
 			prepAnswers.forEach(answer => {
@@ -119,15 +116,23 @@ const upsert = (answers, response, realm) => {
 				realm.create('Answer', answer, 'all');
 		
 			});
-	
+			
 			response.Status = 'Submitted';
 	
-			//realm.create('Response', response, 'all');
-	
+			realm.create('Response', response, 'all');
+
+			status.success = true; 
+
 		});
 			
 	} catch (error) {
-		console.log('error', error);		
+		console.log('responseerror', error); 
+
+		status.success = false; 
+		status.errors = error; 
+
 	}
+
+	return status; 
 
 }

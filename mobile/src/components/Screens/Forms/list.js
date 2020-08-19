@@ -55,7 +55,7 @@ export const FormsList = ({ route, navigation }) => {
 	const renderItem = ({ item }) => (<FormListItem key={item.Name} form={item} onPress={formSelected} />);
 
 	return (
-    <View style={{ backgroundColor: '#fff', flexGrow: 1 }}>
+    <View style={{ backgroundColor: '#F8F8F8', flexGrow: 1 }}>
 			{
 				loading && forms != null && forms.length > 0 ? 
 				<Text>Forms Loading...</Text> :
@@ -71,9 +71,9 @@ export const FormsList = ({ route, navigation }) => {
 							placeholder="Search for a form..."
 							onChangeText={setQuery}
 							value={query}
-							containerStyle={{ height: 58, backgroundColor: '#fff', borderBottomColor: '#f2f5f9', borderTopColor: '#f2f5f9' }}
-							inputContainerStyle={{ height: 40, backgroundColor: '#f2f5f9' }}
-							inputStyle={{ fontSize: 16, color: '#16325c' }}
+							containerStyle={{ height: 52, backgroundColor: '#fff', borderBottomColor: '#E7F1F6', borderTopColor: '#E7F1F6' }}
+							inputContainerStyle={{ height: 34, backgroundColor: '#f8f8f8' }}
+							inputStyle={{ fontSize: 14, color: '#1C1C1C' }}
 						/>
 						<FlatList
 							data={forms}

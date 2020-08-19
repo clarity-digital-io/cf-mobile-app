@@ -26,12 +26,12 @@ export const RecentItem = ({ recent, onPress }) => {
 			}
 			title={
 				<View style={{ paddingTop: 4, paddingBottom: 4 }}>
-					<Text style={{ color: '#16325c', fontWeight: '700', fontSize: 14, marginBottom: 6 }}>{recent.sObject}</Text>
+					<Text style={{ color: '#1C1C1C', fontWeight: '700', fontSize: 14, marginBottom: 6 }}>{recent.sObject}</Text>
 				</View>
 			}
 			chevron
 			onPress={() => onPress(recent)}
-			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#f2f5f9', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}
+			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#E7F1F6', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}
 		/>
 	)
 	

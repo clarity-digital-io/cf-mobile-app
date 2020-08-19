@@ -16,10 +16,10 @@ import { Title } from '../Controls/Title';
 
 export const Questions = () => {
 
-	const { form, activeQuestions, allValidations, errorValidations } = useContext(FormContext); 
+	const { activeQuestions, errors } = useContext(FormContext); 
 
 	return activeQuestions.map(question => {
-		let hasValidationError = errorValidations.indexOf(question.Id) > -1 ? true : false;
+		let hasValidationError = errors.validations.indexOf(question.Id) > -1 ? true : false;
 		return getQuestion(question, hasValidationError);
 	})
 }
@@ -38,17 +38,19 @@ const getQuestion = (question, hasValidationError) => {
 
 	return (
 		hasFormLabel(question.Type) ? 
-		<View key={question.Title} style={hasValidationError ? fieldStyle.mainError : fieldStyle.main}>
+		<View key={question.Title} style={hasValidationError ? fieldStyle.mainFieldError : fieldStyle.main}>
+				
 				<Title key={question.Title} title={ question.Title} required={question.Required} />
+				
 				<View style={hasValidationError ? fieldStyle.fieldError : fieldStyle.field}>
 
-				{  
-					hasValidationError ? 
-					<Text style={fieldStyle.error}> This is a required field. </Text> : 
-					null 
-				}
+					{  
+						hasValidationError ? 
+						<Text style={fieldStyle.error}> This is a required field. </Text> : 
+						null 
+					}
 
-				{ getType(question, false) }
+					{ getType(question, false) }
 
 				</View>
 		</View> :

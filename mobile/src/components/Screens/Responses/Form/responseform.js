@@ -6,24 +6,17 @@
  * @flow strict-local
  */
 
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import uuid from 'react-native-uuid';
 import { NewFormResponse } from './responseaction';
 
 import { PhotoReview } from '../../../Elements/Camera/photoreview';
 
-import { Camera } from '../../../Elements/Camera';
 import { ClarityMap } from '../../../Elements/Map';
 import { Lookup } from '../../../Elements/Lookup';
-import { RecordGroupInit } from '../../../Elements/RecordGroup';
-import { useResponses } from '../../../../api';
 
-import { useFocusEffect } from '@react-navigation/native';
 import ImagePickerExample from '../../../Elements/Camera/expo';
 import { FormContext } from '../../../Context';
-import { InitRecordGroup } from '../../../Elements/RecordGroup';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ResponseFormStack = createStackNavigator();
 
@@ -42,9 +35,9 @@ export const ResponseForm = () => {
 				options={{
 					tabBarLabel: false, 
 					headerStyle: {
-						backgroundColor: '#f2f5f9',
+						backgroundColor: '#1C1C1C',
 					},
-					headerTintColor: '#16325c',
+					headerTintColor: '#fff',
 					headerTitleStyle: {
 						fontWeight: '500',
 						fontSize: 14
@@ -69,7 +62,7 @@ export const ResponseForm = () => {
 					headerStyle: {
 						backgroundColor: '#fff',
 					},
-					headerTintColor: '#16325c',
+					headerTintColor: '#1C1C1C',
 					headerTitleStyle: {
 						fontWeight: '500',
 						fontSize: 14
@@ -85,7 +78,7 @@ export const ResponseForm = () => {
 					headerStyle: {
 						backgroundColor: '#fff',
 					},
-					headerTintColor: '#16325c',
+					headerTintColor: '#1C1C1C',
 					headerTitleStyle: {
 						fontWeight: '500',
 						fontSize: 14

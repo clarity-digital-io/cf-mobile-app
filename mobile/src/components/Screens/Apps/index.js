@@ -8,7 +8,7 @@
 
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import { AppsList } from './list';
+import { AppTabs } from './tabs';
 import { Detail } from './Detail';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -27,22 +27,22 @@ function Apps() {
     <AppStack.Navigator>
       <AppStack.Screen
         name="Apps"
-        component={AppsList}
+        component={AppTabs}
         options={({ navigation, route }) => ({
 					tabBarLabel: false, 
 					headerStyle: {
-						backgroundColor: '#f2f5f9',
+						backgroundColor: '#FFF',
 					},
-					headerTintColor: '#16325c',
+					headerTintColor: '#1C1C1C',
 					headerTitleStyle: {
 						fontWeight: '500',
 						fontSize: 14
 					},
 					headerLeft: props => {
-						return <Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.navigate('Settings')} name={"ios-settings"} color={'#16325c'} />
+						return <Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.navigate('Settings')} name={"ios-settings"} color={'#1C1C1C'} />
 					},
 					headerRight: props => {
-						return <Ionicons style={{ marginRight: 16, marginTop: 2 }} size={22} onPress={() => console.log('search')} name={"ios-search"} color={'#16325c'} />
+						return <Ionicons style={{ marginRight: 16, marginTop: 2 }} size={22} onPress={() => console.log('search')} name={"ios-search"} color={'#1C1C1C'} />
 					}
 				})}
       />
@@ -52,9 +52,9 @@ function Apps() {
         options={{
 					tabBarLabel: false, 
 					headerStyle: {
-						backgroundColor: '#f2f5f9',
+						backgroundColor: '#1C1C1C',
 					},
-					headerTintColor: '#16325c',
+					headerTintColor: '#FFF',
 					headerTitleStyle: {
 						fontWeight: '500',
 						fontSize: 14

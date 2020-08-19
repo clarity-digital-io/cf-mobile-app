@@ -51,69 +51,45 @@ export const Detail = ({ route, navigation }) => {
     navigation.setOptions({
 			title: route.params.Title,
 			headerLeft: () => (
-				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#16325c'} />
+				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#fff'} />
 			),
 			headerRight: () => (
 				Platform.OS === 'ios' ?
-				<Ionicons style={{ marginRight: 16, marginTop: 2 }} size={22} onPress={() => newResponse()} name={"ios-add"} color={'#16325c'} /> :
+				<Ionicons style={{ marginRight: 16, marginTop: 2 }} size={22} onPress={() => newResponse()} name={"ios-add"} color={'#fff'} /> :
 				null
 			)
     });
   }, [navigation]);
 	
-	return  <View  style={{ flex:1, backgroundColor: '#fff' }}>
-		<View style={{height: 100, borderBottomColor: '#f2f5f9', borderBottomWidth: 2 }} >
-		<ScrollView horizontal={true} contentContainerStyle={{ alignItems: 'center' }} >
-			<View style={{ padding: 10, margin: 14 }}>
-				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
-					Connection
-				</Text>
-				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
-					Connection
-				</Text>
-			</View>
-			<View style={{ padding: 10,  margin: 14 }}>
-				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+	return  <View  style={{ backgroundColor: '#F8F8F8', flex: 1 }}>
+		<View 
+			style={{ 
+				marginBottom: 0,
+				padding: 14, 
+				backgroundColor: '#1C1C1C',
+				borderRightWidth: 0, 
+				borderBottomWidth: 0, 
+				borderTopWidth: 0
+			}}
+		>
+			<View style={{ padding: 2,  margin: 2 }}>
+				<Text style={{ color: '#fff', fontSize: 10, fontWeight: '500' }}>
 					Fields
 				</Text>
-				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+				<Text style={{ color: '#fff', fontSize: 12, fontWeight: '300', marginTop: 10 }}>
 					{ activeForm.Questions.length }
 				</Text>
 			</View>
-			<View style={{ padding: 10,  margin: 14 }}>
-				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
-					Location Required
-				</Text>
-				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
-					Yes
-				</Text>
-			</View>
-			<View style={{ padding: 10, margin: 14 }}>
-				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
+			<View style={{ padding: 2, margin: 2 }}>
+				<Text style={{ color: '#fff', fontSize: 10, fontWeight: '500' }}>
 					Description
 				</Text>
-				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+				<Text style={{ color: '#fff', fontSize: 12, fontWeight: '300', marginTop: 10 }}>
 					{ activeForm.Description }
 				</Text>
 			</View>
-			<View style={{ padding: 10,  margin: 14}}>
-				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
-					Requires Customer Signature
-				</Text>
-				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
-					No
-				</Text>
-			</View>
-			<View style={{ padding: 10,  margin: 14 }}>
-				<Text style={{ color: '#16325c', fontSize: 14, fontWeight: '100' }}>
-					Payment Option
-				</Text>
-				<Text style={{ color: '#16325c', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
-					Yes
-				</Text>
-			</View>
-		</ScrollView>
 		</View>
+		
 		<FlatList
 			data={responses || []}
 			renderItem={({ item }) => (
@@ -135,10 +111,17 @@ export const Detail = ({ route, navigation }) => {
 
 }
 
+const colors = [
+	'#E7F1F6',
+	'#FDE14D',
+	'#001B34',
+	'#1C1C1C'
+]
+
 const styles = StyleSheet.create({
   actionButtonIcon: {
     fontSize: 20,
     height: 22,
-		color: '#16325c'
+		color: '#1C1C1C'
   },
 });

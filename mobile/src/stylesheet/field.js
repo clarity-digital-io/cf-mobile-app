@@ -6,6 +6,13 @@ export const fieldStyle = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	mainError: {
+		backgroundColor: '#fc5c65',
+		padding: 14,
+	},
+	mainErrorText: {
+		color: '#fff',
+		fontWeight: '500',
+		fontSize: 12,
 	},
 	error: {
 		padding: 8,
@@ -14,6 +21,9 @@ export const fieldStyle = StyleSheet.create({
 		fontWeight: '700',
 		fontSize: 12
 	},
+	mainFieldError: {
+		padding: 2
+	},
 	fieldError: {
 		backgroundColor: '#fc5c65',
 		padding: 4,
@@ -21,41 +31,78 @@ export const fieldStyle = StyleSheet.create({
 	field: {
 		padding: 4,
 	},
+	connectionField: {
+		padding: 4,
+		paddingBottom: 8,
+		backgroundColor: '#FDE14D'
+	},
+	connectionFieldType: {
+		padding: 4,
+		paddingTop: 8,
+		backgroundColor: '#FDE14D'
+	},
+	connectionFieldText: {
+		fontSize: 14, 
+		fontWeight: '700'
+	},
+	connectionTitleContainer: {
+		backgroundColor: '#1C1C1C', 
+		borderBottomWidth: 0,
+		borderTopWidth: 0
+	},
+	connectionTitle: {
+		fontSize: 14, 
+		color: '#fff', 
+		padding: 12,
+		paddingLeft: 2,
+		fontWeight: '500',
+		borderBottomWidth: 0,
+		borderTopWidth: 0
+	},
 	titleContainer: {
-		backgroundColor: '#f2f5f9', 
+		backgroundColor: '#F8F8F8', 
 		borderBottomWidth: 0,
 		borderTopWidth: 0,
-		borderLeftColor: '#f2f5f9',
-		borderLeftWidth: 2
+		borderLeftColor: '#fff',
+		borderLeftWidth: 2,
 	},
 	titleContainerRequired: {
-		backgroundColor: '#f2f5f9', 
+		backgroundColor: '#F8F8F8', 
 		borderBottomWidth: 0,
 		borderTopWidth: 0,
 		borderLeftColor: '#fc5c65',
-		borderLeftWidth: 2
+		borderLeftWidth: 8
+	},
+	requiredTitle: {
+		fontSize: 14, 
+		color: '#1C1C1C', 
+		padding: 21,
+		paddingLeft: 6,
+		fontWeight: '500',
+		borderBottomWidth: 0,
+		borderTopWidth: 0
 	},
 	title: {
-		fontSize: 12, 
-		color: '#16325c', 
-		padding: 10,
-		paddingLeft: 6,
-		fontWeight: '300',
+		fontSize: 14, 
+		color: '#1C1C1C', 
+		padding: 21,
+		paddingLeft: 2,
+		fontWeight: '500',
 		borderBottomWidth: 0,
 		borderTopWidth: 0
 	},
 	headerContainer: {
-		backgroundColor: '#16325c', 
-		padding: 14,
+		backgroundColor: '#FDE14D', 
+		padding: 24,
 		paddingLeft: 6,
 		borderBottomWidth: 0,
 		borderTopWidth: 0,
 		marginBottom: 0
 	}, 
 	header: {
-		fontSize: 14,
-		color: '#f5f5f5',
-		fontWeight: '300'
+		fontSize: 16,
+		color: '#1c1c1c',
+		fontWeight: '500'
 	},
 	input: {
 		height: main.heightInput, 
@@ -64,7 +111,9 @@ export const fieldStyle = StyleSheet.create({
 		lineHeight: main.lineHeight, 
 		fontSize: 16,
 		fontWeight: '300',
-		padding: 10
+		padding: 6,
+		borderColor: '#f5f5f5',
+		borderWidth: 1
 	},
 	slider: {
 		flexDirection: 'row', 
@@ -72,7 +121,6 @@ export const fieldStyle = StyleSheet.create({
 		backgroundColor: main.colorBackgroundInput, 
 	},
 	link: {
-
 		color: main.headerColor, 
 		padding: main.paddingTitle,
 	}

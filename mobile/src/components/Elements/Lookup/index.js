@@ -20,7 +20,7 @@ export const Lookup = ({ navigation, route }) => {
 	React.useLayoutEffect(() => {
     navigation.setOptions({
 			headerLeft: () => (
-				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => navigation.goBack()} name={"ios-close"} color={'#16325c'} />
+				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={32} onPress={() => navigation.goBack()} name={"ios-close"} color={'#1C1C1C'} />
 			)
     });
 	}, [navigation]);
@@ -59,8 +59,9 @@ export const Lookup = ({ navigation, route }) => {
 				placeholder="Search for a record..."
 				onChangeText={(searchTerm) => setQuery(searchTerm)}
 				value={query}
-				containerStyle={{ backgroundColor: '#fff', borderBottomColor: '#f5f5f5', borderTopColor: '#f5f5f5' }}
-				inputContainerStyle={{ backgroundColor: '#f5f5f5' }}
+				containerStyle={{ height: 52, backgroundColor: '#fff', borderBottomColor: '#E7F1F6', borderTopColor: '#E7F1F6' }}
+				inputContainerStyle={{ height: 34, backgroundColor: '#f8f8f8' }}
+				inputStyle={{ fontSize: 14, color: '#1C1C1C' }}
 			/>
 			<FlatList
 				data={records}
@@ -81,7 +82,7 @@ const RecordListItem = ({ record, onPress }) => {
 			activeScale={0.98}
 			title={
 				<View style={{  }}>
-					<Text style={{ color: '#16325c', fontWeight: '700', fontSize: 14, marginBottom: 6 }}>{record.Name}</Text>
+					<Text style={{ color: '#1C1C1C', fontWeight: '700', fontSize: 14, marginBottom: 6 }}>{record.Name}</Text>
 					<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, lineHeight: 18 }}>
 						{record.Type}
 					</Text>
@@ -90,7 +91,7 @@ const RecordListItem = ({ record, onPress }) => {
 			chevron
 			bottomDivider={true}
 			onPress={() => onPress(record)}
-			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#f2f5f9', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}
+			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#E7F1F6', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}
 		/>
 	)
 }

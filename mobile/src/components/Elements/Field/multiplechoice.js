@@ -24,8 +24,8 @@ export const MultipleChoice = ({ key, question, disabled }) => {
 					title={ option.Label }
 					checked={checked} 
 					iconType='ion'
-					containerStyle={{ backgroundColor: checked ? '#00b388' : '#fff', borderColor: checked ? '#00b388' : '#f2f5f9', borderRadius: 0 }}
-					textStyle={{ color: checked ? '#fff' : '#16325c', fontSize: 14, fontWeight: '500' }}
+					containerStyle={{ backgroundColor: checked ? '#00b388' : '#fff', borderColor: checked ? '#00b388' : '#E7F1F6', borderRadius: 0 }}
+					textStyle={{ color: checked ? '#fff' : '#1C1C1C', fontSize: 14, fontWeight: '500' }}
 					checkedIcon='check'
 					uncheckedIcon='add'
 					checkedColor='#fff'

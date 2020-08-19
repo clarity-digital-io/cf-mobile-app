@@ -28,7 +28,7 @@ export const useResponses = () => {
 
 	}
 
-	const create = (formId, responseId) => {
+	const create = (formId, responseId, formName) => {
 
 		try {
 			
@@ -38,17 +38,18 @@ export const useResponses = () => {
 				newResponse = realm.create('Response', {
 					UUID: responseId, 
 					Id: responseId,
-					Name: `Response - ${responseId}`,
+					Name: `Response - ${formName}`,
 					Completion: false,
 					Status: 'New', 
 					Form: formId,
 					OwnerId: auth.user_id.split('|')[1]
-				});
+				}, 'all');
 			});
-
+			console.log('newResponse', newResponse); 
 			return newResponse; 
 		
 		} catch (error) {
+			console.log('e', error); 
 			setError(error)
 		}
 	}

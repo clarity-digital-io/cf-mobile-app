@@ -9,11 +9,11 @@
 import React from 'react';
 import { TextInput } from 'react-native';
 import { fieldStyle } from '../../../stylesheet';
-import { useOnChange } from '../../Handlers/useOnChange';
+import { useOnFieldChange } from '../../Handlers';
 
-export const Comment = ({ question, disabled }) => {
+export const Comment = ({ question, disabled, uuid, isRecordGroup }) => {
 
-	const { value, update } = useOnChange(question);
+	const { value, update } =  useOnFieldChange(question, isRecordGroup, uuid);
 	
 	return [
 		<TextInput

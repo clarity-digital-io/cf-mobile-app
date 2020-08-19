@@ -9,14 +9,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
 import { FormContext } from '../../../Context';
-import { calculateLogic } from '../../../Handlers/useLogic';
+import { calculateLogic } from '../../../Handlers/Logic/useLogic';
 
 import { useForm, useResponses } from '../../../../api';
 import { transform } from '../../../../api/helpers';
 
-export const ResponseProvider = ({children, responseUUID, newFormId, newNavigation, isNew }) => {
+export const ResponseProvider = ({children, form, responseUUID, newFormId, newNavigation, isNew }) => {
 
-	const { getForm, getQuestions } = useForm();
+	const { getQuestions } = useForm();
 
 	const { filtered, create } = useResponses();
 
@@ -24,42 +24,26 @@ export const ResponseProvider = ({children, responseUUID, newFormId, newNavigati
 
 	const [response, setResponse] = useState({ UUID: responseId }); 
 
+	const [formConnection, setFormConnection] = useState({}); 
+
+	const [errors, setErrors] = useState({ success: true, errors: [], validations: [] }); 
+
 	const [isNewResponse] = useState(isNew);
 
 	useEffect(() => {
 
-		if(response == null) {
-
-			if(isNewResponse) {
-				let createdResponse = create(newFormId, responseId);
-				setResponse(createdResponse);
-			} else {
-				let existingResponse = filtered(`UUID = "${responseId}"`);
-				setResponse(existingResponse);
-			}
-
+		if(isNewResponse) {
+			let createdResponse = create(newFormId, responseId, form.Name);
+			setResponse(createdResponse);
+		} else {
+			let existingResponse = filtered(`UUID = "${responseId}"`);
+			setResponse(existingResponse);
 		}
 
 	}, [isNewResponse]);
 
-	const [initialRouteName, setInitialRouteName] = useState('Response'); 
-
-	const [form] = useState( getForm(`Id = "${newFormId}"`) ); 
-
-	useEffect(() => {
-
-		if(form.Form_Connections.length > 0 && isNew) {
-
-			setInitialRouteName('Response Connection')
-
-		} else {
-
-			setInitialRouteName('Response')
-
-		}
-
-	}, [form])
-
+	const [initialRouteName] = useState(form.Form_Connections.length > 0 && isNew ? 'Response Connection' : 'Response'); 
+	
 	const [navigation] = useState(newNavigation); 
 
   const [loading, setLoading] = useState(true);
@@ -93,8 +77,6 @@ export const ResponseProvider = ({children, responseUUID, newFormId, newNavigati
 			setAllValidations(questionValidations);
 		}	
 	}, [questions])
-
-	const [errorValidations, setErrorValidations] = useState([]); 
 
 	const [criteriaController, setCriteriaController] = useState(new Map());
 	
@@ -141,11 +123,15 @@ export const ResponseProvider = ({children, responseUUID, newFormId, newNavigati
   return (
     <FormContext.Provider
       value={{
+				errors, 
+				setErrors,
 				initialRouteName,
 				form,
 				questions,
 				response,
 				responseId,
+				formConnection, 
+				setFormConnection,
         navigation,
 				loading,
 				setLoading,
@@ -162,8 +148,6 @@ export const ResponseProvider = ({children, responseUUID, newFormId, newNavigati
 				setRecords,
 				allValidations, 
 				setAllValidations,
-				errorValidations, 
-				setErrorValidations,
 				recordGroupQuestions
       }}>
       {children}

@@ -38,18 +38,18 @@ export const ResponsesList = ({ route, navigation }) => {
 	);
 
 	return (
-    <View style={{ backgroundColor: '#fff' }}>
+    <View style={{ backgroundColor: '#F8F8F8' }}>
 		{
 			loading && responses != null && responses.length > 0 ? 
 			<Text>Responses Loading...</Text> :
 			[
 				<SearchBar
-					placeholder="Search for a response..."
+					placeholder="Search for a form..."
 					onChangeText={setQuery}
 					value={query}
-					containerStyle={{ height: 58, backgroundColor: '#fff', borderBottomColor: '#f2f5f9', borderTopColor: '#f2f5f9' }}
-					inputContainerStyle={{ height: 40, backgroundColor: '#f2f5f9' }}
-					inputStyle={{ fontSize: 16, color: '#16325c' }}
+					containerStyle={{ height: 52, backgroundColor: '#fff', borderBottomColor: '#E7F1F6', borderTopColor: '#E7F1F6' }}
+					inputContainerStyle={{ height: 34, backgroundColor: '#f8f8f8' }}
+					inputStyle={{ fontSize: 14, color: '#1C1C1C' }}
 				/>,
 				<FlatList
 					data={responses}

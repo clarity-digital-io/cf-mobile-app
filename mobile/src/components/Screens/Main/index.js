@@ -43,8 +43,8 @@ const TabNavigation = () => {
 			},
 		})}
 		tabBarOptions={{
-			activeTintColor: '#000',
-			inactiveTintColor: '#bfcade',
+			activeTintColor: '#1C1C1C',
+			inactiveTintColor: '#C4C4C4',
 		}}
 	>
 		<Tab.Screen name="Forms" component={Forms} />

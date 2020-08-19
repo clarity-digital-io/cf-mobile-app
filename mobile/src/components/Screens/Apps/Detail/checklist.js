@@ -32,15 +32,48 @@ export const Checklist = ({ route, navigation }) => {
 	}
 
 	return [
+
+		<View 
+			style={{ 
+				marginBottom: 0,
+				padding: 14, 
+				backgroundColor: '#1C1C1C',
+				borderRightWidth: 0, 
+				borderBottomWidth: 0, 
+				borderTopWidth: 0
+			}}
+		>
+			<View style={{ padding: 2,  margin: 2 }}>
+				<Text style={{ color: '#fff', fontSize: 12, fontWeight: '500', marginTop: 10 }}>
+				 Today
+				</Text>
+			</View>
+		</View>,
 				
 		<View style={{ borderRadius: 14, margin: 8, marginTop: 4,  marginBottom: 0, padding: 14, borderLeftWidth: 0, borderRightWidth: 0 }}>
-			<Text style={{ color: '#16325c', fontWeight: '700', fontSize: 16 }}>Today</Text>
+			<Text style={{ color: '#1C1C1C', fontWeight: '700', fontSize: 12 }}>Today</Text>
 		</View>,
 
 		loading ? 
 			<ActivityIndicator size="large" color={main.highLightColor} /> : 
 			checkListResponses.length ? 
-				<Timeline data={transformChecklistData(checkListResponses, navigation)} timeContainerStyle={{ display: 'none' }} contentContainerStyle={{ flexBasis: '78%' }} /> :
+				<Timeline 
+					data={transformChecklistData(checkListResponses, navigation)} 
+					timeContainerStyle={{ display: 'none' }} 
+					contentContainerStyle={{ 
+						flexBasis: '78%', 
+						margin: 4, 
+						marginBottom: 2,
+						padding: 14, 
+						backgroundColor: '#fff', 
+						borderColor: '#001B34', 
+						borderTopWidth: 2, 
+						borderRightWidth: 0, 
+						borderBottomWidth: 0, 
+						borderLeftWidth: 0,
+						borderRadius: 2
+					}} 
+				/> :
 				<TouchableOpacity onPress={() => start()} style={startStyle}>
 					<Text style={{ fontSize: 14, color: main.highLightColor, fontWeight: '700' }}>Start New Checklist</Text>
 				</TouchableOpacity>
@@ -77,12 +110,12 @@ const responseSelected = (response, navigation) => {
 const transformChecklistData = (checkListResponses, navigation) => {
 
 	return checkListResponses.map(response => {
-		console.log('response', JSON.stringify(response)); 
+
 		return {
 			pressAction: () => responseSelected(response, navigation),
 			title: ({styles}) => (
 				<View>
-					<Text style={{fontSize: 10, color: '#999', marginBottom: 7}}>
+					<Text style={{fontSize: 10, color: '#1C1C1C', marginBottom: 7}}>
 						{Moment().format('lll')}
 					</Text>
 					<Text style={[styles, {marginBottom: 0, color: main.highLightColor}]}>
@@ -104,19 +137,38 @@ const transformChecklistData = (checkListResponses, navigation) => {
 				style: {
 					width: 35,
 					height: 35,
-					backgroundColor: main.highLightColor,
+					backgroundColor:' main.highLightColor',
 					color: '#FFF',
 					borderColor: '#FFF',
 					fontSize: 16,
 					paddingTop: 6,
 					borderRadius: 18,
 				},
-			} : {}
+			} : {
+				content: 'check',
+				style: {
+					width: 35,
+					height: 35,
+					backgroundColor: '#001B34',
+					color: '#FFF',
+					borderColor: '#FFF',
+					fontSize: 16,
+					paddingTop: 6,
+					borderRadius: 18,
+				},
+			}
 		}
 
 	})
 
 }
+
+const colors = [
+	'#E7F1F6',
+	'#FDE14D',
+	'#001B34',
+	'#1C1C1C'
+]
 
 const data123 = [
   {

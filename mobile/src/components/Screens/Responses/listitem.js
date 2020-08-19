@@ -23,26 +23,41 @@ export const ResponseListItem = ({ response, onPress }) => {
 			friction={90}
 			tension={100} 
 			activeScale={0.98}
-			leftIcon={
-				<Ionicons size={22} name={"ios-document"} color={main.highLightColor}  />
-			}
 			title={
 				<View style={{ paddingTop: 4, paddingBottom: 4 }}>
-					<Text style={{ color: '#16325c', fontWeight: '500', fontSize: 12, marginBottom: 6 }}>{response.Name}</Text>
+					<Text style={{ color: '#1C1C1C', fontWeight: '500', fontSize: 12, marginBottom: 6 }}>{response.Name}</Text>
 					<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, lineHeight: 12, marginBottom: 6 }}>
 						{/* { response.forms__Form.Title} */}
 					</Text>
 					<View style={{ flex: 1, flexDirection: 'column' }}>
 						<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, marginBottom: 4 }}>{ response.Status}</Text>
-						{/* <Text style={{ color: '#16325c', fontWeight: '300', fontSize: 12, marginBottom: 4 }}>{response.CreatedBy.Name}</Text> */}
+						{/* <Text style={{ color: '#1C1C1C', fontWeight: '300', fontSize: 12, marginBottom: 4 }}>{response.CreatedBy.Name}</Text> */}
 						<Text style={{ color: '#333', fontWeight: '300', fontSize: 12 }}>{Moment(response.CreatedDate).format('MMMM d YYYY')}</Text>
 					</View>
 				</View>
 			}
 			chevron
-			bottomDivider={true}
 			onPress={() => onPress(response)}
-			containerStyle={{ padding: 14, backgroundColor: '#fff', borderColor: '#f2f5f9', borderWidth: 2, borderLeftWidth: 0, borderRightWidth: 0 }}
+			containerStyle={{ 
+				margin: 4, 
+				marginBottom: 2,
+				padding: 14, 
+				backgroundColor: '#fff', 
+				borderColor: colors[3], 
+				borderLeftWidth: 6, 
+				borderRightWidth: 0, 
+				borderBottomWidth: 0, 
+				borderTopWidth: 0,
+				borderRadius: 2
+			}}
 		/>
 	)
 }
+
+const colors = [
+	'#E7F1F6',
+	'#FDE14D',
+	'#001B34',
+	'#343299',
+	'#1C1C1C'
+]

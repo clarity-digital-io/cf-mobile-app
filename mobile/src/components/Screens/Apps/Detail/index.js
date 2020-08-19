@@ -22,12 +22,12 @@ export const Detail = ({ route, navigation }) => {
     navigation.setOptions({
 			title: route.params.record.Name,
 			headerLeft: () => (
-				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#16325c'} />
+				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#FFF'} />
 			)
     });
 	}, [navigation]);
 
-	return <ScrollView  style={{ flex:1, backgroundColor: '#f2f5f9' }}>
+	return <ScrollView  style={{ flex:1, backgroundColor: '#F8F8F8' }}>
 
 		<Checklist route={route} navigation={navigation} />
 

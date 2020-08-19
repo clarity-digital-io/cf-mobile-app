@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import React, { useCallback, useState, useContext } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState, useContext, useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import { NewResponseConnection } from '../Connection';
@@ -18,19 +18,41 @@ import uuid from 'react-native-uuid';
 import { InitRecordGroup } from '../../../Elements/RecordGroup';
 import { ResponseForm } from './responseform';
 import { FormContext } from '../../../Context';
+import { useForm } from '../../../../api';
 
 const ResponseStack = createStackNavigator();
 
 export const InitResponse = ({ route, navigation }) => {
 
+	const { getForm } = useForm(); 
+
 	const [formId] = useState(route.params.formId);
+
+	const [form, setForm] = useState(null); 
+
+	useEffect(() => {
+
+		if(form == null) {
+
+			if(formId) {
+				let newForm = getForm(`Id = "${route.params.formId}"`);
+				setForm(newForm);
+			} 
+
+		}
+
+	}, [formId]);
 
 	const [responseUUID] = useState( route.params.new ? uuid.v1() : route.params.responseId );
 
 	return (
-		<ResponseProvider responseUUID={responseUUID} newFormId={formId} newNavigation={navigation} isNew={route.params.new}>
+		form ? 
+		<ResponseProvider responseUUID={responseUUID} form={form} newFormId={formId} newNavigation={navigation} isNew={route.params.new}>
 			<ResponseNavigation route={route} />
-		</ResponseProvider>
+		</ResponseProvider> :
+		<View style={{ backgroundColor: '#1c1c1c', flex: 1 }}>
+			<ActivityIndicator size="large" color={'#fff'} />
+		</View>
 	)
 }
 
@@ -46,9 +68,9 @@ export const ResponseNavigation = ({ route }) => {
 			options={( {navigation, route} ) => ({
 				tabBarLabel: false, 
 				headerStyle: {
-					backgroundColor: '#f2f5f9',
+					backgroundColor: '#1c1c1c',
 				},
-				headerTintColor: '#16325c',
+				headerTintColor: '#fff',
 				headerTitleStyle: {
 					fontWeight: '500',
 					fontSize: 14

@@ -5,18 +5,13 @@ import { useSync } from '../../../../api';
 
 export const SyncDetails = ({ navigation, route }) => {
 
-	const { sync, profile } = useSync(); 
+	const { sync } = useSync(); 
 	
 	return (
-    <View style={{ backgroundColor: '#fff' }}>
+		<View style={{ flex: 1, flexDirection: 'column'	}}>
 
-				<Text style={{ color: '#16325c', fontWeight: '300', fontSize: 14 }}>Start Syncing</Text>
-
-				<View style={{ alignItems: 'center', padding: 10	}}>
-					<Ionicons style={{ marginRight: 14 }} size={22} onPress={() => sync()} name={"ios-sync"} color={'#16325c'} />
-					<Text style={{ color: '#16325c' }}>Sync</Text>
-				</View>
-
+			<Ionicons style={{ marginRight: 14 }} size={32} onPress={() => sync()} name={"ios-sync"} color={'#E7F1F6'} />
+			<Text style={{ backgroundColor: '#00b388', color: '#fff' }}>Sync</Text>
 
 		</View>
   );
