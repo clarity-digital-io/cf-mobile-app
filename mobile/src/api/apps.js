@@ -4,7 +4,7 @@ import { transform } from '../api/helpers';
 
 export const useApps = () => {
 
-	const {setError, globalRealm, auth, apps, setApps, groups, setGroups } = useContext(AppContext);
+	const {setErrors, globalRealm, auth, apps, setApps, groups, setGroups } = useContext(AppContext);
 
 	const getApps = async () => {
 
@@ -12,7 +12,8 @@ export const useApps = () => {
 			const response = await getAppsAPI(globalRealm, auth);
 			setApps(response)
 		} catch (error) {
-			setError(error)
+			setApps([]);
+			setErrors(error);
 		}
 
 	}
@@ -23,7 +24,7 @@ export const useApps = () => {
 			const response = getGroupsLocal(globalRealm, auth);
 			setGroups(response)
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}
@@ -42,9 +43,13 @@ const getAppsAPI = async (realm, {url, access_token}) => {
 		})
 	});
 
-	const apps = await response.json();
+	const data = await response.json();
 
-	return apps; 
+	if(data[0] != null & data[0].errorCode != null) {
+		throw data[0].message;
+	}
+
+	return data; 
 
 }
 

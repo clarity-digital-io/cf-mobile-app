@@ -6,14 +6,9 @@
  * @flow strict-local
  */
 
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import { SafeAreaView, View, Text, StyleSheet, FlatList } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { RecordGroupContext, FormContext } from '../../Context';
-import { Fields } from './Fields';
-import { ScrollView } from 'react-native-gesture-handler';
 import { RecordGroupProvider } from './provider';
 
 import { NewRecordGroup } from './new';

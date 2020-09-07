@@ -5,7 +5,7 @@ import uuid from 'react-native-uuid';
 
 export const useChecklist = (sObject, recordId) => {
 
-	const { auth, setError, realm, globalRealm } = useContext(AppContext);
+	const { auth, setErrors, realm, globalRealm } = useContext(AppContext);
 
 	const [checkListResponses, setChecklistResponses] = useState([]);
 
@@ -60,7 +60,7 @@ export const useChecklist = (sObject, recordId) => {
 				setChecklistResponses(responses);
 	
 			} catch (error) {
-				setError(error)
+				setErrors(error)
 			}
 
 			setLoading(false); 
@@ -75,7 +75,7 @@ export const useChecklist = (sObject, recordId) => {
 			const localChecklists = getChecklistsLocal(realm, sObject, recordId);
 			setChecklists(localChecklists)
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}

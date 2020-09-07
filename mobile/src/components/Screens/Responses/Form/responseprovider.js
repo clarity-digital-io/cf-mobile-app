@@ -15,8 +15,9 @@ import { useForm, useResponses } from '../../../../api';
 import { transform } from '../../../../api/helpers';
 
 export const ResponseProvider = ({children, form, responseUUID, newFormId, newNavigation, isNew }) => {
+	console.log(' form, responseUUID, newFormId, newNavigation, isNew',  form, responseUUID, newFormId, newNavigation, isNew); 
 
-	const { getQuestions } = useForm();
+	const { getQuestions, getPicklists } = useForm();
 
 	const { filtered, create } = useResponses();
 
@@ -111,6 +112,12 @@ export const ResponseProvider = ({children, form, responseUUID, newFormId, newNa
 
 	const [recordGroupAnswers, setRecordGroupAnswers] = useState(new Map());
 
+	/*
+
+	1: { questionid: answer, questionid2: answer},
+
+	*/
+
 	const [recordGroupQuestions, setRecordGroupQuestions] = useState(new Map());
 
 	useEffect(() => {
@@ -119,6 +126,20 @@ export const ResponseProvider = ({children, form, responseUUID, newFormId, newNa
 			setRecordGroupQuestions(rgQuestions);
 		}
 	}, [allQuestions])
+
+	const [recordGroupPicklists, setRecordGroupPicklists] = useState([]);
+
+	useEffect(() => {
+		console.log('recordGroupPicklists', allQuestions, recordGroupPicklists); 
+		if(allQuestions.length > 0) {
+			let filterQuery = getPicklistFilterQuery(allQuestions);
+			let rgPicklists = getPicklists(filterQuery)
+			setRecordGroupPicklists(rgPicklists);
+		}
+
+	}, [allQuestions])
+
+	const [activeOptions, setActiveOptions] = useState([]);
 
   return (
     <FormContext.Provider
@@ -148,12 +169,31 @@ export const ResponseProvider = ({children, form, responseUUID, newFormId, newNa
 				setRecords,
 				allValidations, 
 				setAllValidations,
-				recordGroupQuestions
+				recordGroupQuestions,
+				recordGroupPicklists, 
+				setRecordGroupPicklists,
+				activeOptions,
+				setActiveOptions
       }}>
       {children}
     </FormContext.Provider>
   );
 };
+
+const getPicklistFilterQuery = (fields) => {
+
+	return fields.filter(field => field.Type == 'PICKLIST').reduce((accum, field) => {
+
+		if(accum == '') {
+			accum = `sObjectName = "${field.Salesforce_Object}"`
+		} else {
+			accum = ` AND sObjectName = "${field.Salesforce_Object}"`
+		}
+
+		return accum;
+
+	}, '');
+}
 
 const getRecordGroupQuestionsByRecordGroupId = (questions) => {
 

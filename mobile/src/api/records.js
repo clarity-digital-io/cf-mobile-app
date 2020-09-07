@@ -6,7 +6,7 @@ export const useRecords = (question) => {
 
 	const [records, setRecords] = useState([]);
 
-	const { setError, realm } = useContext(AppContext);
+	const { setErrors, realm } = useContext(AppContext);
 
 	const {} = useContext(FormContext); 
 
@@ -16,7 +16,7 @@ export const useRecords = (question) => {
 			const records = getRecordsLocal(realm, type, search);
 			setRecords(records)
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}
@@ -29,7 +29,7 @@ export const useConnectionRecords = () => {
 
 	const [records, setRecords] = useState([]);
 
-	const { setError, realm } = useContext(AppContext);
+	const { setErrors, realm } = useContext(AppContext);
 
 	const searchRecords = (type, search) => {
 
@@ -37,7 +37,7 @@ export const useConnectionRecords = () => {
 			const records = getRecordsLocal(realm, type, search);
 			setRecords(records)
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}

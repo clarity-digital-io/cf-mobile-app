@@ -8,16 +8,24 @@
 
 import React, { useContext } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { FormContext } from '../../Context';
+import { FormContext, RecordGroupContext } from '../../Context';
 import { Fields } from './Fields';
 
 export const NewRecordGroup = ({ navigation, route }) => {
 
+	const { answers, setTable } = useContext(RecordGroupContext);
+
 	const add = () => {
+
+		setTable(table => {
+			let size = table.size.toString();
+			table.set(size, answers);
+			return table; 
+		})
+
 		navigation.goBack();
 	}
-	const { form } = useContext(FormContext);
-
+	
 	React.useLayoutEffect(() => {
 		navigation.setOptions({
 			headerRight: () => (

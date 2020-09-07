@@ -18,7 +18,13 @@ export const useForm = () => {
 		return transformedQuestions; 
 	}
 
-	return { getForm, getQuestions };
+	const getPicklists = (filtered) => {
+		const picklists = globalRealm.objects('Picklist').filtered(filtered);
+		let transformedPicklists = transform(picklists); 
+		return transformedPicklists;
+	}
+
+	return { getForm, getQuestions, getPicklists };
 	
 } 
 

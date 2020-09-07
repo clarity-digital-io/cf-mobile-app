@@ -1,33 +1,27 @@
 import { useState, useContext, useEffect } from 'react';
 import { AppContext, FormContext } from '../components/Context';
 
-export const useSubmit = (navigation) => {
+export const useSave = (navigation) => {
 
 	const { realm } = useContext(AppContext);
 
-	const [startSubmit, setStartSubmit] = useState(false); 
+	const [startSave, setStartSave] = useState(false); 
 
-	const { response, answers, images, records, allValidations, setErrors } = useContext(FormContext);
+	const { response, answers, images, records, setErrors } = useContext(FormContext);
 
 	useEffect(() => {
 
-		if(startSubmit) {
-			submit(allValidations, answers, response, navigation, setErrors);
+		if(startSave) {
+			save(answers, response, navigation, setErrors);
 		}
 
-	}, [startSubmit])
+	}, [startSave])
 
-	const submit = (allValidations, answers, response, navigation, setErrors) => {
+	const save = (answers, response, navigation, setErrors) => {
 
 		let status = { success: false, errors: [], validations: [] };
 
 		try {
-
-			status = validate(answers, allValidations, status); 
-
-			if(status.success == false) {
-				throw "Error"; 
-			}
 
 			status = upsert(answers, response, realm, status);
 
@@ -39,7 +33,7 @@ export const useSubmit = (navigation) => {
 			status.errors = [error]	
 		}
 
-		setStartSubmit(false); 
+		setStartSave(false); 
 
 		status.success ? 
 			navigate(navigation, response) : 
@@ -47,36 +41,15 @@ export const useSubmit = (navigation) => {
 
 	}
 
-	return { setStartSubmit };
+	return { setStartSave };
 
 } 
 
 const navigate = (navigation, response) => {
-	console.log('response', response); 
+
 	navigation.navigate('Detail')
 
-}
-
-const validate = (answers, allValidations, status) => {
-
-	let newErrors = Array.from(allValidations.keys()).reduce((accum, questionId) => {
-
-		if(!answers.has(questionId)) {
-			accum = accum.concat([questionId])
-		}
-
-		return accum; 
-
-	}, []);
-
-	if(newErrors.length == 0) {
-		status.success = true; 
-	} else {
-		status.success = false;
-		status.validations = newErrors; 
-	}
-
-	return status; 
+	navigation.navigate('InitResponse', { formId: response.Form, new: true })
 
 }
 
@@ -108,7 +81,7 @@ const upsert = (answers, response, realm, status) => {
 
 		realm.write(() => {
 			
-			response.Status = 'Submitted';
+			response.Status = 'In Progress';
 	
 			realm.create('Response', response, 'all');
 
@@ -120,13 +93,11 @@ const upsert = (answers, response, realm, status) => {
 		
 			});
 
-
 			status.success = true; 
 
 		});
 			
 	} catch (error) {
-		console.log('responseerror', error); 
 
 		status.success = false; 
 		status.errors = error; 

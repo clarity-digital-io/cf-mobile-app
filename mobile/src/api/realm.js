@@ -1,5 +1,5 @@
 import Realm from 'realm';
-import { ResponseSchema, FormSchema, QuestionSchema, AnswerSchema, QuestionOptionSchema, QuestionCriteriaSchema, sObjectSchema, FormConnectionSchema, FormConnectionFieldSchema, ChecklistGroupSchema, ChecklistSchema } from '../schema';
+import { ResponseSchema, FormSchema, QuestionSchema, AnswerSchema, QuestionOptionSchema, QuestionCriteriaSchema, sObjectSchema, FormConnectionSchema, FormConnectionFieldSchema, ChecklistGroupSchema, ChecklistSchema, PicklistSchema, PicklistValueSchema } from '../schema';
 
 const SERVER_URL = 'https://forms-dev.us1a.cloud.realm.io';
 const REALM_URL = 'realms://forms-dev.us1a.cloud.realm.io';
@@ -37,7 +37,7 @@ const onGlobalAuthRealm = async (user, organization_id) => {
 
 	try {
 
-		const config = { 	sync: { user: user, url: `${REALM_URL}/${organization_id}/forms`, fullSynchronization: true, validate_ssl: false },  schema: [ChecklistGroupSchema, FormSchema, QuestionSchema, QuestionOptionSchema, QuestionCriteriaSchema, FormConnectionSchema, FormConnectionFieldSchema] };
+		const config = { 	sync: { user: user, url: `${REALM_URL}/${organization_id}/forms`, fullSynchronization: true, validate_ssl: false },  schema: [ChecklistGroupSchema, FormSchema, QuestionSchema, QuestionOptionSchema, QuestionCriteriaSchema, FormConnectionSchema, FormConnectionFieldSchema, PicklistSchema, PicklistValueSchema] };
 
 		return Realm.open(config)
 			.progress((transferred, transferable) => {})

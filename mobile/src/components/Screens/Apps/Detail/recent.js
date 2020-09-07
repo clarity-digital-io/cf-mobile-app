@@ -32,7 +32,7 @@ export const Recent = ({ route, navigation }) => {
 	);
 
 	const checklistSelected = () => {
-		console.log('checklistSelected')
+
 	}
 	
 	const renderItem = ({ item }) => (<RecentItem key={item.Name} recent={item} onPress={checklistSelected} />);

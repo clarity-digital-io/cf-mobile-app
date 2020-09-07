@@ -14,6 +14,7 @@ import { PhotoReview } from '../../../Elements/Camera/photoreview';
 
 import { ClarityMap } from '../../../Elements/Map';
 import { Lookup } from '../../../Elements/Lookup';
+import { Select } from '../../../Elements/Select';
 
 import ImagePickerExample from '../../../Elements/Camera/expo';
 import { FormContext } from '../../../Context';
@@ -73,6 +74,22 @@ export const ResponseForm = () => {
 			<ResponseFormStack.Screen
 				name={'Lookup'}
 				component={Lookup}
+				options={{
+					tabBarLabel: false, 
+					headerStyle: {
+						backgroundColor: '#fff',
+					},
+					headerTintColor: '#1C1C1C',
+					headerTitleStyle: {
+						fontWeight: '500',
+						fontSize: 14
+					},
+					headerBackTitleVisible: false
+				}}
+			/>
+			<ResponseFormStack.Screen
+				name={'Select'}
+				component={Select}
 				options={{
 					tabBarLabel: false, 
 					headerStyle: {

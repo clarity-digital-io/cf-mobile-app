@@ -15,16 +15,35 @@ export const RecordGroupProvider = ({ children, rgId }) => {
 
 	const [fields] = useState(recordGroupQuestions.has(rgId) ? recordGroupQuestions.get(rgId) : []); 
 
-	const [recordGroupId] = useState(rgId); 
+	const [index, setIndex] = useState(0); 
+
+	const [headers] = useState(getHeaders(fields)); 
+
+	const [answers, setAnswers] = useState(new Map()); 
+
+	const [table, setTable] = useState(new Map()); 
 
 	return (
 		<RecordGroupContext.Provider
 			value={{
-				recordGroupId,
-				fields
+				index, 
+				setIndex,
+				rgId,
+				fields,
+				headers,
+				answers,
+				setAnswers,
+				table, 
+				setTable
 			}}
 		>
 			{ children }
 		</RecordGroupContext.Provider>
 	)
+}
+
+const getHeaders = (fields) => {
+
+	return fields.map(field => field.Title);
+
 }

@@ -15,13 +15,11 @@ import { Title } from '../../Controls/Title';
 import { RecordGroupContext } from '../../../Context';
 
 export const Fields = () => {
-
-	//const { form, activeQuestions, allValidations, errorValidations } = useContext(FormContext); 
-
+	
 	const { fields } = useContext(RecordGroupContext); 
-	console.log('fields', fields); 
+
 	return fields.map(question => {
-		//let hasValidationError = errorValidations.indexOf(question.Id) > -1 ? true : false;
+
 		return getQuestion(question, false);
 
 	});

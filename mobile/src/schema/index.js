@@ -69,8 +69,8 @@ export const QuestionSchema = {
 		Min_Range: 'int',
 		Page: 'int',
 		Required: 'bool',
-		Salesforce_Field: 'data?',
-		Salesforce_Object: 'data?',
+		Salesforce_Field: {type: 'string', default: ''},
+		Salesforce_Object: {type: 'string', default: ''},
 		Logic: {type: 'string', default: ''},
 		FreeText_Type: {type: 'string', default: ''},
 		Record_Group: 'string?',
@@ -188,5 +188,26 @@ export const ChecklistSchema = {
 		sObject: 'string',
 		RecordId: 'string',
 		Status: 'string'
+	}
+}
+
+export const PicklistSchema = {
+	name: 'Picklist',
+	primaryKey: 'Id',
+	properties: {
+		Id: 'string',
+		sObjectName: 'string',
+		Name: 'string',
+		PicklistValues: 'PicklistValue[]'
+	}
+}
+
+export const PicklistValueSchema = {
+	name: 'PicklistValue',
+	primaryKey: 'Id',
+	properties: {
+		Id: 'string',
+		Label: 'string', 
+		APIName: 'string',
 	}
 }

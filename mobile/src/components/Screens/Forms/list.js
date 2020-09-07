@@ -49,13 +49,13 @@ export const FormsList = ({ route, navigation }) => {
 
 	const formSelected = (form) => {
 		setActiveForm(form);
-		navigation.navigate('Detail', form)
+		navigation.navigate('Detail')
 	}
 
 	const renderItem = ({ item }) => (<FormListItem key={item.Name} form={item} onPress={formSelected} />);
 
 	return (
-    <View style={{ backgroundColor: '#F8F8F8', flexGrow: 1 }}>
+    <View style={{ backgroundColor: '#F8F8F8', flex: 1 }}>
 			{
 				loading && forms != null && forms.length > 0 ? 
 				<Text>Forms Loading...</Text> :

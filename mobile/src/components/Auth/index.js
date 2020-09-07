@@ -42,7 +42,7 @@ const Authenticate = () => {
 			});
 
 			const user = await getUser(credentials);
-			console.log('user', user);
+
 			const {realm, globalRealm} = await registerWithRealm(user, credentials);
 
 			setRealm(realm);

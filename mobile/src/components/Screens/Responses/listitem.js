@@ -25,7 +25,7 @@ export const ResponseListItem = ({ response, onPress }) => {
 			activeScale={0.98}
 			title={
 				<View style={{ paddingTop: 4, paddingBottom: 4 }}>
-					<Text style={{ color: '#1C1C1C', fontWeight: '500', fontSize: 12, marginBottom: 6 }}>{response.Name}</Text>
+					<Text style={{ color: '#1C1C1C', fontWeight: '500', fontSize: 12, marginBottom: 6 }}>{response.UUID}</Text>
 					<Text style={{ color: '#333', fontWeight: '300', fontSize: 12, lineHeight: 12, marginBottom: 6 }}>
 						{/* { response.forms__Form.Title} */}
 					</Text>

@@ -4,7 +4,7 @@ import { transform } from '../api/helpers';
 
 export const useForms = (routeName) => {
 
-	const {setError, globalRealm, auth, forms, setForms, setActiveForm } = useContext(AppContext);
+	const {setErrors, globalRealm, auth, forms, setForms, setActiveForm } = useContext(AppContext);
 
 	const getForms = async () => {
 
@@ -12,7 +12,7 @@ export const useForms = (routeName) => {
 			const response = await getFormsLocal(globalRealm, auth);
 			setForms(response)
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}

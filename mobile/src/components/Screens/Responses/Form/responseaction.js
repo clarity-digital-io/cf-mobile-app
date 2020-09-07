@@ -17,6 +17,7 @@ import { Multi } from './multi';
 
 import { FormContext } from '../../../Context';
 import { useSubmit } from '../../../../api';
+import { useSave } from '../../../../api';
 
 export const NewFormResponse = ({ route, navigation }) => {
 	return (
@@ -32,8 +33,10 @@ export const NewFormResponseConnected = connectActionSheet(({ route, navigation 
 
 	const { setStartSubmit } = useSubmit(navigation);
 
+	const { setStartSave } = useSave(navigation);
+
 	const process = () => {
-		console.log('proces'); 
+
 		const options = ['Save & New', 'Submit', 'Cancel'];
 		const cancelButtonIndex = 2;
 
@@ -55,9 +58,9 @@ export const NewFormResponseConnected = connectActionSheet(({ route, navigation 
 
 		switch (index) {
 			case 0:
+				setStartSave(true); 
 				break;
 			case 1:
-				// submit(allValidations, answers, response, navigation, setErrors);
 				setStartSubmit(true); 
 				break;
 			case 2:

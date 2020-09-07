@@ -3,7 +3,7 @@ import { AppContext } from '../components/Context';
 
 export const useSync = () => {
 
-	const { auth, realm, profile, setError } = useContext(AppContext);
+	const { auth, realm, profile, setErrors } = useContext(AppContext);
 
 	const sync = async (query) => {
 
@@ -16,7 +16,7 @@ export const useSync = () => {
 			}
 
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}
@@ -26,7 +26,6 @@ export const useSync = () => {
 } 
 
 const startSync = async ({url, access_token, user_id}, query) => {
-	console.log('access_token,', access_token); 
 	//direct call to salesforce should only be called for users with salesforce editions above essentials
 	/**
 	 * 1. Salesforce Enterprise
@@ -41,8 +40,13 @@ const startSync = async ({url, access_token, user_id}, query) => {
 		})
 	});
 
-	const response = await pe.json();
-	console.log('response', response); 
-	return response; 
+	const data = await pe.json();
+
+	if(data[0] != null & data[0].errorCode != null) {
+		throw data[0].message;
+	}
+
+	return data; 
+
 
 }

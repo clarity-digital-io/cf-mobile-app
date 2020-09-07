@@ -4,7 +4,7 @@ import { transform } from '../api/helpers';
 
 export const useResponses = () => {
 
-	const { auth, setError, realm, responses, setResponses, loading, setLoading } = useContext(AppContext);
+	const { auth, setErrors, realm, responses, setResponses, loading, setLoading } = useContext(AppContext);
 
 	const getResponses = () => {
 
@@ -12,7 +12,7 @@ export const useResponses = () => {
 			const response = getResponsesLocal(realm);
 			setResponses(response)
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}
@@ -23,7 +23,7 @@ export const useResponses = () => {
 			const response = getResponsesFilter(realm, query);
 			setResponses(response)
 		} catch (error) {
-			setError(error)
+			setErrors(error)
 		}
 
 	}
@@ -45,12 +45,10 @@ export const useResponses = () => {
 					OwnerId: auth.user_id.split('|')[1]
 				}, 'all');
 			});
-			console.log('newResponse', newResponse); 
 			return newResponse; 
 		
 		} catch (error) {
-			console.log('e', error); 
-			setError(error)
+			setErrors(error)
 		}
 	}
 

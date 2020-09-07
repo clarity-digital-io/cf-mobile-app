@@ -49,7 +49,7 @@ export const Detail = ({ route, navigation }) => {
 
 	React.useLayoutEffect(() => {
     navigation.setOptions({
-			title: route.params.Title,
+			title: activeForm.Title,
 			headerLeft: () => (
 				<Ionicons style={{ marginLeft: 16, marginTop: 2 }} size={22} onPress={() => navigation.goBack()} name={"ios-arrow-back"} color={'#fff'} />
 			),

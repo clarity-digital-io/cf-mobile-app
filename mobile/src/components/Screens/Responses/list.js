@@ -38,13 +38,13 @@ export const ResponsesList = ({ route, navigation }) => {
 	);
 
 	return (
-    <View style={{ backgroundColor: '#F8F8F8' }}>
+    <View style={{ backgroundColor: '#F8F8F8', flex: 1  }}>
 		{
 			loading && responses != null && responses.length > 0 ? 
 			<Text>Responses Loading...</Text> :
 			[
 				<SearchBar
-					placeholder="Search for a form..."
+					placeholder="Search for a response..."
 					onChangeText={setQuery}
 					value={query}
 					containerStyle={{ height: 52, backgroundColor: '#fff', borderBottomColor: '#E7F1F6', borderTopColor: '#E7F1F6' }}
