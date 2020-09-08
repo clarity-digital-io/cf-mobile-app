@@ -28,6 +28,14 @@ export const useResponses = () => {
 
 	}
 
+	const findByUUID = (query) => {
+
+		const response = getResponsesFilter(realm, query);
+
+		return response[0];
+
+	}
+
 	const create = (formId, responseId, formName) => {
 
 		try {
@@ -52,7 +60,7 @@ export const useResponses = () => {
 		}
 	}
 
-  return { loading, responses, getResponses, filtered, create };
+  return { loading, responses, getResponses, filtered, findByUUID, create };
 
 } 
 
@@ -65,5 +73,7 @@ const getResponsesLocal = (realm) => {
 const getResponsesFilter = (realm, filter) => {
 	const responses = realm.objects('Response').filtered(filter);
 	let transformedResponses = transform(responses); 
+	console.log('transformedResponses', transformedResponses); 
+
 	return transformedResponses;
 }

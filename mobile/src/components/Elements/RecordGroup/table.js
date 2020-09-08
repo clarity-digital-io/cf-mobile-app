@@ -17,7 +17,6 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 const getTable = (table) => {
 
 	return Array.from(table.values()).map(row => {
-		console.log('row', row); 
 		return Array.from(row.values())
 	})
 }

@@ -52,7 +52,7 @@ export const Select = ({ navigation, route }) => {
 }
 
 const SelectOptionItem = ({ value, option, onPress }) => {
-	console.log('value', value);
+
 	return (
 		<ListItem 
 			Component={TouchableScale}

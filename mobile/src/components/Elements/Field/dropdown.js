@@ -19,7 +19,7 @@ const getOptions = (question, picklists) => {
 
 	if(question.Type == 'PICKLIST') {
 		let picklistValues = transform(picklists[0].PicklistValues); 
-		console.log('picklistValues', picklistValues);
+
 		return picklistValues.map(val => {
 			return {
 				Label: val.Label,
@@ -37,9 +37,9 @@ const getOptions = (question, picklists) => {
 export const Dropdown = ({ question, disabled, uuid, isRecordGroup  }) => {
 
 	const { recordGroupPicklists } = useContext(FormContext); 
- 	console.log('recordGroupPicklists', recordGroupPicklists); 
+
 	const [options] = useState(getOptions(question, recordGroupPicklists));
-	console.log('options', options); 
+
 	return options.length > 10 ?
 		<SelectView options={options} question={question} /> :
 		<PickerView options={options} question={question} />

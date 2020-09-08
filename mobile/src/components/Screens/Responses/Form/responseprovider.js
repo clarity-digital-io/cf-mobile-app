@@ -14,12 +14,37 @@ import { calculateLogic } from '../../../Handlers/Logic/useLogic';
 import { useForm, useResponses } from '../../../../api';
 import { transform } from '../../../../api/helpers';
 
+const setExistingAnswers = (response) => {
+	console.log('response', transform(response.Answers)); 
+	let answers = transform(response.Answers); 
+
+	if(answers.length == 0) {
+		return new Map(); 
+	}
+
+	return answers.reduce((accum, answer) => {
+		console.log('accum', accum); 
+		let { Question, Answer, UUID, Response } = answer;
+
+		if(accum.has(Question)) {
+			let existingAnswer = accum.get(Question); 
+			let existingMultiAnswers = typeof existingAnswer.Answer === 'string' ? [existingAnswer.Answer] : existingAnswer.Answer;
+			accum.set(Question, { ...existingAnswer, answer: existingMultiAnswers.concat(Answer)});
+		} else {
+			accum.set(Question, { answer: Answer, uuid: UUID, questionId: Question, responseId: Response })
+		}
+
+		return accum;
+
+	}, new Map());
+
+}
+
 export const ResponseProvider = ({children, form, responseUUID, newFormId, newNavigation, isNew }) => {
-	console.log(' form, responseUUID, newFormId, newNavigation, isNew',  form, responseUUID, newFormId, newNavigation, isNew); 
 
 	const { getQuestions, getPicklists } = useForm();
 
-	const { filtered, create } = useResponses();
+	const { findByUUID, create } = useResponses();
 
 	const [responseId] = useState(responseUUID); 
 
@@ -37,7 +62,8 @@ export const ResponseProvider = ({children, form, responseUUID, newFormId, newNa
 			let createdResponse = create(newFormId, responseId, form.Name);
 			setResponse(createdResponse);
 		} else {
-			let existingResponse = filtered(`UUID = "${responseId}"`);
+			let existingResponse = findByUUID(`UUID = "${responseId}"`);
+			console.log('existingResponse', existingResponse, responseId); 
 			setResponse(existingResponse);
 		}
 
@@ -52,6 +78,14 @@ export const ResponseProvider = ({children, form, responseUUID, newFormId, newNa
 	const [image, setImage] = useState(new Map());
 
 	const [answers, setAnswers] = useState(new Map());
+
+	useEffect(() => {
+		console.log('response0', response);
+		if(response) {
+			setAnswers(setExistingAnswers(response));
+		} 
+
+	}, [response])
 
 	const [records, setRecords] = useState(new Map()); 
 
@@ -130,7 +164,6 @@ export const ResponseProvider = ({children, form, responseUUID, newFormId, newNa
 	const [recordGroupPicklists, setRecordGroupPicklists] = useState([]);
 
 	useEffect(() => {
-		console.log('recordGroupPicklists', allQuestions, recordGroupPicklists); 
 		if(allQuestions.length > 0) {
 			let filterQuery = getPicklistFilterQuery(allQuestions);
 			let rgPicklists = getPicklists(filterQuery)
