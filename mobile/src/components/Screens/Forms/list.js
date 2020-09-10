@@ -20,7 +20,6 @@ function wait(timeout) {
   });
 }
 
-
 export const FormsList = ({ route, navigation }) => {
   const [query, setQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);

@@ -18,7 +18,7 @@ import {AppContext} from '../Context';
 import { LoginButton } from '../Elements/Controls/Buttons';
 import { loginStyle } from '../../stylesheet';
 import { main } from '../../stylesheet/theme';
-import { alert } from '../Elements/Notification';
+import { errorAlert } from '../Elements/Notification';
 import { body } from '../../localization';
 
 const auth0 = new Auth0({
@@ -51,7 +51,7 @@ const Authenticate = () => {
 			setLoading(false);
 
     } catch (error) {
-			alert(error)
+			errorAlert(error)
 			setLoading(false); 
     }
   };

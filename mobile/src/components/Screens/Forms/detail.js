@@ -39,8 +39,8 @@ export const Detail = ({ route, navigation }) => {
 		}, [route.key])
 	);
 
-	const responseSelected = () => {
-
+	const responseSelected = (response) => {
+		navigation.navigate('InitResponse', { formId: activeForm.Id, new: false, responseId: response.UUID })
 	}
 
 	const newResponse = () => {

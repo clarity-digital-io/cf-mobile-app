@@ -1,37 +1,22 @@
 import React from 'react';
+import {Text} from 'react-native';
 
 import {ListItem} from 'react-native-elements';
 
 import TouchableScale from 'react-native-touchable-scale';
 
-export const SettingsListItem = ({ setting, navigation, chevron }) => {
+export const SettingsListItem = ({ setting, navigation, profile }) => {
+	
 	return (
 		<ListItem 
 			Component={TouchableScale}
 			friction={90}
 			tension={100} 
 			activeScale={0.98}
-			title={() => setting.component(setting.title)}
+			title={() => setting.component(setting.title, profile)}
 			onPress={() => setting.onPress(navigation)}
-			containerStyle={{ 
-				margin: 4, 
-				marginBottom: 2,
-				padding: 14, 
-				backgroundColor: '#fff', 
-				borderColor: colors[2], 
-				borderLeftWidth: 6, 
-				borderRightWidth: 0, 
-				borderBottomWidth: 0, 
-				borderTopWidth: 0,
-				borderRadius: 2
-			 }}
+			chevron={setting.chevron}
+			containerStyle={style}
 		/>
 	)
 }
-
-const colors = [
-	'#E7F1F6',
-	'#FDE14D',
-	'#001B34',
-	'#1C1C1C'
-]
