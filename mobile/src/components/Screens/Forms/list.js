@@ -25,7 +25,7 @@ export const FormsList = ({ route, navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
 	
 	const { loading, forms, setActiveForm, getForms } = useForms();
-
+	console.log('forms', forms); 
 	useFocusEffect(
 		useCallback(() => {
 			let isActive = true;
@@ -42,7 +42,7 @@ export const FormsList = ({ route, navigation }) => {
 
 	const onRefresh = useCallback(() => {
     setRefreshing(true);
-
+		getForms();
     wait(2000).then(() => setRefreshing(false));
 	}, [refreshing]);
 

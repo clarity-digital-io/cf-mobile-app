@@ -22,12 +22,12 @@ export const useProfile = () => {
 		try {
 			
 			//set profile in realm to in progress
-			updateProfile(realm, 'In Progress');
-
 			const response = await startSync(auth);
 
 			if(response.success) {
-				console.log('update realm profile to requested', response.success);
+
+				updateProfile(realm, 'In Progress');
+
 			}
 
 		} catch (error) {
@@ -45,9 +45,10 @@ export const useProfile = () => {
 
 const updateProfile = (realm, status) => {
 	
+	let profile = getProfileAPI(realm); 
+
 	realm.write(() => {
 
-		const profile = realm.objects('Profile');
 		profile[0].SyncStatus = status; 
 
 		realm.create('Profile', profile, 'all');
@@ -78,7 +79,7 @@ const startSync = async ({url, access_token, user_id}) => {
 	});
 
 	const data = await pe.json();
-
+	console.log('data', data); 
 	if(data[0] != null & data[0].errorCode != null) {
 		throw data[0].message;
 	}

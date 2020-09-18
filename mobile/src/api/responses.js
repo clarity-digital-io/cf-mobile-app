@@ -73,7 +73,6 @@ const getResponsesLocal = (realm) => {
 const getResponsesFilter = (realm, filter) => {
 	const responses = realm.objects('Response').filtered(filter);
 	let transformedResponses = transform(responses); 
-	console.log('transformedResponses', transformedResponses); 
 
 	return transformedResponses;
 }

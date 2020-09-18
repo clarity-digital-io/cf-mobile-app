@@ -16,7 +16,7 @@ import { ClarityMap } from '../../../Elements/Map';
 import { Lookup } from '../../../Elements/Lookup';
 import { Select } from '../../../Elements/Select';
 
-import ImagePickerExample from '../../../Elements/Camera/expo';
+import {Camera} from '../../../Elements/Camera/';
 import { FormContext } from '../../../Context';
 
 const ResponseFormStack = createStackNavigator();
@@ -47,7 +47,7 @@ export const ResponseForm = () => {
 			/>
 			<ResponseFormStack.Screen
 				name={'Camera'}
-				component={ImagePickerExample}
+				component={Camera}
 				options={{tabBarLabel: false, headerShown: false}}
 			/>
 			<ResponseFormStack.Screen

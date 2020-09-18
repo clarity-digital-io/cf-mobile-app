@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { AppContext, FormContext } from '../components/Context';
+import uuid from 'react-native-uuid';
 
 export const useSubmit = (navigation) => {
 
@@ -29,8 +30,8 @@ export const useSubmit = (navigation) => {
 				throw "Error"; 
 			}
 
-			status = upsert(answers, response, realm, status);
-
+			status = upsert(answers, images, response, realm, status);
+			
 			if(status.success == false) {
 				throw "Error"; 
 			}
@@ -52,7 +53,6 @@ export const useSubmit = (navigation) => {
 } 
 
 const navigate = (navigation, response) => {
-	console.log('response', response); 
 	navigation.navigate('Detail')
 
 }
@@ -80,8 +80,8 @@ const validate = (answers, allValidations, status) => {
 
 }
 
-const upsert = (answers, response, realm, status) => {
-
+const upsert = (answers, images, response, realm, status) => {
+	console.log('prepAnswers');
 	let prepAnswers = [...answers.keys()].map(questionId => {
 
 		let answer = answers.get(questionId);
@@ -98,11 +98,47 @@ const upsert = (answers, response, realm, status) => {
 			ContentVersion: '',
 			Date_Answer: '',
 			Record: '',
-			Question: answer.questionId,
+			Question: questionId,
 			Response: response.UUID
 		}
 
 	});
+	console.log('prepAnswers1', [...images.keys()]);
+
+	let prepImages = [...images.keys()].reduce((accum, questionId) => {
+		console.log('base64Images', images.get(questionId)); 
+
+		let base64Images = images.get(questionId);
+
+		base64Images.forEach((image, index) => {
+			console.log('image 64', image, index)
+			const newUUID = uuid.v1();
+
+			accum =	accum.concat([
+				{
+					UUID: newUUID, 
+					IsAttachment: false, 
+					Name: '',
+					Answer: `Image ${questionId} ${index}`,
+					Path: '',
+					Base64: image,
+					FileLocation: '',
+					ContentDocument: '',
+					ContentVersion: '',
+					Date_Answer: '',
+					Record: '',
+					Question: questionId,
+					Response: response.UUID
+				}
+			]); 
+
+		})
+		console.log('accum', accum); 
+		return accum;
+
+	}, []);
+
+	console.log('prepImages', prepImages); 
 
 	try {
 
@@ -120,13 +156,17 @@ const upsert = (answers, response, realm, status) => {
 		
 			});
 
+			prepImages.forEach(answer => {
+				
+				answersList.push(answer); 
+		
+			});
 
 			status.success = true; 
 
 		});
 			
 	} catch (error) {
-		console.log('responseerror', error); 
 
 		status.success = false; 
 		status.errors = error; 

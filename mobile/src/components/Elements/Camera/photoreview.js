@@ -14,9 +14,9 @@ import { FormContext } from '../../Context';
 export const PhotoReview = ({route}) => {
 
 	const { image, navigation, form } = useContext(FormContext); 
-
+	console.log('image', image); 
 	const approve = () => {
-		navigation.navigate(form.Name);
+		navigation.navigate(form.Title);
 	}
 	
 	const reject = () => {

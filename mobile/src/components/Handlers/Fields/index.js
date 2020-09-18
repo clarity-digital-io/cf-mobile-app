@@ -15,7 +15,7 @@ export const useOnChange = (question) => {
 	const { responseId, answers, setAnswers } = useContext(FormContext); 
 
 	const [value, setValue] = useState(answers.has(question.Id) ? answers.get(question.Id).answer : '')
-	console.log('value', value); 
+
 	const update = (text) => {
 
 		setFormAnswer(responseId, question, setAnswers, text);

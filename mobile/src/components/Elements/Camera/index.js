@@ -22,23 +22,27 @@ export const Camera = ({route}) => {
       const options = { quality: 0.5, base64: true };
 			const data = await this.camera.takePictureAsync(options);
 			
-			const { uri, width, height } = data;
+			const { base64, uri, width, height } = data;
 
 			setImages(images => {
 
 				let id = route.params.Id; 
+				
 				if(images.has(id)) {
 					let currentImages = images.get(id); 
-					let updatedImages = currentImages.concat([data.uri]);
+					let updatedImages = currentImages.concat([base64]);
+					console.log('updatedImages', updatedImages); 
 					images.set(id, updatedImages);
 				} else {
-					images.set(id, [data.uri])
+					console.log('base64', base64); 
+
+					images.set(id, [base64])
 				}
 				
 				return images; 
 
 			});
-			setImage(data.uri); 
+			setImage(uri); 
 			navigation.navigate('Photo Review');
     }
 	};
